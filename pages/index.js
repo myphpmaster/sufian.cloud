@@ -10,15 +10,18 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
+		<p className={styles.description}>
+		  Welcome to
+		</p>
         <h1 className={styles.title}>
-          Post Occupancy Evaluation
+          Internal Environmental Quality 
         </h1>
 		<h2 className={styles.subtitle}>
-		  Internal Environmental Quality
+		  Post Occupancy Evaluation
 		</h2>
 
         <p className={styles.description}>
-          A Microsoft Azure Virtual Hackathon 2021 project by myphpmaster team
+          A <href="https://discover-ai-with-microsoft.agorize.com/en/challenges/msazurevirtualhack-2021/pages/timeline-and-guidelines?lang=en">Microsoft Azure Virtual Hackathon 2021</a> project by <a href="https://github.com/users/myphpmaster/projects/1">myphpmaster</a> team.
         </p>
 
         <div className={styles.grid}>

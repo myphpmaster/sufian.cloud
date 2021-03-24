@@ -13,6 +13,7 @@ export default function Home() {
         <h1 className={styles.title}>
           Testing Azure Server
         </h1>
+		<h2>Yeaa!!</h2>
 
         <p className={styles.description}>
           Get started by editing{' '}

@@ -21,7 +21,7 @@ export default function Home() {
 		</h2>
 
         <p className={styles.description}>
-          A <href="https://discover-ai-with-microsoft.agorize.com/en/challenges/msazurevirtualhack-2021/pages/timeline-and-guidelines?lang=en">Microsoft Azure Virtual Hackathon 2021</a> project by <a href="https://github.com/users/myphpmaster/projects/1">myphpmaster</a> team.
+          A <a href="https://discover-ai-with-microsoft.agorize.com/en/challenges/msazurevirtualhack-2021/pages/timeline-and-guidelines?lang=en">Microsoft Azure Virtual Hackathon 2021</a> project by <a href="https://github.com/users/myphpmaster/projects/1">myphpmaster</a> team.
         </p>
 
         <div className={styles.grid}>

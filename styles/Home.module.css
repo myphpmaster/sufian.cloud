@@ -52,6 +52,12 @@
   font-size: 4rem;
 }
 
+.subtitle {
+  margin: 0;
+  line-height: 1.15;
+  font-size: 3rem;
+}
+
 .title,
 .description {
   text-align: center;

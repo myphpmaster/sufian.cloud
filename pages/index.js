@@ -11,13 +11,14 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Testing Azure Server
+          Post Occupancy Evaluation
         </h1>
-		<h2>Yeaa!!</h2>
+		<h2 className={styles.subtitle}>
+		  Internal Environmental Quality
+		</h2>
 
         <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
+          A Microsoft Azure Virtual Hackathon 2021 project by myphpmaster team
         </p>
 
         <div className={styles.grid}>

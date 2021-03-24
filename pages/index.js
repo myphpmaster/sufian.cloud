@@ -8,7 +8,14 @@ export default function Home() {
         <title>Testing</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
+		<video className={styles.bgvideo} width="1920" height="1083" poster="http://spotlightthefilm.com/assets/images/poster-home.jpg" autoplay loop>
+			<source src="http://spotlightthefilm.com//assets/videos/home.mp4" type="video/mp4" /> 
+			<source src="http://spotlightthefilm.com//assets/videos/home.ogg" type="video/ogg" /> 
+			<source src="http://spotlightthefilm.com//assets/videos/home.webm" type="video/webm" />
+		</video>
+		
+		<div className={styles.bgoverlay}>
+		</div>
       <main className={styles.main}>
 		<p className={styles.description}>
 		  Welcome to

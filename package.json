@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3003",
     "build": "next build",
-    "start": "next build && next start",
-    "export": "npm run build && next export -o _static"
+    "start": "next build && next start -p 3003",
+    "export": "npm run build -p 3003 && next export -o _static"
   },
   "dependencies": {
     "next": "10.0.5",

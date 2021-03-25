@@ -144,6 +144,18 @@ $card-color: #000000;
 		font-size: 1.25rem;
 		line-height: 1.5;
 	}
+	
+	.table {
+		th {		
+			@media screen and (max-width: 500px) {
+				vertical-align: bottom;
+				max-width: 15px;
+				transform: translate(-75px, 70px) rotate(-90deg);
+				white-space: nowrap;
+				height: 200px;
+			}
+		}
+	}
 }
 
 .logo {
@@ -152,44 +164,6 @@ $card-color: #000000;
 
 #formio {
 	max-width: 100%;
-}
-
-.table {
-	border: 1px solid #ccc;
-	border-collapse: collapse;
-	margin: 0;
-	padding: 0;
-	width: 100%;
-	table-layout: fixed;
-	@media screen and (max-width: 600px) {
-		thead {
-			border: none;
-			clip: rect(0 0 0 0);
-			height: 1px;
-			margin: -1px;
-			overflow: hidden;
-			padding: 0;
-			position: absolute;
-			width: 1px;
-		}
-		tr {
-			border-bottom: 3px solid #ddd;
-			display: block;
-			margin-bottom: .625em;
-		}
-		td {
-			border-bottom: 1px solid #ddd;
-			display: block;
-			font-size: .8em;
-			text-align: right;
-			&::before {
-				content: attr(data-label);
-				float: left;
-				font-weight: bold;
-				text-transform: uppercase;
-			}
-		}
-	}
 }
 
 .footer {

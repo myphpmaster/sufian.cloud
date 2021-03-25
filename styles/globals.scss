@@ -14,3 +14,15 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.table {
+	th {		
+		@media screen and (max-width: 500px) {
+			vertical-align: bottom;
+			max-width: 15px;
+			transform: translate(-75px, 70px) rotate(-90deg);
+			white-space: nowrap;
+			height: 200px;
+		}
+	}
+}

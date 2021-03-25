@@ -35,7 +35,16 @@ export default function Survey() {
 			dangerouslySetInnerHTML={
 				{
 				__html: `
-				Formio.createForm(document.getElementById('formio'), "https://survey.app.sufian.cloud/ieq-poe");
+				Formio.createForm(document.getElementById('formio'), "https://survey.app.sufian.cloud/ieq-poe", {
+					readOnly: false
+				}).then(function(form) {
+	
+				  // Submit the form
+				  form.on('submit', function(submission) {
+					console.log(submission);
+					document.location.href="/";
+				  });
+				});
 			`
 			}}
           />

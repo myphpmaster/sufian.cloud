@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import styles from '../styles/Home.module.scss'
 
 export default function Home() {
   return (
@@ -17,7 +17,7 @@ export default function Home() {
 		<div className={styles.bgoverlay}>
 		</div>
       <main className={styles.main}>
-		<p className={styles.description}>
+		<p className={styles.predescription}>
 		  Welcome to
 		</p>
         <h1 className={styles.title}>

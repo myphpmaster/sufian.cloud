@@ -1,3 +1,4 @@
+$url-color: #42f7b4;
 .bgvideo {
     position: fixed;
     top: 50%;
@@ -59,7 +60,7 @@
 
 .title a,
 .description a {
-  color: #0070f3;
+  color: $url-color;
   text-decoration: none;
 }
 
@@ -73,19 +74,33 @@
   margin: 0;
   line-height: 1.15;
   font-size: 4rem;
+  @media (max-width: 575.98px) {
+	font-size: 2.5rem;
+  }
 }
 
 .subtitle {
   margin: 0;
   line-height: 1.15;
   font-size: 3rem;
+  margin-top: 1rem;
+  @media (max-width: 575.98px) {
+	font-size: 2rem;
+  }
 }
 
+.subtitle,
 .title,
 .description {
   text-align: center;
 }
 
+.predescription {
+	margin-bottom: 0.5rem;
+    font-style: italic;
+}
+
+.predescription,
 .description {
   line-height: 1.5;
   font-size: 1.5rem;
@@ -124,8 +139,8 @@
 .card:hover,
 .card:focus,
 .card:active {
-  color: #0070f3;
-  border-color: #0070f3;
+  color: $url-color;
+  border-color: $url-color;
 }
 
 .card h3 {
@@ -143,9 +158,9 @@
   height: 1em;
 }
 
-@media (max-width: 600px) {
-  .grid {
-    width: 100%;
-    flex-direction: column;
-  }
+.grid {
+	@media (max-width: 600px) {
+		width: 100%;
+		flex-direction: column;
+	}
 }

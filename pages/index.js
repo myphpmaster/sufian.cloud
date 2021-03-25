@@ -27,18 +27,13 @@ export default function Home() {
 		  Post Occupancy Evaluation
 		</h2>
 
-        <p className={styles.description}>
-          A <a href="https://discover-ai-with-microsoft.agorize.com/en/challenges/msazurevirtualhack-2021/pages/timeline-and-guidelines?lang=en" target="_blank">Microsoft Azure Virtual Hackathon 2021</a> project by <a href="https://github.com/users/myphpmaster/projects/1" target="_blank">myphpmaster</a> team.
-        </p>
-
-
         <div className={styles.grid}>
           <a href="/survey" className={styles.card}>
             <h3>Questionnaire &rarr;</h3>
             <p>Please feel free to take part on our POE IEQ survey form.</p>
           </a>
 
-          <a href="/report" className={styles.card}>
+          <a href="/result" className={styles.card}>
             <h3>Reporting &rarr;</h3>
             <p>View the real-time results! Latest HTML5 canvas chart.</p>
           </a>
@@ -61,11 +56,12 @@ export default function Home() {
             </p>
           </a>
         </div>
+
+        <p className={styles.description}>
+          A <a href="https://discover-ai-with-microsoft.agorize.com/en/challenges/msazurevirtualhack-2021/pages/timeline-and-guidelines?lang=en" target="_blank">Microsoft Azure Virtual Hackathon 2021</a> project by <a href="https://github.com/users/myphpmaster/projects/1" target="_blank">myphpmaster</a> team.
+        </p>
+		
       </main>
-
-      <footer className={styles.footer}>
-
-      </footer>
     </div>
   )
 }

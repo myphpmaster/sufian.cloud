@@ -35,7 +35,7 @@ $card-color: #000000;
 }
 
 .main {
-	padding: 5rem 0;
+	padding: 3rem 0;
 	flex: 1;
 	display: flex;
 	flex-direction: column;
@@ -150,15 +150,64 @@ $card-color: #000000;
 	height: 1em;
 }
 
+#formio {
+	max-width: 100%;
+}
+
+.table {
+	border: 1px solid #ccc;
+	border-collapse: collapse;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	table-layout: fixed;
+}
+
+@media screen and (max-width: 600px) {
+  
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  
+  table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: .625em;
+  }
+  
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+    text-align: right;
+  }
+  
+  table td::before {
+    /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+}
+
 .footer {
 	width: 100%;
 	justify-content: center;
 	align-items: center;
 	text-align: center;
 	margin-bottom: 1rem;
-	img {
-		margin-left: 0.5rem;
-	}
 	a {
 		display: inline-flex;
 		justify-content: center;
@@ -166,8 +215,20 @@ $card-color: #000000;
 		padding: 0 0.5rem;
 		border-right: 1px solid #fff;
 		line-height: 1;
-		.active {
-			color: $card-color;
+		&:last-child {
+			border-right: none;
+		}
+		&.active {
+			color: $url-color;
+		}
+		&:hover,
+		&:focus,
+		&:active {
+			text-decoration: none;
+		}
+		&:hover {
+			text-decoration: none;
+			color: $url-color;
 		}
 	}
 }

@@ -16,13 +16,20 @@ a {
 }
 
 .table {
-	th {		
-		@media screen and (max-width: 500px) {
-			vertical-align: bottom;
-			max-width: 15px;
-			transform: translate(-75px, 70px) rotate(-90deg);
-			white-space: nowrap;
-			height: 200px;
-		}
+	thead {
+		th {
+			vertical-align: middle;
+			@media screen and (max-width: 500px) {
+				vertical-align: bottom;
+				max-width: 15px;
+				transform: translate(-77px, 80px) rotate(-90deg);
+				white-space: nowrap;
+				height: 200px;
+			}
+		}	
+	}
+	td {
+		vertical-align: middle;
+		
 	}
 }

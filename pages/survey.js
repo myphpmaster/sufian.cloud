@@ -38,11 +38,18 @@ export default function Survey() {
 				Formio.createForm(document.getElementById('formio'), "https://survey.app.sufian.cloud/ieq-poe", {
 					readOnly: false
 				}).then(function(form) {
-	
+		
+				  // Set Example Submission Object
+				  form.submission = { data: { 
+					defaultPopulate: 'Populating...' 
+				  } };
+				  
 				  // Submit the form
 				  form.on('submit', function(submission) {
 					console.log(submission);
-					document.location.href="/";
+					setTimeout(function(){ 
+						document.location.href="/result";
+					}, 3000);
 				  });
 				});
 			`

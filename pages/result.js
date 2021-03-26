@@ -5,15 +5,12 @@ import React from 'react'
 import {Bar} from 'react-chartjs-2'
 
 export default function Survey({dataResult,dataSchema,total,countGender,summary}) {
-	
-	const genderLabel = Object.keys(summary['gender']);
-	const genderData = Object.values(summary['gender']);
-				
+					
 	const data = {
-	  labels: genderLabel,
+	  labels: Object.keys(summary['gender'],
 	  datasets: [{
 		label: '# of Respondents',
-		data: genderData,
+		data: Object.values(summary['gender'],
 		backgroundColor: [
 		  'rgba(54, 162, 235, 0.2)',
 		  'rgba(255, 99, 132, 0.2)'

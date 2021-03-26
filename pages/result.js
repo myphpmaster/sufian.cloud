@@ -50,8 +50,8 @@ export default function Survey({dataResult,dataSchema,total,countGender,summary}
 			<div className={styles.card}>
 				<Bar
 				  data={data}
-				  width={400}
-				  height={200}
+				  width={300}
+				  height={300}
 				  options={{
 					  maintainAspectRatio: true,
 					  scales: {
@@ -171,7 +171,7 @@ export async function getStaticProps(context) {
 	console.log(summary);
 	
 	return {
-		props: { dataResult,dataSchema,total,countGender,summary}, // will be passed to the page component as props
+		props: { dataResult,dataSchema,total,countGender,summary }, // will be passed to the page component as props
 	}
   
 }

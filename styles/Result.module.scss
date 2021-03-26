@@ -114,11 +114,11 @@ $card-color: #000000;
 }
 
 .card {
-	margin: 1rem;
-	width: 1200px;
-	max-width: calc(100% - 5rem);
-	flex-basis: calc(100% - 5rem);
+	margin: 0.5rem;
 	padding: 1.5rem;
+	width: 1200px;
+	max-width: calc(100% - 4rem);
+	flex-basis: calc(100% - 4rem);
 	text-align: left;
 	color: $url-color;
 	text-decoration: none;
@@ -127,7 +127,9 @@ $card-color: #000000;
 	transition: color 0.15s ease, border-color 0.15s ease;
 	background: $bg-color;
 	@media (max-width: 800px) {
-		width: calc(100% - 3rem);
+		margin: 0.5rem;
+		padding: 0.5rem;
+		width: calc(100% - 1rem);
 	}
 	&:hover,
 	&:focus,

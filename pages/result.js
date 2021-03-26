@@ -7,10 +7,10 @@ import {Bar} from 'react-chartjs-2'
 export default function Survey({dataResult,dataSchema,total,countGender,summary}) {
 					
 	const data = {
-	  labels: Object.keys(summary['gender'],
+	  labels: Object.keys(summary['gender']),
 	  datasets: [{
 		label: '# of Respondents',
-		data: Object.values(summary['gender'],
+		data: Object.values(summary['gender']),
 		backgroundColor: [
 		  'rgba(54, 162, 235, 0.2)',
 		  'rgba(255, 99, 132, 0.2)'
@@ -84,8 +84,8 @@ export default function Survey({dataResult,dataSchema,total,countGender,summary}
 		  
       <footer className={styles.footer}>
 		<a href="/">Home</a>
-		<a href="/survey" className={styles.active}>Form</a>
-		<a href="/result">Results</a> 
+		<a href="/survey">Form</a>
+		<a href="/result" className={styles.active}>Results</a> 
 		<a href="/source">Source</a> 
 		<a href="/slide">Slides</a> 
       </footer>

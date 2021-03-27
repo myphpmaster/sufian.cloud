@@ -104,8 +104,9 @@ $card-color: #000000;
 	align-items: center;
 	justify-content: center;
 	flex-wrap: wrap;
-	max-width: 800px;
-	margin-top: 3rem;
+	max-width: 1200px;
+	margin: auto;
+	padding: 2rem;
 	@media (max-width: 800px) {
 		max-width: 100%;
 		width: 100%;
@@ -114,8 +115,8 @@ $card-color: #000000;
 }
 
 .card {
-	margin: 0.5rem;
-	padding: 1.5rem;
+	margin: auto;
+	padding: 2rem;
 	width: 1200px;
 	max-width: calc(100% - 4rem);
 	flex-basis: calc(100% - 4rem);
@@ -127,9 +128,10 @@ $card-color: #000000;
 	transition: color 0.15s ease, border-color 0.15s ease;
 	background: $bg-color;
 	@media (max-width: 800px) {
-		margin: 0.5rem;
-		padding: 0.5rem;
-		width: calc(100% - 1rem);
+		margin: 1rem;
+		padding: 1rem;
+		width: calc(100% - 2rem);
+		flex-basis: calc(100% - 2rem);
 	}
 	&:hover,
 	&:focus,

@@ -1,3 +1,8 @@
+/* ./styles/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
   padding: 0;
@@ -15,6 +20,9 @@ a {
   box-sizing: border-box;
 }
 
+#navbar {
+	width: 100%;
+}
 .table {
 	thead {
 		th {
@@ -32,4 +40,13 @@ a {
 		vertical-align: middle;
 		
 	}
+}
+
+.chartjs-render-monitor {
+	margin: 0 auto;
+}
+
+.carousel-control-next, 
+.carousel-control-prev {
+	width: 20px;
 }

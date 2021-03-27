@@ -7,8 +7,10 @@ $url-color: #42f7b4;
     min-height: 100%;
     width: auto;
     height: auto;
-    z-index: -1;
+    z-index: -100;
     transform: translateX(-50%) translateY(-50%);
+    background-size: cover; 
+    max-width: inherit !important;
 }
 .bgoverlay {
   font-family:monospace;
@@ -19,11 +21,11 @@ $url-color: #42f7b4;
   top:0;
   left:0;
   opacity:0.6;
-   z-index: -1;
+  z-index: -100;
 }
 .container {
   min-height: 100vh;
-  padding: 0 0.5rem;
+  padding: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -75,7 +77,7 @@ $url-color: #42f7b4;
   line-height: 1.15;
   font-size: 4rem;
   @media (max-width: 575.98px) {
-	font-size: 2.5rem;
+	  font-size: 2.5rem;
   }
 }
 
@@ -85,7 +87,7 @@ $url-color: #42f7b4;
   font-size: 3rem;
   margin-top: 1rem;
   @media (max-width: 575.98px) {
-	font-size: 2rem;
+	  font-size: 2rem;
   }
 }
 
@@ -95,17 +97,23 @@ $url-color: #42f7b4;
   text-align: center;
 }
 
-.predescription {
-	margin-bottom: 0.5rem;
-    font-style: italic;
-}
-
 .predescription,
 .description {
   line-height: 1.5;
   font-size: 1.5rem;
 }
 
+.predescription {
+	margin-bottom: 0.5rem;
+  font-style: italic;
+}
+.description {
+  line-height: 1.25;
+  font-size: 1em;
+  position: relative;
+  top: 3em;
+  padding: 0 1em;
+}
 .code {
   background: #fafafa;
   border-radius: 5px;

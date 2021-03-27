@@ -4,7 +4,6 @@ import Document, { Html, Main, NextScript } from 'next/document'
 import styles from '../styles/Result.module.scss'
 import React, { Component } from 'react'
 import {Bar} from 'react-chartjs-2'
-import { UncontrolledCarousel, Row, Col } from "reactstrap";
 
 export default function Survey({Component,dataResult,dataSchema,total,countGender,summary}) {
 

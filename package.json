@@ -21,6 +21,7 @@
     "sass": "^1.32.8",
     "autoprefixer": "^10.2.5",
     "postcss": "^8.2.8",
-    "tailwindcss": "^2.0.4"
+    "tailwindcss": "^2.0.4",
+    "ssri": ">=8.0.1"
   }
 }

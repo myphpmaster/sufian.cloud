@@ -4,9 +4,10 @@
 /node_modules
 /.pnp
 .pnp.js
-
+/setting-up-tailwind
 # testing
 /coverage
+/_static/
 
 # next.js
 /.next/

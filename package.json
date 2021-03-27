@@ -3,13 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3003",
     "build": "next build",
-    "start": "next start"
+    "start": "next build && next start -p 3003",
+    "export": "npm run build -p 3003 && next export -o _static",
+    "build:css": "postcss styles/tailwind.css -o styles/main.css",
+    "build:watch": "postcss styles/tailwind.css -o styles/main.css --watch",
+    "prod:build": "NODE_ENV=production yarn run build:css && yarn run build"
   },
   "dependencies": {
+    "chart.js": "^2.9.4",
     "next": "10.0.5",
+    "postcss-cli": "^8.3.1",
     "react": "17.0.1",
-    "react-dom": "17.0.1"
+    "react-chartjs-2": "^2.11.1",
+    "react-dom": "17.0.1",
+    "sass": "^1.32.8",
+    "autoprefixer": "^10.2.5",
+    "postcss": "^8.2.8",
+    "tailwindcss": "^2.0.4"
   }
 }

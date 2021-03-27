@@ -275,10 +275,10 @@ export default function Survey({dataResult,dataSchema,total,countGender,summary}
 			}}
           />
 		  
-      <footer className={styles.footer}>
+      <footer className="footer">
 		<a href="/">Home</a>
-		<a href="/survey">Form</a>
-		<a href="/result" className={styles.active}>Results</a> 
+		<a href="/survey" >Questionnaire</a>
+		<a href="/result" className="active">Results</a> 
 		<a href="/source">Source</a> 
 		<a href="/slide">Slides</a> 
       </footer>

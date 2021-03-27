@@ -52,9 +52,9 @@ export default function Survey() {
 			`
 			}}
           />		  
-      <footer className={styles.footer}>
+      <footer className="footer">
 		<a href="/">Home</a>
-		<a href="/survey" className={styles.active}>Form</a>
+		<a href="/survey" className="active">Questionnaire</a>
 		<a href="/result">Results</a> 
 		<a href="/source">Source</a> 
 		<a href="/slide">Slides</a> 

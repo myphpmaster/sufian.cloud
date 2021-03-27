@@ -1,11 +1,10 @@
-/* ./pages/result.js               */
 import Head from 'next/head'
-import Document, { Html, Main, NextScript } from 'next/document'
+import { Navbar } from '../components/Navbar';
 import styles from '../styles/Result.module.scss'
 import React, { Component } from 'react'
-import {Bar} from 'react-chartjs-2'
+import { Line, Bar, Doughnut, Pie } from 'react-chartjs-2'
 
-export default function Survey({Component,dataResult,dataSchema,total,countGender,summary}) {
+export default function Survey({dataResult,dataSchema,total,countGender,summary}) {
 
 	const data = {
 	  labels: Object.keys(summary['gender']),
@@ -35,13 +34,14 @@ export default function Survey({Component,dataResult,dataSchema,total,countGende
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossOrigin="anonymous"></script>
 		
       </Head>
-		<video className={styles.bgvideo} width="1920" height="1083" poster="/poster-home.jpg" autoPlay loop>
+		<video className="bgvideo" width="1920" height="1083" poster="/poster-home.jpg" autoPlay loop>
 			<source src="/home.mp4" type="video/mp4" /> 
 			<source src="/home.ogg" type="video/ogg" /> 
 			<source src="/home.webm" type="video/webm" />
 		</video>
 		
-		<div className={styles.bgoverlay}></div>
+		<div className="bgoverlay"></div>    
+      <Navbar />    
       <main className='container-fluid p-0 m-0 mw-100'>
         <h1 className={styles.subtitle}>
           IEQ POE Survey Results
@@ -99,11 +99,10 @@ export default function Survey({Component,dataResult,dataSchema,total,countGende
 					</div>			
 				</div>
 
-
-				<div className='carousel-item'>
+				<div className='carousel-item active'>
 					<div className={styles.grid}>
 						<div className="card d-none d-md-block">
-							<Bar
+							<Line
 							data={data}
 							width={800}
 							height={500}
@@ -125,7 +124,7 @@ export default function Survey({Component,dataResult,dataSchema,total,countGende
 							/>
 						</div>
 						<div className="card d-md-none d-block">
-							<Bar
+							<Line
 							data={data}
 							width={320}
 							height={400}
@@ -149,10 +148,10 @@ export default function Survey({Component,dataResult,dataSchema,total,countGende
 					</div>				
 				</div>
 				
-				<div className='carousel-item'>
+				<div className='carousel-item active'>
 					<div className={styles.grid}>
 						<div className="card d-none d-md-block">
-							<Bar
+							<Doughnut
 							data={data}
 							width={800}
 							height={500}
@@ -174,7 +173,7 @@ export default function Survey({Component,dataResult,dataSchema,total,countGende
 							/>
 						</div>
 						<div className="card d-md-none d-block">
-							<Bar
+							<Doughnut
 							data={data}
 							width={320}
 							height={400}
@@ -198,6 +197,56 @@ export default function Survey({Component,dataResult,dataSchema,total,countGende
 					</div>		
 				</div>
 				
+				
+				<div className='carousel-item active'>
+					<div className={styles.grid}>
+						<div className="card d-none d-md-block">
+							<Pie
+							data={data}
+							width={800}
+							height={500}
+							options={{
+								maintainAspectRatio: true,
+								scales: {
+									yAxes: [{
+									ticks: {
+										beginAtZero: true,
+										stepSize: 1
+									}
+									}]
+								},
+								title: {
+									display: true,
+									text: 'Gender'
+								}
+							}}
+							/>
+						</div>
+						<div className="card d-md-none d-block">
+							<Pie
+							data={data}
+							width={320}
+							height={400}
+							options={{
+								maintainAspectRatio: true,
+								scales: {
+									yAxes: [{
+									ticks: {
+										beginAtZero: true,
+										stepSize: 1
+									}
+									}]
+								},
+								title: {
+									display: true,
+									text: 'Gender'
+								}
+							}}
+							/>
+						</div>
+					</div>		
+				</div>
+
 			</div>
 
 			<a className="carousel-control-prev" href="#mainCarousel" role="button" data-slide="prev">
@@ -217,8 +266,10 @@ export default function Survey({Component,dataResult,dataSchema,total,countGende
 			dangerouslySetInnerHTML={
 				{
 				__html: `
-				jQuery( document ).ready(function($) {		
-					$('.carousel').carousel()				
+				jQuery( document ).ready(function($) {
+					$('.carousel-item').removeClass('active');
+					$('.carousel-item:first-child').addClass('active');
+					$('.carousel').carousel();	
 				});
 				`
 			}}

@@ -10,15 +10,13 @@ export default function Home() {
         <title>IEQ POE Online System - Home</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>   
-      <video className={styles.bgvideo} width="1920" height="1083" poster="/poster-home.jpg" autoPlay loop>
+      <video className="bgvideo" width="1920" height="1083" poster="/poster-home.jpg" autoPlay loop>
         <source src="/home.mp4" type="video/mp4" /> 
         <source src="/home.ogg" type="video/ogg" /> 
         <source src="/home.webm" type="video/webm" />
       </video>
-      <div className={styles.bgoverlay}></div>   
-       
-      <Navbar />
-    
+      <div className="bgoverlay"></div>          
+      <Navbar />    
       <main className={styles.main}>
         <p className={styles.predescription}>
           Welcome to

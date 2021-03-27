@@ -11,7 +11,7 @@ export const Navbar = () => {
 
   return (
     <>
-      <nav id="navbar" className='flex items-center flex-wrap bg-green-400 p-3 '>
+      <nav id="navbar" className='flex items-center flex-wrap p-3 '>
         <Link href='/'>
           <a className='inline-flex items-center p-2 mr-4 '>
             <svg
@@ -59,22 +59,22 @@ export const Navbar = () => {
             </Link>
             <Link href='/survey'>
               <a className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-green-600 hover:text-white'>
-                Questionnaire Form
+                Questionnaire
               </a>
             </Link>
             <Link href='/result'>
               <a className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-green-600 hover:text-white'>
-                Survey Results
+                Results
               </a>
             </Link>
             <Link href='/source'>
               <a className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-green-600 hover:text-white'>
-                Source Code
+                Source
               </a>
             </Link>
             <Link href='/slide'>
               <a className='lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-green-600 hover:text-white'>
-                Presentation Slides
+                Slides
               </a>
             </Link>
           </div>

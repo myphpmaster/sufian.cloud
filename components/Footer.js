@@ -18,10 +18,10 @@ export const Footer = () => {
                 <footer className="mt-6">
                     <p className="pb-10 text-center md:px-4">
                         This application was developed in conjuction with 
-                        <span className="text-xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-2xl">
+                        <p className="text-xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-2xl">
                             <a href="https://discover-ai-with-microsoft.agorize.com/en/challenges/msazurevirtualhack-2021/pages/timeline-and-guidelines?lang=en">
                             Microsoft Azure Virtual Hackathon 2021</a>
-                        </span>
+                        </p>
                         Provide innovative solutions in advanced data analytics and AI for a number of booming industries!
                     </p>
                     <div className="border-t md:px-4 md:pt-10 md:pb-5">

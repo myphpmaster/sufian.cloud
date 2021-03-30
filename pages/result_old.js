@@ -6,14 +6,13 @@ import React, { Component } from 'react'
 import { Line, Bar, Doughnut, Pie } from 'react-chartjs-2'
 import { connectToDatabase } from '../util/mongodb'
 
-export default function Survey({dataResult, dataSchema, total, summary, isConnected}) {
-
-/*
+export default function Survey() {
+    let summary = {"male": "10","female": "5"};
 	const data = {
-	  labels: Object.keys(summary['gender']),
+	  labels: Object.keys(summary),
 	  datasets: [{
 		label: '# of Respondents',
-		data: Object.values(summary['gender']),
+		data: Object.values(summary),
 		backgroundColor: [
 		  'rgba(54, 162, 235, 0.2)',
 		  'rgba(255, 99, 132, 0.2)'
@@ -25,7 +24,6 @@ export default function Survey({dataResult, dataSchema, total, summary, isConnec
 		borderWidth: 1
 	  }]
 	}
-*/
 
   return (
 <>
@@ -262,3 +260,14 @@ export default function Survey({dataResult, dataSchema, total, summary, isConnec
 );
 };
       
+
+export async function getServerSideProps(context) {
+	const { client } = await connectToDatabase()
+  
+	const isConnected = await client.isConnected()
+  
+	return {
+	  props: { isConnected },
+	}
+  }
+  

@@ -1,10 +1,9 @@
 import Head from 'next/head'
 import { Navbar } from '../components/Navbar';
-import styles from '../styles/Survey.module.scss'
 
 export default function Survey() {
   return (
-    <div className={styles.container}>
+    <div className="container">
       <Head>
         <title>IEQ POE Online System - Questionnaire</title>
         <link rel="icon" href="/favicon.ico" />
@@ -19,13 +18,13 @@ export default function Survey() {
 		</video>		
 		<div className="bgoverlay"></div>          
 		<Navbar />    
-		<main className={styles.main}>
-			<h1 className={styles.subtitle}>
+		<main className="main">
+			<h1 className="subtitle">
 			IEQ POE Questionnaire Form 
 			</h1>
 
-			<div className={styles.grid}>
-				<div id="formio" className={styles.card}></div>
+			<div className="grid">
+				<div id="formio" className="card"></div>
 			</div>
 		</main>		
           <script

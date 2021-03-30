@@ -13,7 +13,8 @@ module.exports = {
         fs: 'empty',
         dns: 'empty',
         net: 'empty',
-        tls: 'empty'
+        tls: 'empty',
+        module: 'empty'
       }
       
       config.plugins.push(new webpack.ProvidePlugin({

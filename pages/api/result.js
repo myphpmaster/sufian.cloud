@@ -16,11 +16,7 @@ handler.get(async (req, res) => {
         .toArray()
         .then(items => { return items })
         .catch(err => console.error(`Failed to find documents: ${err}`))
-
-
     res.json(data);
 });
-
-
 
 export default handler;

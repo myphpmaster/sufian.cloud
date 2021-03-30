@@ -259,6 +259,6 @@ export default function Survey({dataResult, dataSchema, total, summary, isConnec
         }}
       />
 </>
-    );
-  };
+);
+};
       

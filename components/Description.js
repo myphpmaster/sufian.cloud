@@ -1,35 +1,74 @@
 /*  ./components/Description.js     */
+import React, { useState } from "react";
+import { useSWRInfinite } from "swr";
 
-import useSWR from 'swr'
+const fetcher = url => fetch(url).then(res => res.json());
+const PAGE_SIZE = 3;
 
 export const Description = () => {
 
-    const { data, error } = useSWR('/api/latest')
-    if (error) return <div>failed to load</div>
-    if (!data) return <div>loading...</div>
-    const val = data[0].data
+//    const { data, error } = useSWR('/api/latest', fetcher );
 
-    const { schema, error_schem } = useSWR('/api/schema')
-    if (error_schem) return <div>failed to load</div>
-    if (!schema) return <div>loading...</div>
-    const schem = schema[0].data
+    const { data, error, mutate, size, setSize, isValidating } = useSWRInfinite(
+        index =>
+          `/api/submissions?limit=${PAGE_SIZE}&page=${index + 1}`,
+        fetcher
+      );
+
+    if (error) return (
+        <div className="py-24 bg-gradient-to-r from-indigo-700 to-pink-500 bg-opacity-50">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">        
+                <div className="px-4 py-5 sm:px-6 text-center text-white text-red-300">
+                    Data not found!
+                </div>
+            </div>
+        </div>
+        )
+    if (!data) return (
+        <div className="py-24 bg-gradient-to-r from-indigo-700 to-pink-500 bg-opacity-50">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">        
+                <div className="px-4 py-5 sm:px-6 text-center text-white text-red-300">
+                    Loading...
+                </div>
+            </div>
+        </div>
+        )    
+
+    const datas = data ? [].concat(...data) : [];
+
+    var arr = [];
+    Object.keys(data).forEach(function(key) {
+      arr.push(data[key]);
+    });
+    
+  const isLoadingInitialData = !data && !error;
+  const isLoadingMore =
+    isLoadingInitialData ||
+    (size > 0 && data && typeof data[size - 1] === "undefined");
+  const isEmpty = data?.[0]?.length === 0;
+  const isReachingEnd =
+    isEmpty || (data && data[data.length - 1]?.length < PAGE_SIZE);
+  const isRefreshing = isValidating && data && data.length === size;
 
   return (
     <>
 
-<div className="py-24 bg-gradient-to-r from-indigo-700 to-pink-500 bg-opacity-50">
+<div id="result" className="py-24 bg-gradient-to-r from-indigo-700 to-pink-500 bg-opacity-50">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="px-4 py-5 sm:px-6">
-            <h3 className="text-3xl leading-6 font-medium text-gray-100">
+            <h3 className="pb-2 text-5xl font-bold text-white">
             Survey Sample Results
             </h3>
-            <p className="mt-1 max-w-2xl text-lg text-white">
-            Our real-time IEQ POE Evaluation Online Application.
+            <p className="my-2 text-xl text-white">
+                Our real-time IEQ POE Evaluation Online Application.
+            </p>
+            <p className="mt-5 mb-1 text-lg text-white text-right">
+                Showing {size} page(s) of {isLoadingMore ? "..." : datas.length}{" "} data(s){" "}
             </p>
         </div>
         
-    {data.map((id) => (
+    { datas.map( val => (
         <div className="pb-10 border-gray-200 px-4">
             <dl>
             <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -37,7 +76,7 @@ export const Description = () => {
                 Age
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    {val.age}
+                    {val.data.age}
                 </dd>
             </div>
             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -45,15 +84,15 @@ export const Description = () => {
                 Gender
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    {val.gender}
+                    {val.data.gender}
                 </dd>
             </div>
             <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
-                Email address
+                Education
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    {val.education}
+                    {val.data.education}
                 </dd>
             </div>
             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -116,6 +155,36 @@ export const Description = () => {
             </dl>
         </div>        
     ))}
+    
+        <div className="px-4 py-5 sm:px-6 text-center">
+            <p className="mt-1 mb-5 text-lg text-white text-center">
+                Showing {size} page(s) of {isLoadingMore ? "..." : datas.length}{" "} data(s){" "}
+            </p>
+            <div className="py-3">
+                <button
+                className="transition duration-500 ease-in-out bg-blue-600 hover:bg-red-600 transform hover:-translate-y-1 hover:scale-110 text-white font-semibold hover:text-white py-2 min-w-max px-4 border border-blue-500 hover:border-transparent rounded mr-3.5"
+                disabled={isLoadingMore || isReachingEnd}
+                onClick={() => setSize(size + 1)}
+                >
+                {isLoadingMore
+                    ? "Loading..."
+                    : isReachingEnd
+                    ? "No more datas"
+                    : "Load more"}
+                </button>
+                <button 
+                className="transition duration-500 ease-in-out bg-white hover:bg-blue-500 transform hover:-translate-y-1 hover:scale-110 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded mr-3.5"
+                disabled={isRefreshing} onClick={() => mutate()}>
+                </button>
+                <button 
+                className="transition duration-500 ease-in-out bg-white hover:bg-blue-500 transform hover:-translate-y-1 hover:scale-110 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded mr-3.5"
+                disabled={!size} onClick={() => setSize(1)}>
+                Reset
+                </button>
+            </div>
+
+        </div>
+
     </div>
 </div>
 

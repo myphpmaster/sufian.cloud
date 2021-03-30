@@ -46,7 +46,7 @@ export const Navbar = () => {
                         Questionnaire
                     </a>
                     </Link>
-                    <Link href='/result'>
+                    <Link href='/#result'>
                     <a className='font-medium text-gray-500 hover:text-gray-900'>
                         Results
                     </a>

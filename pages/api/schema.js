@@ -17,8 +17,7 @@ handler.get(async (req, res) => {
         .then(items => { return items })
         .catch(err => console.error(`Failed to find documents: ${err}`))
 
-
-    res.json(data);
+    res.json(data[0]);
 });
 
 export default handler;

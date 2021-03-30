@@ -10,7 +10,8 @@ module.exports = {
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     
       config.node = {
-        fs: 'empty'
+        fs: 'empty',
+        dns: 'empty'
       }
       
       config.plugins.push(new webpack.ProvidePlugin({

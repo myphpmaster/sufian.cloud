@@ -175,7 +175,8 @@ export const Description = () => {
                 <button 
                 className="transition duration-500 ease-in-out bg-white hover:bg-blue-500 transform hover:-translate-y-1 hover:scale-110 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded mr-3.5"
                 disabled={isRefreshing} onClick={() => mutate()}>
-                </button>
+                {isRefreshing ? "Refreshing..." : "Refresh"}
+                </button>                
                 <button 
                 className="transition duration-500 ease-in-out bg-white hover:bg-blue-500 transform hover:-translate-y-1 hover:scale-110 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded mr-3.5"
                 disabled={!size} onClick={() => setSize(1)}>

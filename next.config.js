@@ -14,7 +14,8 @@ module.exports = {
         dns: 'empty',
         net: 'empty',
         tls: 'empty',
-        module: 'empty'
+        module: 'empty',
+        aws4: 'empty',
       }
       
       config.plugins.push(new webpack.ProvidePlugin({

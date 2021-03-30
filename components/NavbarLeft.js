@@ -16,7 +16,7 @@ export const Navbar = () => {
             <polygon points="50,0 100,0 50,100 0,100" />
         </svg>
 
-        <div className="relative pt-6 px-4 sm:px-6 lg:px-8 top-menu">
+        <div className="relative pt-6 px-8 lg:px-10 top-menu">
             <nav className="relative flex items-center justify-between sm:h-10 lg:justify-start" aria-label="Global">
                 <div className="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
                     <div className="flex items-center justify-between w-full md:w-auto">
@@ -76,7 +76,7 @@ export const Navbar = () => {
             >
             <div className={`${ isOpen ? '' : 'hidden' } absolute top-0 inset-x-0 p-2 origin-top-right md:hidden top-menu`}>
                 <div className="rounded-lg shadow-md bg-white ring-1 ring-black ring-opacity-5 overflow-hidden">
-                    <div className="px-3 pt-4 flex items-center justify-between">
+                    <div className="px-6 pt-4 flex items-center justify-between">
                         <div>
                         <img className="h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="" />
                         </div>
@@ -90,7 +90,7 @@ export const Navbar = () => {
                         </button>
                         </div>
                     </div>
-                    <div className="px-2 pt-2 pb-3 space-y-1">
+                    <div className="px-6 pt-2 pb-3 space-y-1">
                         <Link href='/'>
                         <a className='block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50'>
                             Home

@@ -7,26 +7,30 @@ export const Description = () => {
     const { data, error } = useSWR('/api/latest')
     if (error) return <div>failed to load</div>
     if (!data) return <div>loading...</div>
-
     const val = data[0].data
+
+    const { schema, error_schem } = useSWR('/api/schema')
+    if (error_schem) return <div>failed to load</div>
+    if (!schema) return <div>loading...</div>
+    const schem = schema[0].data
 
   return (
     <>
 
-<div className="py-24 bg-blue-200 bg-opacity-50">
+<div className="py-24 bg-gradient-to-r from-indigo-700 to-pink-500 bg-opacity-50">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="px-4 py-5 sm:px-6">
-            <h3 className="text-3xl leading-6 font-medium text-gray-900">
+            <h3 className="text-3xl leading-6 font-medium text-gray-100">
             Survey Sample Results
             </h3>
-            <p className="mt-1 max-w-2xl text-lg text-gray-500">
+            <p className="mt-1 max-w-2xl text-lg text-white">
             Our real-time IEQ POE Evaluation Online Application.
             </p>
         </div>
         
     {data.map((id) => (
-        <div className="pb-4 border-t border-gray-200 px-4">
+        <div className="pb-10 border-gray-200 px-4">
             <dl>
             <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">

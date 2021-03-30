@@ -11,11 +11,11 @@ export const Featured = () => {
                 <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
                     A better way to perform IEQ POE evaluation
                 </p>
-                <p className="mt-4 max-w-6xl text-xl text-gray-500 lg:mx-auto">
+                <p className="mt-4 max-w-6xl text-lg text-gray-500 lg:mx-auto">
                 Addressing two common challenges for building performance – reducing the carbon footprint attached to the provision of comfortable indoor environments, 
                 and improving the health and wellbeing of occupants – requires a more comprehensive understanding of how the indoor environments of buildings are operated.
                 </p>
-                <p className="mt-4 max-w-6xl text-xl text-gray-500 lg:mx-auto">
+                <p className="mt-4 max-w-6xl text-lg text-gray-500 lg:mx-auto">
                 This new era of indoor environmental monitoring based upon online system affords a fundamentally new approach to built environmental field research 
                 that holds significant promise to improve building performance and indoor environmental quality and occupant satisfaction, health, wellbeing and performance.
                 </p>

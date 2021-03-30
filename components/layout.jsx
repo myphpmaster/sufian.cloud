@@ -12,16 +12,7 @@ export default function Layout({ children }) {
         `}
       </style>
       <Head />
-      <header>       
-      <Navbar />    
-      </header>
-
       <main>{children}</main>
-      <footer>
-        <p>
-
-        </p>
-      </footer>
     </>
   );
 };

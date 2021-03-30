@@ -1,6 +1,15 @@
 /*  ./components/Description.js     */
 
+import useSWR from 'swr'
+
 export const Description = () => {
+
+    const { data, error } = useSWR('/api/latest')
+    if (error) return <div>failed to load</div>
+    if (!data) return <div>loading...</div>
+
+    const val = data[0].data
+
   return (
     <>
 
@@ -15,22 +24,24 @@ export const Description = () => {
             Our real-time IEQ POE Evaluation Online Application.
             </p>
         </div>
-        <div className="border-t border-gray-200 px-4">
+        
+    {data.map((id) => (
+        <div className="pb-4 border-t border-gray-200 px-4">
             <dl>
             <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
-                Full name
+                Age
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                Margot Foster
+                    {val.age}
                 </dd>
             </div>
             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
-                Application for
+                Gender
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                Backend Developer
+                    {val.gender}
                 </dd>
             </div>
             <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -38,7 +49,7 @@ export const Description = () => {
                 Email address
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                margotfoster@example.com
+                    {val.education}
                 </dd>
             </div>
             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -99,7 +110,8 @@ export const Description = () => {
                 </dd>
             </div>
             </dl>
-        </div>
+        </div>        
+    ))}
     </div>
 </div>
 

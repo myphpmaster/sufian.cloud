@@ -11,7 +11,7 @@ handler.get(async (req, res) => {
     let data = await req.db.collection(col_name)
         .find(
             { 'data.age': { '$exists': 1 } },
-            { skip:0, limit:0, fields:{data: 1,_id: 0} }
+            { skip:0, limit:5, fields:{data: 1,_id: 0}, sort:{ _id: -1 } }
             )
         .toArray()
         .then(items => { return items })
@@ -19,7 +19,5 @@ handler.get(async (req, res) => {
 
     res.json(data);
 });
-
-
 
 export default handler;

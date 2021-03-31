@@ -4,27 +4,30 @@ import { useState } from 'react';
 
 export const Footer = () => {
 
-    const [active, setActive] = useState(false);
+    const [active, setActive] = useState({
+        a: false,
+        b: false,
+        c: false,
+        d: false,
+        e: false,
+        f: false,
+        g: false
+    });
 
-    const handleClick = () => {
-        setActive(!active);
+    const handleClick = (e) => {
+        setActive(active =>  ({ 
+            ...active, 
+            [e.target.name]: !active[e.target.name] 
+        }) );
     };
     
   return (
     <>
 
-        <div className="py-12 bg-white">
+        <div id="footer" className="py-12 bg-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <footer className="mt-6">
-                    <p className="pb-10 text-center md:px-4">
-                        This application was developed in conjuction with 
-                        <p className="text-xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-2xl">
-                            <a href="https://discover-ai-with-microsoft.agorize.com/en/challenges/msazurevirtualhack-2021/pages/timeline-and-guidelines?lang=en">
-                            Microsoft Azure Virtual Hackathon 2021</a>
-                        </p>
-                        Provide innovative solutions in advanced data analytics and AI for a number of booming industries!
-                    </p>
-                    <div className="border-t md:px-4 md:pt-10 md:pb-5">
+                <footer>
+                    <div className="md:px-4 md:pt-10 md:pb-5">
                         <div className="flex flex-wrap md:max-w-screen-xl mx-auto">
                         <section
                             className="relative text-gray-700 font-light border-b px-4 pb-4 md:py-3 w-full md:border-none md:w-1/3"
@@ -34,6 +37,7 @@ export const Footer = () => {
                                 onClick={handleClick}
                                 className="uppercase text-xs font-bold tracking-wider text-indigo-800 focus:outline-none border-t border-white py-4 w-full text-left"
                                 type="button"
+                                name="a"
                             >
                                 References: Journal
                             </button>
@@ -44,7 +48,7 @@ export const Footer = () => {
                                 </a>
                             </Link>
                             <article className={`${
-                                active ? '' : 'h-0'
+                                active.a ? '' : 'h-0'
                                 }  md:h-auto -mt-4 md:mt-0 overflow-hidden`}>
                             <ul className="my-5 text-sm tracking-wide">
                                 <li className="my-3 tracking-wide">
@@ -73,6 +77,7 @@ export const Footer = () => {
                                 onClick={handleClick}
                                 className="uppercase text-xs font-bold tracking-wider text-indigo-800 focus:outline-none border-t border-white py-4 w-full text-left"
                                 type="button"
+                                name="b"
                             >
                                 Ut porta
                             </button>
@@ -83,7 +88,7 @@ export const Footer = () => {
                                 </a>
                             </Link>
                             <article className={`${
-                                active ? '' : 'h-0'
+                                active.b ? '' : 'h-0'
                                 }  md:h-auto -mt-4 md:mt-0 overflow-hidden`}>
                             <ul className="my-5 text-sm tracking-wide">
                                 <li className="my-3 tracking-wide">
@@ -118,6 +123,7 @@ export const Footer = () => {
                                 onClick={handleClick}
                                 className="uppercase text-xs font-bold tracking-wider text-indigo-800 focus:outline-none border-t border-white py-4 w-full text-left"
                                 type="button"
+                                name="c"
                             >
                                 Aenean gravida orci in sem varius
                             </button>
@@ -128,7 +134,7 @@ export const Footer = () => {
                                 </a>
                             </Link>
                             <article className={`${
-                                active ? '' : 'h-0'
+                                active.c ? '' : 'h-0'
                                 }  md:h-auto -mt-4 md:mt-0 overflow-hidden`}>
                             <ul className="my-5 text-sm tracking-wide">
                                 <li className="my-3 tracking-wide">
@@ -145,6 +151,7 @@ export const Footer = () => {
                                 onClick={handleClick}
                                 className="uppercase text-xs font-bold tracking-wider text-indigo-800 focus:outline-none border-t border-white py-4 w-full text-left"
                                 type="button"
+                                name="d"
                             >
                                 Donec a lorem
                             </button>
@@ -155,7 +162,7 @@ export const Footer = () => {
                                 </a>
                             </Link>
                             <article className={`${
-                                active ? '' : 'h-0'
+                                active.d ? '' : 'h-0'
                                 }  md:h-auto -mt-4 md:mt-0 overflow-hidden`}>
                             <ul className="my-5 text-sm tracking-wide">
                                 <li className="my-3 tracking-wide">
@@ -178,6 +185,7 @@ export const Footer = () => {
                                 onClick={handleClick}
                                 className="uppercase text-xs font-bold tracking-wider text-indigo-800 focus:outline-none border-t border-white py-4 w-full text-left"
                                 type="button"
+                                name="e"
                             >
                                 Integer interdum
                             </button>
@@ -188,7 +196,7 @@ export const Footer = () => {
                                 </a>
                             </Link>
                             <article className={`${
-                                active ? '' : 'h-0'
+                                active.e ? '' : 'h-0'
                                 }  md:h-auto -mt-4 md:mt-0 overflow-hidden`}>
                             <ul className="my-5 text-sm tracking-wide">
                                 <li className="my-3 tracking-wide">
@@ -217,6 +225,7 @@ export const Footer = () => {
                                 onClick={handleClick}
                                 className="uppercase text-xs font-bold tracking-wider text-indigo-800 focus:outline-none border-t border-white py-4 w-full text-left"
                                 type="button"
+                                name="f"
                             >
                                 Quisque
                             </button>
@@ -227,7 +236,7 @@ export const Footer = () => {
                                 </a>
                             </Link>
                             <article className={`${
-                                active ? '' : 'h-0'
+                                active.f ? '' : 'h-0'
                                 }  md:h-auto -mt-4 md:mt-0 overflow-hidden`}>
                             <ul className="my-5 text-sm tracking-wide">
                                 <li className="my-3 tracking-wide">
@@ -253,6 +262,7 @@ export const Footer = () => {
                                 onClick={handleClick}
                                 className="uppercase text-xs font-bold tracking-wider text-indigo-800 focus:outline-none border-t border-white py-4 w-full text-left"
                                 type="button"
+                                name="g"
                             >
                                 Quisque
                             </button>
@@ -263,7 +273,7 @@ export const Footer = () => {
                                 </a>
                             </Link>
                             <article className={`${
-                                active ? '' : 'h-0'
+                                active.g ? '' : 'h-0'
                                 }  md:h-auto -mt-4 md:mt-0 overflow-hidden`}>
                             <ul className="my-5 text-sm tracking-wide">
                                 <li className="my-3 tracking-wide">

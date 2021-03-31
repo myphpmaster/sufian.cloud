@@ -1,4 +1,4 @@
-/*  ./components/Description.js     */
+/*  ./components/Result.js     */
 import React, { useState } from "react";
 import { useSWRInfinite } from "swr";
 
@@ -6,7 +6,7 @@ const fetcher = url => fetch(url).then(res => res.json());
 const PAGE_SIZE = 3;
 var key = 0;
 
-export const Description = () => {
+export const Result = () => {
 
 //    const { data, error } = useSWR('/api/latest', fetcher );
 
@@ -58,13 +58,13 @@ export const Description = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="px-4 py-5 sm:px-6">
-            <h3 className="pb-2 text-5xl font-bold text-white sm:text-5xl md:text-6xl">
+            <h3 className="pb-2 text-4xl font-bold text-white sm:text-5xl md:text-6xl">
             Survey Sample Results
             </h3>
             <p className="my-2 text-xl text-white">
-                Our real-time IEQ POE Evaluation Online Application.
+                Real-time IEQ POE Evaluation Data.
             </p>
-            <p className="mt-5 mb-1 text-lg text-white text-right">
+            <p className="mt-5 mb-1 text-lg text-white md:text-right">
                 Showing {size} page(s) of {isLoadingMore ? "..." : datas.length}{" "} data(s){" "}
             </p>
         </div>
@@ -158,12 +158,12 @@ export const Description = () => {
     ))}
     
         <div className="px-4 py-5 sm:px-6 text-center">
-            <p className="mt-1 mb-5 text-lg text-white text-center">
+            <p className="mt-1 mb-5 text-lg text-white md:text-center">
                 Showing {size} page(s) of {isLoadingMore ? "..." : datas.length}{" "} data(s){" "}
             </p>
             <div className="py-3">
                 <button
-                className="transition duration-500 ease-in-out bg-blue-600 hover:bg-red-600 transform hover:-translate-y-1 hover:scale-110 text-white font-semibold hover:text-white py-2 min-w-max px-4 border border-blue-500 hover:border-transparent rounded mr-3.5"
+                className="w-full md:w-auto transition duration-500 ease-in-out bg-blue-600 hover:bg-red-600 transform text-white font-semibold hover:text-white py-2 min-w-max px-4 border border-blue-500 hover:border-transparent rounded mr-2 mb-2"
                 disabled={isLoadingMore || isReachingEnd}
                 onClick={() => setSize(size + 1)}
                 >
@@ -174,12 +174,12 @@ export const Description = () => {
                     : "Load more"}
                 </button>
                 <button 
-                className="transition duration-500 ease-in-out bg-white hover:bg-blue-500 transform hover:-translate-y-1 hover:scale-110 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded mr-3.5"
+                className="w-full md:w-auto transition duration-500 ease-in-out bg-white hover:bg-blue-500 transform text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded mr-2 mb-2"
                 disabled={isRefreshing} onClick={() => mutate()}>
                 {isRefreshing ? "Refreshing..." : "Refresh"}
                 </button>                
                 <button 
-                className="transition duration-500 ease-in-out bg-white hover:bg-blue-500 transform hover:-translate-y-1 hover:scale-110 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded mr-3.5"
+                className="w-full md:w-auto transition duration-500 ease-in-out bg-white hover:bg-blue-500 transform text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
                 disabled={!size} onClick={() => setSize(1)}>
                 Reset
                 </button>

@@ -6,7 +6,7 @@ export const Hero = () => {
   return (
  <>
  
-    <div className="relative bg-white overflow-hidden">
+    <div id="hero" className="relative bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto">
             <div className="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-3xl lg:w-full lg:pb-28 xl:pb-32">
 
@@ -19,7 +19,8 @@ export const Hero = () => {
                             <span className="block text-indigo-600 xl:inline">Evaluation</span>
                         </h1>
                         <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                        Internal environmental quality (IEQ) post occupancy evaluation (POE) can help stakeholders understand the current conditions of the building and their impact on occupant wellbeing and productivity. It can also provide pathways for building performance upgrades and resource allocation for administrations.
+                        Internal environmental quality (IEQ) post occupancy evaluation (POE) can help stakeholders understand the current conditions of the building 
+                        and their impact on occupant wellbeing and productivity. 
                         </p>
 
                         <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">

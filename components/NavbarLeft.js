@@ -4,34 +4,34 @@ import { Transition } from '@headlessui/react'
 import React, { useState } from "react";
 const menus = [
        {
-          "id":"home",
+          "id":"menu-home",
           "title":"Home",
           "url":"/"
        },
        {
-          "id":"overview",
+          "id":"menu-overview",
           "title":"Overview",
-          "url":"/overview"
+          "url":"/#overview"
         },
        {
-          "id":"data",
+          "id":"menu-data",
           "title":"Result",
-          "url":"/data"
+          "url":"/#result"
         },
         {
-          "id":"report",
+          "id":"menu-report",
           "title":"Report",
-          "url":"/report"
+          "url":"/#report"
         },
         {
-          "id":"code",
+          "id":"menu-code",
           "title":"Source Code",
-          "url":"/code"
+          "url":"/#code"
         },
         {
-          "id":"slide",
+          "id":"menu-slide",
           "title":"Slide",
-          "url":"/slide"
+          "url":"/#slide"
         }
     ];
         
@@ -69,9 +69,8 @@ export const Navbar = () => {
                     </div>
                 </div>
                 
-                <div className="hidden md:block md:ml-10 md:pr-4 md:space-x-8">      
-
-                { menus.map( menu => (
+                <div className="hidden md:block md:ml-10 md:pr-4 md:space-x-8">    
+                { menus.map( menu => ( 
                     <Link key={menu.id} href={menu.url}>
                     <a id={menu.id} className="font-medium text-gray-500 hover:text-gray-900">
                         {menu.title}
@@ -110,8 +109,8 @@ export const Navbar = () => {
                     </div>
                     <div className="px-6 pt-2 pb-3 space-y-1">
                         
-                    { menus.map( menu => (
-                        <Link key={menu.id} href={menu.url}>
+                    { menus.map( (x,menu) => (
+                        <Link key={x} href={menu.url}>
                         <a id={menu.id+'-mobile'} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
                             {menu.title}
                         </a>

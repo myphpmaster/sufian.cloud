@@ -1,10 +1,10 @@
-/*  ./components/Featured.js     */
+/*  ./components/Overview.js     */
 
-export const Featured = () => {
+export const Overview = () => {
   return (
     <>
 
-        <div className="py-24 bg-gray-200">
+        <div id="overview" className="py-24 bg-gray-200">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="lg:text-center px-4">
                 <h2 className="text-base text-indigo-600 font-extrabold tracking-wide uppercase">Online Application</h2>

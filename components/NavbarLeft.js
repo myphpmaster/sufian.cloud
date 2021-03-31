@@ -26,12 +26,13 @@ const menus = [
         {
           "id":"menu-code",
           "title":"Source Code",
-          "url":"/#code"
+          "url":"https://github.com/myphpmaster/sufian.cloud",
+          "target": "_blank"
         },
         {
-          "id":"menu-slide",
-          "title":"Slide",
-          "url":"/#slide"
+          "id":"menu-sponsor",
+          "title":"Sponsors",
+          "url":"/#sponsor"
         }
     ];
         
@@ -70,11 +71,13 @@ export const Navbar = () => {
                 </div>
                 
                 <div className="hidden md:block md:ml-10 md:pr-4 md:space-x-8">    
-                { menus.map( menu => ( 
-                    <Link key={menu.id} href={menu.url}>
-                    <a id={menu.id} className="font-medium text-gray-500 hover:text-gray-900">
-                        {menu.title}
-                    </a>
+                { menus.map( (menu, index) => ( 
+                    <Link key={index} href={menu.url}>
+                        <a id={menu.id+'-mobile'}  target={menu.target ? menu.target : `_self`}
+                                className={`${ menu.class ? menu.class : '' }
+                                font-medium text-gray-500 hover:text-gray-900`}>
+                            {menu.title}
+                        </a>
                     </Link>
                 ))}
 
@@ -109,9 +112,11 @@ export const Navbar = () => {
                     </div>
                     <div className="px-6 pt-2 pb-3 space-y-1">
                         
-                    { menus.map( (x,menu) => (
-                        <Link key={x} href={menu.url}>
-                        <a id={menu.id+'-mobile'} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
+                    { menus.map( (menu,index) => (
+                        <Link key={index} href={menu.url}>
+                        <a id={menu.id+'-mobile'}  target={menu.target ? menu.target : `_self`}
+                            className={`${ menu.class ? menu.class : '' }
+                             block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50`} >
                             {menu.title}
                         </a>
                         </Link>

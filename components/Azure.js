@@ -11,7 +11,7 @@ export const Azure = () => {
   return (
     <>
 
-<div id="result" className="py-24 bg-indigo-300">
+<div id="sponsor" className="py-24 bg-indigo-300 flex self-center min-h-screen place-items-center">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">        
         <div className="px-4 py-5 sm:px-6 text-center">
             <h2>

@@ -1,7 +1,40 @@
 /*  ./components/NavbarLeft.js     */
 import Link from 'next/link';
 import { Transition } from '@headlessui/react'
-import { useState } from 'react';
+import React, { useState } from "react";
+const menus = [
+       {
+          "id":"home",
+          "title":"Home",
+          "url":"/"
+       },
+       {
+          "id":"overview",
+          "title":"Overview",
+          "url":"/overview"
+        },
+       {
+          "id":"data",
+          "title":"Result",
+          "url":"/data"
+        },
+        {
+          "id":"report",
+          "title":"Report",
+          "url":"/report"
+        },
+        {
+          "id":"code",
+          "title":"Source Code",
+          "url":"/code"
+        },
+        {
+          "id":"slide",
+          "title":"Slide",
+          "url":"/slide"
+        }
+    ];
+        
 
 export const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -35,32 +68,17 @@ export const Navbar = () => {
                     </div>
                     </div>
                 </div>
-                <div className="hidden md:block md:ml-10 md:pr-4 md:space-x-8">                    
-                    <Link href='/'>
-                    <a className='font-medium text-gray-500 hover:text-gray-900'>
-                        Home
+                
+                <div className="hidden md:block md:ml-10 md:pr-4 md:space-x-8">      
+
+                { menus.map( menu => (
+                    <Link key={menu.id} href={menu.url}>
+                    <a id={menu.id} className="font-medium text-gray-500 hover:text-gray-900">
+                        {menu.title}
                     </a>
                     </Link>
-                    <Link href='/survey'>
-                    <a className='font-medium text-gray-500 hover:text-gray-900'>
-                        Questionnaire
-                    </a>
-                    </Link>
-                    <Link href='/#result'>
-                    <a className='font-medium text-gray-500 hover:text-gray-900'>
-                        Results
-                    </a>
-                    </Link>
-                    <Link href='/source'>
-                    <a className='font-medium text-gray-500 hover:text-gray-900'>
-                        Source
-                    </a>
-                    </Link>
-                    <Link href='/slide'>
-                    <a className='font-medium text-indigo-600 hover:text-indigo-500'>
-                        Slides
-                    </a>
-                    </Link>
+                ))}
+
                 </div>
             </nav>
         </div>
@@ -91,31 +109,15 @@ export const Navbar = () => {
                         </div>
                     </div>
                     <div className="px-6 pt-2 pb-3 space-y-1">
-                        <Link href='/'>
-                        <a className='block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50'>
-                            Home
+                        
+                    { menus.map( menu => (
+                        <Link key={menu.id} href={menu.url}>
+                        <a id={menu.id+'-mobile'} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
+                            {menu.title}
                         </a>
                         </Link>
-                        <Link href='/survey'>
-                        <a className='block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50'>
-                            Questionnaire
-                        </a>
-                        </Link>
-                        <Link href='/result'>
-                        <a className='block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50'>
-                            Results
-                        </a>
-                        </Link>
-                        <Link href='/source'>
-                        <a className='block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50'>
-                            Source
-                        </a>
-                        </Link>
-                        <Link href='/slide'>
-                        <a className='block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50'>
-                            Slides
-                        </a>
-                        </Link>
+                    ))}
+
                     </div>
                     <Link href='#'>
                         <a className="block w-full px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100">

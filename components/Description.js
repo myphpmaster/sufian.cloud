@@ -4,6 +4,7 @@ import { useSWRInfinite } from "swr";
 
 const fetcher = url => fetch(url).then(res => res.json());
 const PAGE_SIZE = 3;
+var key = 0;
 
 export const Description = () => {
 
@@ -57,7 +58,7 @@ export const Description = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="px-4 py-5 sm:px-6">
-            <h3 className="pb-2 text-5xl font-bold text-white">
+            <h3 className="pb-2 text-5xl font-bold text-white sm:text-5xl md:text-6xl">
             Survey Sample Results
             </h3>
             <p className="my-2 text-xl text-white">
@@ -69,7 +70,7 @@ export const Description = () => {
         </div>
         
     { datas.map( val => (
-        <div className="pb-10 border-gray-200 px-4">
+        <div key={key++} className="pb-10 border-gray-200 px-4">
             <dl>
             <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">

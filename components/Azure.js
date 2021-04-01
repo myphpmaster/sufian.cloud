@@ -29,7 +29,7 @@ export const Azure = ({isMobileView}) => {
             </p>
             
         </div>
-        <div className="max-w-9/12 mx-auto px-4 py-5 sm:px-6 text-center">
+        <div className="mx-auto px-4 py-5 sm:px-6 text-center w-full">
             <Carousel
                     additionalTransfrom={0}
                     arrows={false}

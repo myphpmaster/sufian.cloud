@@ -2,19 +2,17 @@
 import React, { useState } from "react";
 import { useSWRInfinite } from "swr";
 
-const fetcher = url => fetch(url).then(res => res.json());
-const PAGE_SIZE = 3;
-var key = 0;
-
 export const Result = () => {
 
-//    const { data, error } = useSWR('/api/latest', fetcher );
-
+    const fetcher = url => fetch(url).then(res => res.json());
+    const PAGE_SIZE = 3;
+    
     const { data, error, mutate, size, setSize, isValidating } = useSWRInfinite(
         index =>
           `/api/submissions?limit=${PAGE_SIZE}&page=${index + 1}`,
         fetcher
       );
+
 
     if (error) return (
         <div className="py-24 bg-gradient-to-r from-indigo-700 to-pink-500 bg-opacity-50">
@@ -34,13 +32,22 @@ export const Result = () => {
             </div>
         </div>
         )    
-
+    
     const datas = data ? [].concat(...data) : [];
 
     var arr = [];
     Object.keys(data).forEach(function(key) {
       arr.push(data[key]);
     });
+
+    const results = [];
+    datas.forEach(function(value, index, array) {
+        // The callback is executed for each element in the array.
+        // `value` is the element itself (equivalent to `array[index]`)
+        // `index` will be the index of the element in the array
+        // `array` is a reference to the array itself (i.e. `data.items` in this case)
+        results.push(value.data);
+    }); 
     
   const isLoadingInitialData = !data && !error;
   const isLoadingMore =
@@ -69,15 +76,20 @@ export const Result = () => {
             </p>
         </div>
         
-    { datas.map( val => (
-        <div key={key++} className="pb-10 border-gray-200 px-4">
+    { results.map( (val, index) => (
+        <div key={index} className="pb-10 border-gray-200 px-4">
             <dl>
+            <div className="text-center bg-gray-200 px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
+                <dt className="text-sm font-medium text-black">
+                General
+                </dt>
+            </div>
             <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
                 Age
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    {val.data.age}
+                    {val.age}
                 </dd>
             </div>
             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -85,70 +97,125 @@ export const Result = () => {
                 Gender
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    {val.data.gender}
+                    {val.gender}
                 </dd>
             </div>
             <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
-                Education
+                Highest Education
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    {val.data.education}
+                    {val.education}
                 </dd>
+            </div>
+            <div className="bg-gray-200 text-center px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
+                <dt className="text-sm font-medium text-black">
+                Building
+                </dt>
             </div>
             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
-                Salary expectation
+                State
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                $120,000
+                    {val.state}
                 </dd>
             </div>
             <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
-                About
+                Building Category
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                Fugiat ipsum ipsum deserunt culpa aute sint do nostrud anim incididunt cillum culpa consequat. Excepteur qui ipsum aliquip consequat sint. Sit id mollit nulla mollit nostrud in ea officia proident. Irure nostrud pariatur mollit ad adipisicing reprehenderit deserunt qui eu.
+                    {val.buildingCategory}
                 </dd>
+            </div>
+            <div className="bg-gray-200 text-center px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
+                <dt className="text-sm font-medium text-black">
+                Thermal
+                </dt>
             </div>
             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
-                Attachments
+                Temperature in your work space
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                 <ul className="border border-gray-200 rounded-md divide-y divide-gray-200">
                     <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
                     <div className="w-0 flex-1 flex items-center">
 
-                        <svg className="flex-shrink-0 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fillRule="evenodd" d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z" clipRule="evenodd" />
-                        </svg>
                         <span className="ml-2 flex-1 w-0 truncate">
-                        resume_back_end_developer.pdf
+                        Morning (08:00 - 11:00)
                         </span>
                     </div>
                     <div className="ml-4 flex-shrink-0">
-                        <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                        Download
-                        </a>
+                        {val.tempCommon.morning}
                     </div>
                     </li>
                     <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-                    <div className="w-0 flex-1 flex items-center">
+                        <div className="w-0 flex-1 flex items-center">
 
-                        <svg className="flex-shrink-0 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fillRule="evenodd" d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z" clipRule="evenodd" />
-                        </svg>
-                        <span className="ml-2 flex-1 w-0 truncate">
-                        coverletter_back_end_developer.pdf
-                        </span>
-                    </div>
-                    <div className="ml-4 flex-shrink-0">
-                        <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                        Download
-                        </a>
-                    </div>
+                            <span className="ml-2 flex-1 w-0 truncate">
+                            Noon (11:00 - 13:00)
+                            </span>
+                        </div>
+                        <div className="ml-4 flex-shrink-0">
+                            {val.tempCommon.noon}
+                        </div>
+                    </li>
+                    <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+                        <div className="w-0 flex-1 flex items-center">
+
+                            <span className="ml-2 flex-1 w-0 truncate">
+                            Afternoon (13:00 - 17:00)
+                            </span>
+                        </div>
+                        <div className="ml-4 flex-shrink-0">
+                            {val.tempCommon.afternoon}
+                        </div>
+                    </li>
+                    <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+                        <div className="w-0 flex-1 flex items-center">
+
+                            <span className="ml-2 flex-1 w-0 truncate">
+                            Evening (17:00 - 21:00)
+                            </span>
+                        </div>
+                        <div className="ml-4 flex-shrink-0">
+                            {val.tempCommon.evening}
+                        </div>
+                    </li>
+                    <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+                        <div className="w-0 flex-1 flex items-center">
+
+                            <span className="ml-2 flex-1 w-0 truncate">
+                            Night (21:00 - 23:00)
+                            </span>
+                        </div>
+                        <div className="ml-4 flex-shrink-0">
+                            {val.tempCommon.night}
+                        </div>
+                    </li>
+                    <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+                        <div className="w-0 flex-1 flex items-center">
+
+                            <span className="ml-2 flex-1 w-0 truncate">
+                            Midnight (23:00 - 02:00)
+                            </span>
+                        </div>
+                        <div className="ml-4 flex-shrink-0">
+                            {val.tempCommon.midnight}
+                        </div>
+                    </li>
+                    <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+                        <div className="w-0 flex-1 flex items-center">
+
+                            <span className="ml-2 flex-1 w-0 truncate">
+                            Early Morning (02:00 - 08:00)
+                            </span>
+                        </div>
+                        <div className="ml-4 flex-shrink-0">
+                            {val.tempCommon.earlyMorning}
+                        </div>
                     </li>
                 </ul>
                 </dd>

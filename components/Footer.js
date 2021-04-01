@@ -42,7 +42,7 @@ export const Footer = () => {
                                 References: Journal
                             </button>
                             </div>
-                            <Link href='#'>    
+                            <Link href='/#'>    
                                 <a className="uppercase text-xs font-bold tracking-wider text-indigo-800 hidden md:block">
                                 References: Journal
                                 </a>
@@ -52,19 +52,23 @@ export const Footer = () => {
                                 }  md:h-auto -mt-4 md:mt-0 overflow-hidden`}>
                             <ul className="my-5 text-sm tracking-wide">
                                 <li className="my-3 tracking-wide">
-                                <a href="https://www.ajol.info/index.php/actas/article/view/94083">
+                                <a target="_blank" href="https://www.ajol.info/index.php/actas/article/view/94083">
                                     Post-occupancy evaluation of office buildings in a Johannesburg country club estate.</a>
                                 </li>
                                 <li className="my-3 tracking-wide">
-                                <a href="https://www.mdpi.com/2075-5309/8/11/156">
+                                <a target="_blank" href="https://www.mdpi.com/2075-5309/8/11/156">
                                     Post-Occupancy Evaluation and IEQ Measurements from 64 Office Buildings: Critical Factors and Thresholds for User Satisfaction on Thermal Quality.</a>
                                 </li>
                                 <li className="my-3 tracking-wide">
-                                <a href="https://umexpert.um.edu.my/public_view.php?type=publication&row=NDYwNzY%3D">Post-Occupancy Evaluation of Conventional-designed Building: The Effect of Occupants' Comfort on Productivity.</a>
+                                <a target="_blank" href="https://umexpert.um.edu.my/public_view.php?type=publication&row=NDYwNzY%3D">Post-Occupancy Evaluation of Conventional-designed Building: The Effect of Occupants' Comfort on Productivity.</a>
                                 </li>
                                 <li className="my-3 tracking-wide">
-                                <a href="https://www.researchgate.net/publication/322243086_Investigating_the_Indoor_Environment_Quality_Parameters_and_Their_Relationship_with_Occupants'_Satisfaction_in_Office_Buildings_A_Review">
+                                <a target="_blank" href="https://www.researchgate.net/publication/322243086_Investigating_the_Indoor_Environment_Quality_Parameters_and_Their_Relationship_with_Occupants'_Satisfaction_in_Office_Buildings_A_Review">
                                     Investigating the Indoor Environment Quality Parameters and Their Relationship with Occupants' Satisfaction</a>
+                                </li>
+                                <li className="my-3 tracking-wide">
+                                <a target="_blank" href="http://spaj.ukm.my/jsb/index.php/jdb/article/view/101">
+                                Post Occupancy Evaluation (POE) and Indoor Environmental Quality Assessment (IEQ): a Case Study of Universiti Teknologi PETRONAS New Academic Complex</a>
                                 </li>
                             </ul>
                             </article>
@@ -79,12 +83,12 @@ export const Footer = () => {
                                 type="button"
                                 name="b"
                             >
-                                Ut porta
+                                References: Book
                             </button>
                             </div>
-                            <Link href='/slide'>   
+                            <Link href='/#'>   
                                 <a className="uppercase text-xs font-bold tracking-wider text-indigo-800 hidden md:block">
-                                Ut porta
+                                References: Book
                                 </a>
                             </Link>
                             <article className={`${
@@ -92,25 +96,49 @@ export const Footer = () => {
                                 }  md:h-auto -mt-4 md:mt-0 overflow-hidden`}>
                             <ul className="my-5 text-sm tracking-wide">
                                 <li className="my-3 tracking-wide">
-                                <a href="#">Pellentesque rhoncus</a>
+                                    <a target="_blank" href="https://www.intechopen.com/books/indoor-environmental-quality/introductory-chapter-indoor-environmental-quality">
+                                    Introductory Chapter: Indoor Environmental Quality
+                                    </a>
                                 </li>
                                 <li className="my-3 tracking-wide">
-                                <a href="#">Aenean</a>
+                                    <a target="_blank" href="https://www.taylorfrancis.com/books/mono/10.4324/9781315713519/post-occupancy-evaluation-routledge-revivals-wolfgang-preiser-edward-white-harvey-rabinowitz">
+                                    Post-Occupancy Evaluation (Routledge Revivals)
+                                    </a>
                                 </li>
                                 <li className="my-3 tracking-wide">
-                                <a href="#">Curabitur bibendum</a>
+                                    <a target="_blank" href="https://www.architecture.com/-/media/GatherContent/Paywalled-resource-with-many-PDFs-VPC/Additional-Documents/Post-Occupancy-Evaluationanessentialtooltoimprovethebuiltenvironmentpdf.pdf">
+                                    Post Occupancy Evaluation: an essential tool for the built environment
+                                    </a>
                                 </li>
                                 <li className="my-3 tracking-wide">
-                                <a href="#">Phasellus non mi</a>
+                                    <a target="_blank" href="https://www.nap.edu/read/10288/chapter/3">
+                                    Learning from Our Buildings: A State-of-the-Practice Summary of Post-Occupancy Evaluation
+                                    </a>
                                 </li>
                                 <li className="my-3 tracking-wide">
-                                <a href="#">Duis accumsa</a>
+                                    <a target="_blank" href="https://link.springer.com/chapter/10.1007/978-1-4899-3722-3_2">
+                                    The Uses and Boundaries of Post-Occupancy Evaluation: an Overview
+                                    </a>
                                 </li>
                                 <li className="my-3 tracking-wide">
-                                <a href="#">Curabitur nec enim</a>
+                                    <a target="_blank" href="https://www.degruyter.com/document/doi/10.1515/9783110375411/html">
+                                    Post-occupancy evaluation of library buildings
+                                    </a>
                                 </li>
                                 <li className="my-3 tracking-wide">
-                                <a href="#">Fusce ut augue</a>
+                                    <a target="_blank" href="https://www.wiley.com/en-au/Enhancing+Building+Performance-p-9780470657591">
+                                    Enhancing Building Performance
+                                    </a>
+                                </li>
+                                <li className="my-3 tracking-wide">
+                                    <a target="_blank" href="https://www.ashrae.org/File%20Library/Technical%20Resources/Bookstore/previews_2016212_pre.pdf">
+                                    Residential Indoor Air Quality Guide
+                                    </a>
+                                </li>
+                                <li className="my-3 tracking-wide">
+                                    <a target="_blank" href="https://www.sitepoint.com/premium/books/build-a-blog-with-react-and-next-js/read/1">
+                                    Build a Blog with React and Next.js
+                                    </a>
                                 </li>
                             </ul>
                             </article>
@@ -125,12 +153,12 @@ export const Footer = () => {
                                 type="button"
                                 name="c"
                             >
-                                Aenean gravida orci in sem varius
+                                References: Github Codes
                             </button>
                             </div>
-                            <Link href='/slide'>   
+                            <Link href='/#'>   
                                 <a className="uppercase text-xs font-bold tracking-wider text-indigo-800 hidden md:block">
-                                Aenean gravida orci in sem varius
+                                References: Github Codes
                                 </a>
                             </Link>
                             <article className={`${
@@ -138,7 +166,29 @@ export const Footer = () => {
                                 }  md:h-auto -mt-4 md:mt-0 overflow-hidden`}>
                             <ul className="my-5 text-sm tracking-wide">
                                 <li className="my-3 tracking-wide">
-                                <a href="#">Cras id ipsum</a>
+                                    <a target="_blank" href="https://github.com/formio/formio">
+                                        Form.io - A combined form and API platform for Serverless applications.
+                                    </a>
+                                </li>
+                                <li className="my-3 tracking-wide">
+                                    <a target="_blank" href="https://github.com/vercel/next.js">
+                                        Next.js - The React Framework for Production.
+                                    </a>
+                                </li>
+                                <li className="my-3 tracking-wide">
+                                    <a target="_blank" href="https://github.com/YIZHUANG/react-multi-carousel">
+                                        React multi carousel - Production-ready, lightweight fully customizable React carousel component that rocks supports multiple items and SSR(Server-side rendering).
+                                    </a>
+                                </li>
+                                <li className="my-3 tracking-wide">
+                                    <a target="_blank" href="https://github.com/hoangvvo/nextjs-mongodb-app">
+                                        Next.js MongoDB - An Next.js and MongoDB web application, designed with simplicity for learning and real-world applicability in mind.
+                                    </a>
+                                </li>
+                                <li className="my-3 tracking-wide">
+                                    <a target="_blank" href="https://github.com/APItools/middleware">
+                                        Middleware - APItools Middleware Repository.
+                                    </a>
                                 </li>
                             </ul>
                             </article>
@@ -153,12 +203,12 @@ export const Footer = () => {
                                 type="button"
                                 name="d"
                             >
-                                Donec a lorem
+                                Softwares
                             </button>
                             </div>
-                            <Link href='/slide'>   
+                            <Link href='/#'>   
                                 <a className="uppercase text-xs font-bold tracking-wider text-indigo-800 hidden md:block">
-                                Donec a lorem
+                                Softwares
                                 </a>
                             </Link>
                             <article className={`${
@@ -166,13 +216,29 @@ export const Footer = () => {
                                 }  md:h-auto -mt-4 md:mt-0 overflow-hidden`}>
                             <ul className="my-5 text-sm tracking-wide">
                                 <li className="my-3 tracking-wide">
-                                <a href="#">Sed a diam</a>
+                                    <a target="_blank" href="https://code.visualstudio.com/">
+                                        Visual Studio Code
+                                    </a>
                                 </li>
                                 <li className="my-3 tracking-wide">
-                                <a href="#">Nullam luctus felis</a>
+                                    <a target="_blank" href="https://www.microsoft.com/en-us/microsoft-365/powerpoint">
+                                    Microsoft PowerPoint
+                                    </a>
                                 </li>
                                 <li className="my-3 tracking-wide">
-                                <a href="#">Sed euismod</a>
+                                    <a target="_blank" href="https://notepad-plus-plus.org/downloads/">
+                                    Notepad++
+                                    </a>
+                                </li>
+                                <li className="my-3 tracking-wide">
+                                    <a target="_blank" href="https://www.putty.org/">
+                                    PuTTY
+                                    </a>
+                                </li>
+                                <li className="my-3 tracking-wide">
+                                    <a target="_blank" href="https://desktop.github.com/">
+                                    GitHub Desktop
+                                    </a>
                                 </li>
                             </ul>
                             </article>
@@ -187,12 +253,12 @@ export const Footer = () => {
                                 type="button"
                                 name="e"
                             >
-                                Integer interdum
+                                Languages
                             </button>
                             </div>
-                            <Link href='/slide'>   
+                            <Link href='/#'>   
                                 <a className="uppercase text-xs font-bold tracking-wider text-indigo-800 hidden md:block">
-                                Integer interdum
+                                Languages
                                 </a>
                             </Link>
                             <article className={`${
@@ -200,19 +266,29 @@ export const Footer = () => {
                                 }  md:h-auto -mt-4 md:mt-0 overflow-hidden`}>
                             <ul className="my-5 text-sm tracking-wide">
                                 <li className="my-3 tracking-wide">
-                                <a href="#">Dignissim gravida</a>
+                                    <a target="_blank" href="https://www.w3schools.com/html/html_intro.asp">
+                                    Hyper Text Markup Language (HTML)
+                                    </a>
                                 </li>
                                 <li className="my-3 tracking-wide">
-                                <a href="#">Eu mollis elit</a>
+                                    <a target="_blank" href="https://www.w3schools.com/css/css_intro.asp">
+                                    Cascading Style Sheets (CSS)
+                                    </a>
                                 </li>
                                 <li className="my-3 tracking-wide">
-                                <a href="#">Hendrerit purus id</a>
+                                    <a target="_blank" href="https://www.w3schools.com/js/js_intro.asp">
+                                    JavaScript
+                                    </a>
                                 </li>
                                 <li className="my-3 tracking-wide">
-                                <a href="#">Ut luctus dui tincidunt</a>
+                                    <a target="_blank" href="https://sass-lang.com/">
+                                    Syntactically Awesome Style Sheets (SASS)
+                                    </a>
                                 </li>
                                 <li className="my-3 tracking-wide">
-                                <a href="#">Pellentesque at ligula</a>
+                                    <a target="_blank" href="https://www.ssh.com/ssh/command/">
+                                        SSH Command
+                                    </a>
                                 </li>
                             </ul>
                             </article>
@@ -227,12 +303,12 @@ export const Footer = () => {
                                 type="button"
                                 name="f"
                             >
-                                Quisque
+                                Frameworks
                             </button>
                             </div>
                             <Link href='/slide'>   
                                 <a className="uppercase text-xs font-bold tracking-wider text-indigo-800 hidden md:block">
-                                Quisque
+                                Frameworks
                                 </a>
                             </Link>
                             <article className={`${
@@ -240,16 +316,29 @@ export const Footer = () => {
                                 }  md:h-auto -mt-4 md:mt-0 overflow-hidden`}>
                             <ul className="my-5 text-sm tracking-wide">
                                 <li className="my-3 tracking-wide">
-                                <a href="#">Finibus nulla eget</a>
+                                    <a target="_blank" href="https://www.w3schools.com/bootstrap4/default.asp">
+                                    Bootstrap 4
+                                    </a>
                                 </li>
                                 <li className="my-3 tracking-wide">
-                                <a href="#">Pellentesque</a>
+                                    <a target="_blank" href="https://nodejs.org/en/">
+                                    Node.js®
+                                    </a>
                                 </li>
                                 <li className="my-3 tracking-wide">
-                                <a href="#">Duis efficitur</a>
+                                    <a target="_blank" href="https://nextjs.org/">
+                                    Next.js
+                                    </a>
                                 </li>
                                 <li className="my-3 tracking-wide">
-                                <a href="#">Cras at lacus</a>
+                                    <a target="_blank" href="https://reactjs.org/">
+                                    React
+                                    </a>
+                                </li>
+                                <li className="my-3 tracking-wide">
+                                    <a target="_blank" href="https://tailwindcss.com/">
+                                    Tailwind CSS
+                                    </a>
                                 </li>
                             </ul>
                             </article>
@@ -264,12 +353,12 @@ export const Footer = () => {
                                 type="button"
                                 name="g"
                             >
-                                Quisque
+                                Microsoft Azure 
                             </button>
                             </div>
-                            <Link href='/slide'>   
+                            <Link href='https://azure.microsoft.com/'>   
                                 <a className="uppercase text-xs font-bold tracking-wider text-indigo-800 hidden md:block">
-                                Quisque
+                                Microsoft Azure
                                 </a>
                             </Link>
                             <article className={`${
@@ -277,16 +366,29 @@ export const Footer = () => {
                                 }  md:h-auto -mt-4 md:mt-0 overflow-hidden`}>
                             <ul className="my-5 text-sm tracking-wide">
                                 <li className="my-3 tracking-wide">
-                                <a href="#">Finibus nulla eget</a>
+                                    <a target="_blank" href="https://azure.microsoft.com/en-us/services/cosmos-db/">
+                                    Azure Cosmos DB
+                                    </a>
                                 </li>
                                 <li className="my-3 tracking-wide">
-                                <a href="#">Pellentesque</a>
+                                    <a target="_blank" href="https://azure.microsoft.com/en-us/services/virtual-machines/">
+                                    Virtual Machines
+                                    </a>
                                 </li>
                                 <li className="my-3 tracking-wide">
-                                <a href="#">Duis efficitur</a>
+                                    <a target="_blank" href="https://azure.microsoft.com/en-us/services/api-management/">
+                                    API Management
+                                    </a>
                                 </li>
                                 <li className="my-3 tracking-wide">
-                                <a href="#">Cras at lacus</a>
+                                    <a target="_blank" href="https://azure.microsoft.com/en-us/services/machine-learning/">
+                                    Azure Machine Learning
+                                    </a>
+                                </li>
+                                <li className="my-3 tracking-wide">
+                                    <a target="_blank" href="https://azure.microsoft.com/en-us/services/app-service/">
+                                    App Service
+                                    </a>
                                 </li>
                             </ul>
                             </article>
@@ -303,7 +405,11 @@ export const Footer = () => {
                             </p>
                         </div>
                         <div>
-                            <p className="leading-8 tracking-wide">Privacy Policy</p>
+                            <p className="leading-8 tracking-wide">
+                                <a href="/#">
+                                   Privacy Policy
+                                </a>
+                            </p>
                         </div>
                         </section>
                     </div>

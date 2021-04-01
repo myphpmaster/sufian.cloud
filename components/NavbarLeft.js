@@ -14,14 +14,9 @@ const menus = [
           "url":"/#overview"
         },
        {
-          "id":"menu-data",
-          "title":"Result",
+          "id":"menu-result",
+          "title":"Sample",
           "url":"/#result"
-        },
-        {
-          "id":"menu-report",
-          "title":"Report",
-          "url":"/#report"
         },
         {
           "id":"menu-code",

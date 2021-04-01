@@ -13,7 +13,7 @@ export default function Survey({dataResult, dataSchema, total, summary, isConnec
   return (
     <>
 		<Head>
-			<title>IEQ POE Online System - Questionnaire</title>
+			<title>IEQ POE Online System - Home</title>
 			<link rel="icon" href="/favicon.ico" />		
 			<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossOrigin="anonymous"></script>
 		</Head>

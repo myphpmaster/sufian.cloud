@@ -6,13 +6,13 @@ export const Hero = () => {
   return (
  <>
  
-    <div id="hero" className="relative bg-white overflow-hidden h-screen">
+    <div id="hero" className="relative bg-white overflow-hidden min-h-screen">
         <div className="max-w-7xl mx-auto">
-            <div className="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-3xl lg:w-full lg:pb-28 xl:pb-32">
+            <div className="relative z-10 bg-white lg:max-w-3xl lg:w-full">
 
                 <Navbar />    
 
-                <main className="min-h-screen items-center flex mx-auto max-w-7xl px-4 mt-0 sm:px-6 lg:px-8 justify-center" style={{ 'minHeight':'calc(100vh - 100px)'}}>
+                <main className="min-h-screen items-center flex mx-auto max-w-7xl px-4 mt-0 sm:px-6 lg:px-8 justify-center" style={{ 'minHeight':'calc(100vh - 64px)'}}>
                     <div className="sm:text-center lg:text-left px-4">
                         <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
                             <span className="block xl:inline">IEQ Post Occupancy </span>
@@ -39,13 +39,13 @@ export const Hero = () => {
                 </main>
                 
             </div>              
-            <video className="bgvideo lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2" width="1920" height="1083" poster="/poster-home.jpg" autoPlay loop>
-                <source src="/home.mp4" type="video/mp4" /> 
-                <source src="/home.ogg" type="video/ogg" /> 
-                <source src="/home.webm" type="video/webm" />
-            </video>
             <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-                <img className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full" src="../indoor-ieq.jpg" alt="" />
+                <video className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full hidden lg:block" width="1920" height="1083" poster="/poster-home.jpg" autoPlay loop>
+                    <source src="/home.mp4" type="video/mp4" /> 
+                    <source src="/home.ogg" type="video/ogg" /> 
+                    <source src="/home.webm" type="video/webm" />
+                </video>
+                <img className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full" src="/indoor-ieq.jpg" alt="" />
             </div>
         </div>
     </div>

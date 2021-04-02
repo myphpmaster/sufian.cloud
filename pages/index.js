@@ -8,7 +8,7 @@ import { Footer } from '../components/Footer';
 import React, { Component } from 'react'
 import { connectToDatabase } from '../util/mongodb'
 
-export default function Survey({dataResult, dataSchema, total, summary, isConnected}) {
+export default function Home({dataResult, dataSchema, total, summary, isConnected}) {
 
   return (
     <>

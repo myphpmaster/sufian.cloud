@@ -29,10 +29,12 @@ handler.get(async (req, res) => {
 */
 
 handler.get(async (req, res) => {
+    const key = req.query.key
+    console.log(key)
     const data = await getDatas(
+      
       req.db,
-      req.query.limit ? parseInt(req.query.limit, 5) : 5,
-      req.query.skip ? parseInt(req.query.skip, 0) : req.query.limit*(req.query.page-1),
+      key ? key : 'age',
     );
   
     if (req.query.from && data.length > 0) {
@@ -61,20 +63,18 @@ handler.get(async (req, res) => {
   });
   */
 
-export async function getDatas(db, limits, skips) {
+export async function getDatas(db, keys) {
+    const key = 'data.' + keys
     return db
       .collection(col_name)
       .find(
         { 'data.age': { '$exists': 1 } },
         { 
-            skip: skips, 
-            projection:{data: 1, _id: 0}, 
-            sort:{ _id: -1 }              
-        }
-   
+            skip: 0, 
+            projection: { [key]: 1, _id: 0}
+        }   
       )
       .sort({ created: -1 })
-      .limit(limits || 5)
       .toArray()
       .then(items => { return items })
       .catch(err => console.error(`Failed to find documents: ${err}`))

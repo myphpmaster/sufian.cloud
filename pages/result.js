@@ -4,8 +4,7 @@ import { Navbar } from '../components/Navbar';
 import React, { Component } from 'react'
 import { Line, Bar, Doughnut, Pie } from 'react-chartjs-2'
 import { connectToDatabase } from '../util/mongodb'
-
-export default function Survey({dataResult, dataSchema, total, summary, isConnected}) {
+export default function Survey({isConnected}) {
 
 /*
 	const data = {

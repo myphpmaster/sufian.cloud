@@ -8,6 +8,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <Layout>
       <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <title>IEQ POE Online System</title>
       </Head>
       <Component {...pageProps} />

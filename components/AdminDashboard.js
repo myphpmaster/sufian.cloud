@@ -5,14 +5,15 @@ import { useSWRInfinite } from "swr";
 export const Result = () => {
 
     const fetcher = url => fetch(url).then(res => res.json());
-    const PAGE_SIZE = 3;
+    var key = 'age';
     
     const { data, error, mutate, size, setSize, isValidating } = useSWRInfinite(
         index =>
-          `/api/submissions?limit=${PAGE_SIZE}&page=${index + 1}`,
+          `/api/charts?key=${key}`,
         fetcher
       );
 
+    console.log(key)
 
     if (error) return (
         <div className="py-24 bg-gradient-to-r from-indigo-700 to-pink-500 bg-opacity-50">

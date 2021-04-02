@@ -1,7 +1,9 @@
-import React from 'react';
+/*  ./components/AdminContain.js     */
+import React, { useState } from "react";
+import useSWR, { useSWRInfinite } from "swr";
 import {Bar} from 'react-chartjs-2';
 
-const data = {
+const sample_data = {
   labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
   datasets: [{
     label: '# of Votes',
@@ -26,13 +28,73 @@ const data = {
   }]
 }
 
-export default () => ({
-  displayName: 'BarExample',
+var rows = [
+  { 'createdDate': '3/11/2016', 'createdBy': 'Bob' },
+  { 'createdDate': '3/12/2016', 'createdBy': 'Megan' },
+  { 'createdDate': '3/12/2016', 'createdBy': 'Bob' },
+  { 'createdDate': '3/13/2016', 'createdBy': 'Sam' },
+  { 'createdDate': '3/11/2016', 'createdBy': 'Bob' },
+];
+
+var occurences = rows.reduce(function (r, row) {
+  r[row.createdBy] = ++r[row.createdBy] || 1;
+  return r;
+}, {});
+
+var result = Object.keys(occurences).map(function (key) {
+  return { key: key, value: occurences[key] };
+});
+
+
+const GetData = () => {
+  
+  const fetcher = url => fetch(url).then(res => res.json());
+  const PAGE_SIZE = 3;
+  var key = 'age';
+
+  const { data, error, mutate, size, setSize, isValidating } = useSWRInfinite(
+      index =>
+        `/api/charts?key=${key}`,
+      fetcher
+    );
+  
+  const datas = data ? [].concat(...data) : [];
+
+  console.log(datas);
+
+  var occurences = datas.reduce(function (r, row) {
+    r = ++r || 1;
+    return r;
+  }, {});
+
+  var result = Object.keys(occurences).map(function (key) {
+    return { key: key, value: occurences[key] };
+  });
+
+  console.log(result);
+  
+  const isLoadingInitialData = !data && !error;
+  const isLoadingMore =
+    isLoadingInitialData ||
+    (size > 0 && data && typeof data[size - 1] === "undefined");
+  const isEmpty = data?.[0]?.length === 0;
+  const isReachingEnd =
+    isEmpty || (data && data[data.length - 1]?.length < PAGE_SIZE);
+  const isRefreshing = isValidating && data && data.length === size;
+
+  return result
+
+};
+
+const BarChart = () => ({
+  
+  displayName: 'BarChart',
   render() {
+
     return (
       <>
       <Bar
-        data={data}
+        data={sample_data}
         width={400}
         height={200}
         options={{
@@ -43,3 +105,5 @@ export default () => ({
     );
   }
 });
+
+export default BarChart

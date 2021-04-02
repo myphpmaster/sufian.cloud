@@ -1,4 +1,4 @@
-/*  ./components/Result.js     */
+/*  ./components/AdminContain.js     */
 import React, { useState } from "react";
 import { useSWRInfinite } from "swr";
 import BarGraph from './bar';
@@ -7,13 +7,17 @@ export const Contain = () => {
 
     const fetcher = url => fetch(url).then(res => res.json());
     const PAGE_SIZE = 3;
+    const KEY = 'age';
     
     const { data, error, mutate, size, setSize, isValidating } = useSWRInfinite(
         index =>
-          `/api/submissions?limit=${PAGE_SIZE}&page=${index + 1}`,
+          `/api/charts/?key=${KEY}`,
         fetcher
       );
 
+    const datax = data ? [].concat(...data) : [];
+
+    console.log(datax);
 
     if (error) return (
         <div className="py-24 bg-gradient-to-r from-indigo-700 to-pink-500 bg-opacity-50">

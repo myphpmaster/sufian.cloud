@@ -47,7 +47,7 @@ export const Navbar = () => {
 
                 <div className="w-1/2 pl-3">
                     <a className="text-gray-900 text-base xl:text-xl no-underline hover:no-underline font-bold" href="#">
-                        <i className="fas fa-sun text-pink-600 pr-3"></i> Admin Day Mode
+                        <i className="fas fa-sun text-pink-600 pr-3"></i>Administrator Dashboard
                     </a>
                 </div>
                 <div className="w-1/2 pr-0">
@@ -64,6 +64,7 @@ export const Navbar = () => {
                             </button>
                             <div id="userMenu" className="bg-white rounded shadow-md mt-2 absolute mt-12 top-0 right-0 min-w-full overflow-auto z-30 invisible">
                                 <ul className="list-reset">
+                                    <li><a href="/" className="px-4 py-2 block text-gray-900 hover:bg-gray-400 no-underline hover:no-underline">Frontend</a></li>
                                     <li><a href="#" className="px-4 py-2 block text-gray-900 hover:bg-gray-400 no-underline hover:no-underline">My account</a></li>
                                     <li><a href="#" className="px-4 py-2 block text-gray-900 hover:bg-gray-400 no-underline hover:no-underline">Notifications</a></li>
                                     <li>

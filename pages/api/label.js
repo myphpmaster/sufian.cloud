@@ -2,7 +2,7 @@ import nextConnect from 'next-connect';
 import middleware from '../../middleware/db';
 
 const handler = nextConnect();
-const col_name = 'submissions';
+const col_name = 'forms';
 
 handler.use(middleware);
 
@@ -63,14 +63,13 @@ handler.get(async (req, res) => {
   */
 
 export async function getDatas(db, keys) {
-    const key = 'data.' + keys
     return db
       .collection(col_name)
       .find(
-        { 'data.age': { '$exists': 1 } },
+        { 'path': 'ieq-poe' },        
         { 
             skip: 0, 
-            projection: { [key]: 1, _id: 0}
+            projection: { components: 1, _id: 0}
         }   
       )
       .sort({ created: -1 })

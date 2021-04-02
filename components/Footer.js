@@ -20,7 +20,7 @@ export const Footer = () => {
             [e.target.name]: !active[e.target.name] 
         }) );
     };
-    
+ 
   return (
     <>
 
@@ -69,6 +69,14 @@ export const Footer = () => {
                                 <li className="my-3 tracking-wide">
                                 <a target="_blank" href="http://spaj.ukm.my/jsb/index.php/jdb/article/view/101">
                                 Post Occupancy Evaluation (POE) and Indoor Environmental Quality Assessment (IEQ): a Case Study of Universiti Teknologi PETRONAS New Academic Complex</a>
+                                </li>
+                                <li className="my-3 tracking-wide">
+                                <a target="_blank" href="https://www.hindawi.com/journals/sp/2020/8813350/">
+                                Automatic NoSQL to Relational Database Transformation with Dynamic Schema Mapping</a>
+                                </li>
+                                <li className="my-3 tracking-wide">
+                                <a target="_blank" href="https://www.theseus.fi/bitstream/handle/10024/153461/Markus_Keinanen.pdf?sequence=4">
+                                Creation of a web service using the MERN stack</a>
                                 </li>
                             </ul>
                             </article>
@@ -138,6 +146,11 @@ export const Footer = () => {
                                 <li className="my-3 tracking-wide">
                                     <a target="_blank" href="https://www.sitepoint.com/premium/books/build-a-blog-with-react-and-next-js/read/1">
                                     Build a Blog with React and Next.js
+                                    </a>
+                                </li>
+                                <li className="my-3 tracking-wide">
+                                    <a target="_blank" href="https://dl.acm.org/doi/10.5555/2621963">
+                                    Node.js, MongoDB, and AngularJS Web Development
                                     </a>
                                 </li>
                             </ul>
@@ -288,6 +301,11 @@ export const Footer = () => {
                                 <li className="my-3 tracking-wide">
                                     <a target="_blank" href="https://www.ssh.com/ssh/command/">
                                         SSH Command
+                                    </a>
+                                </li>
+                                <li className="my-3 tracking-wide">
+                                    <a target="_blank" href="https://www.json.org/json-en.html">
+                                    JavaScript Object Notation (JSON)
                                     </a>
                                 </li>
                             </ul>

@@ -1,59 +1,146 @@
 /*  ./components/AdminContain.js     */
 import React, { useState } from "react";
-import { useSWRInfinite } from "swr";
-import BarGraph from './bar';
+import useSWR, { useSWRInfinite } from "swr";
+import BarChart from './bar';
+import {Bar} from 'react-chartjs-2';
 
 export const Contain = () => {
 
     const fetcher = url => fetch(url).then(res => res.json());
     const PAGE_SIZE = 3;
-    const KEY = 'age';
     
     const { data, error, mutate, size, setSize, isValidating } = useSWRInfinite(
         index =>
-          `/api/charts/?key=${KEY}`,
+          `/api/charts/?key={$index}`,
         fetcher
       );
 
-    const datax = data ? [].concat(...data) : [];
 
-    console.log(datax);
+ /*     
+    const fetcher = (url) => fetch(url).then((res) => res.json());
+    const {data} = useSWR(`/api/charts/?key=age`, fetcher);
+
+ //   console.log(data);
+
+*/
+    const { data: survey } = useSWR(() => '/api/charts/', fetcher)
+
+    const arr = survey ? [].concat(...survey) : [];
+
+    const { data: label } = useSWR(() => '/api/label/', fetcher)
+ //   console.log('ArrLabel =>' + JSON.stringify(label[0]['components'][0]['components'][0]['key']))
+  
+    const objLabel = Object.assign({},label)
+//    console.log('JsonLabel =>' + JSON.stringify(objLabel[0].components[0].components[0]))
+    
+    function getLabel (obj={}) {
+        for (let k in obj){
+
+        }
+    }
+
+    // function to group all data counts
+    function groupArray (arr = []) {
+
+        let map = new Map();
+
+        for (let i = 0; i < arr.length; i++) {
+
+            let obj = arr[i].data
+
+                if( obj instanceof Object ){    
+                                        
+                    for (let k in obj){
+                        
+                        
+                        if ( typeof obj === 'object' && objectSize(obj[k]) > 0 ){
+                            //recursive call to scan property
+                            let recur = obj[k]
+
+                            for (let j in recur){
+                                
+                                const w = JSON.stringify(k+'#'+j+'~'+recur[j]);
+                                if(!map.has(w)){
+
+                                    map.set(w, {
+                                        identity: k+'#'+j+'~'+recur[j],
+                                        count: 1,
+                                    });
+
+                                }else{
+                                    map.get(w).count++;
+                                }
+
+                            }
+
+                        }else if ( typeof obj === 'string' ) {
+ 
+                            const s = JSON.stringify(k+'#'+obj[k]);
+                            if(!map.has(s)){
+
+                                map.set(s, {
+                                    identity: k+'#'+obj[k],
+                                    count: 1,
+                                });
+
+                            }else{
+                                map.get(s).count++;
+                            }
+
+
+                        }
+                    }
+
+                } 
+
+        }
+        const res = Array.from(map.values())
+        return res;
+    };
+    
+    const objectSize = (obj = {}) => {
+        var size = 0, key;
+        if (typeof obj === 'object') {
+          for (key in obj) {
+            if (obj.hasOwnProperty(key)) size++;
+          }
+        } 
+        return size;
+    };
+
+    const results = groupArray(arr);
+//    console.log('Results => ' + JSON.stringify(results));
+
+    let counts = [];
+
+    for (let i = 0; i < results.length; i++) {
+        let identity = results[i]['identity'];
+    }
+
+    for (let k in results){
+                      
+    }
+    
 
     if (error) return (
-        <div className="py-24 bg-gradient-to-r from-indigo-700 to-pink-500 bg-opacity-50">
+        <div className="py-24 bg-gray-200">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">        
-                <div className="px-4 py-5 sm:px-6 text-center text-white text-red-300">
+                <div className="px-4 py-8 sm:px-6 text-center text-3xl tracking-tight font-extrabold text-black">
                     Data not found!
                 </div>
             </div>
         </div>
         )
     if (!data) return (
-        <div className="py-24 bg-gradient-to-r from-indigo-700 to-pink-500 bg-opacity-50">
+        <div className="py-24 bg-gray-200">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">        
-                <div className="px-4 py-5 sm:px-6 text-center text-white text-red-300">
+                <div className="px-4 py-8 sm:px-6 text-center text-3xl tracking-tight font-extrabold text-black">
                     Loading...
                 </div>
             </div>
         </div>
         )    
-    
-    const datas = data ? [].concat(...data) : [];
 
-    var arr = [];
-    Object.keys(data).forEach(function(key) {
-      arr.push(data[key]);
-    });
-
-    const results = [];
-    datas.forEach(function(value, index, array) {
-        // The callback is executed for each element in the array.
-        // `value` is the element itself (equivalent to `array[index]`)
-        // `index` will be the index of the element in the array
-        // `array` is a reference to the array itself (i.e. `data.items` in this case)
-        results.push(value.data);
-    }); 
-    
   const isLoadingInitialData = !data && !error;
   const isLoadingMore =
     isLoadingInitialData ||
@@ -94,8 +181,8 @@ export const Contain = () => {
                                 <div className="rounded p-3 bg-pink-600"><i className="fas fa-users fa-2x fa-fw fa-inverse"></i></div>
                             </div>
                             <div className="flex-1 text-right md:text-center">
-                                <h5 className="font-bold uppercase text-gray-500">Total Users</h5>
-                                <h3 className="font-bold text-3xl">249 <span className="text-pink-500"><i className="fas fa-exchange-alt"></i></span></h3>
+                                <h5 className="font-bold uppercase text-gray-500">Total Respondents</h5>
+                                <h3 className="font-bold text-3xl">{arr.length} <span className="text-pink-500"><i className="fas fa-exchange-alt"></i></span></h3>
                             </div>
                         </div>
                     </div>
@@ -109,7 +196,7 @@ export const Contain = () => {
                                 <div className="rounded p-3 bg-yellow-600"><i className="fas fa-user-plus fa-2x fa-fw fa-inverse"></i></div>
                             </div>
                             <div className="flex-1 text-right md:text-center">
-                                <h5 className="font-bold uppercase text-gray-500">New Users</h5>
+                                <h5 className="font-bold uppercase text-gray-500">New Respondents</h5>
                                 <h3 className="font-bold text-3xl">2 <span className="text-yellow-600"><i className="fas fa-caret-up"></i></span></h3>
                             </div>
                         </div>
@@ -172,10 +259,12 @@ export const Contain = () => {
                     
                     <div className="bg-white border rounded shadow">
                         <div className="border-b p-3">
-                            <h5 className="font-bold uppercase text-gray-600">Graph</h5>
+                            <h5 className="font-bold uppercase text-gray-600">Summary Data Based on Age</h5>
                         </div>
                         <div className="p-5">
-                            <BarGraph />
+                             <div className="relative" style={{width: '100%', height: '500px'}}>
+                                <iframe className="absolute inset-0 w-full h-full" src="/chart/age" frameBorder="0" />
+                            </div>
                         </div>
                     </div>
                     
@@ -185,117 +274,42 @@ export const Contain = () => {
                     
                     <div className="bg-white border rounded shadow">
                         <div className="border-b p-3">
-                            <h5 className="font-bold uppercase text-gray-600">Graph</h5>
+                            <h5 className="font-bold uppercase text-gray-600">Summary Data Based on Gender</h5>
                         </div>
                         <div className="p-5">
-                            <canvas id="chartjs-0" className="chartjs" width="undefined" height="undefined"></canvas>
-                            <script
-                                dangerouslySetInnerHTML={
-                                    {
-                                    __html: `	
-                                    new Chart(document.getElementById("chartjs-0"), {
-                                        "type": "line",
-                                        "data": {
-                                            "labels": ["January", "February", "March", "April", "May", "June", "July"],
-                                            "datasets": [{
-                                                "label": "Views",
-                                                "data": [65, 59, 80, 81, 56, 55, 40],
-                                                "fill": false,
-                                                "borderColor": "rgb(75, 192, 192)",
-                                                "lineTension": 0.1
-                                            }]
-                                        },
-                                        "options": {}
-                                    });
-                                `
-                                }}
-                            />
+                             <div className="relative" style={{width: '100%', height: '500px'}}>
+                                <iframe className="absolute inset-0 w-full h-full" src="/chart/gender" frameBorder="0" />
+                            </div>
                         </div>
                     </div>
                     
                 </div>
 
-                <div className="w-full md:w-1/2 xl:w-1/3 p-3">
+                <div className="w-full md:w-1/2 p-3">
                     
                     <div className="bg-white border rounded shadow">
                         <div className="border-b p-3">
-                            <h5 className="font-bold uppercase text-gray-600">Graph</h5>
+                            <h5 className="font-bold uppercase text-gray-600">Summary Data Based on State</h5>
                         </div>
                         <div className="p-5">
-                            <canvas id="chartjs-1" className="chartjs" width="undefined" height="undefined"></canvas>
-                            <script
-                                dangerouslySetInnerHTML={
-                                    {
-                                    __html: `
-                                    new Chart(document.getElementById("chartjs-1"), {
-                                        "type": "bar",
-                                        "data": {
-                                            "labels": ["January", "February", "March", "April", "May", "June", "July"],
-                                            "datasets": [{
-                                                "label": "Likes",
-                                                "data": [65, 59, 80, 81, 56, 55, 40],
-                                                "fill": false,
-                                                "backgroundColor": ["rgba(255, 99, 132, 0.2)", "rgba(255, 159, 64, 0.2)", "rgba(255, 205, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(54, 162, 235, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(201, 203, 207, 0.2)"],
-                                                "borderColor": ["rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)", "rgb(75, 192, 192)", "rgb(54, 162, 235)", "rgb(153, 102, 255)", "rgb(201, 203, 207)"],
-                                                "borderWidth": 1
-                                            }]
-                                        },
-                                        "options": {
-                                            "scales": {
-                                                "yAxes": [{
-                                                    "ticks": {
-                                                        "beginAtZero": true
-                                                    }
-                                                }]
-                                            }
-                                        }
-                                    });
-                                `
-                                }}
-                            />	
+                             <div className="relative" style={{width: '100%', height: '500px'}}>
+                                <iframe className="absolute inset-0 w-full h-full" src="/chart/state" frameBorder="0" />
+                            </div>
                         </div>
                     </div>
                     
                 </div>
 
-                <div className="w-full md:w-1/2 xl:w-1/3 p-3">
+                <div className="w-full md:w-1/2 p-3">
                     
                     <div className="bg-white border rounded shadow">
                         <div className="border-b p-3">
-                            <h5 className="font-bold uppercase text-gray-600">Graph</h5>
-                        </div>
-                        <div className="p-5"><canvas id="chartjs-4" className="chartjs" width="undefined" height="undefined"></canvas>
-                            <script
-                                dangerouslySetInnerHTML={
-                                    {
-                                    __html: `
-                                    new Chart(document.getElementById("chartjs-4"), {
-                                        "type": "doughnut",
-                                        "data": {
-                                            "labels": ["P1", "P2", "P3"],
-                                            "datasets": [{
-                                                "label": "Issues",
-                                                "data": [300, 50, 100],
-                                                "backgroundColor": ["rgb(255, 99, 132)", "rgb(54, 162, 235)", "rgb(255, 205, 86)"]
-                                            }]
-                                        }
-                                    });
-                                `
-                                }}
-                            />	
-                        </div>
-                    </div>
-                    
-                </div>
-
-                <div className="w-full md:w-1/2 xl:w-1/3 p-3">
-                    
-                    <div className="bg-white border rounded shadow">
-                        <div className="border-b p-3">
-                            <h5 className="font-bold uppercase text-gray-600">Template</h5>
+                            <h5 className="font-bold uppercase text-gray-600">Summary Data Based on Highest Education</h5>
                         </div>
                         <div className="p-5">
-
+                             <div className="relative" style={{width: '100%', height: '500px'}}>
+                                <iframe className="absolute inset-0 w-full h-full" src="/chart/education" frameBorder="0" />
+                            </div>
                         </div>
                     </div>
                     

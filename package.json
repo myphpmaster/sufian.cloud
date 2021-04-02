@@ -11,14 +11,18 @@
     "prod:build": "NODE_ENV=production yarn run build:css && yarn run build"
   },
   "dependencies": {
+    "@formio/react": "^5.0.0-m.5",
     "@headlessui/react": "^0.3.1",
     "autoprefixer": "^10.2.5",
+    "axios": "^0.21.1",
     "chart.js": "^2.9.4",
+    "formiojs": "^4.12.7",
     "fs": "0.0.1-security",
     "isomorphic-unfetch": "^3.1.0",
     "mongodb": "^3.6.5",
     "next": "10.0.5",
     "next-connect": "^0.10.1",
+    "node-stream-zip": "^1.13.2",
     "path": "^0.12.7",
     "postcss": "^8.2.8",
     "postcss-cli": "^8.3.1",
@@ -30,6 +34,8 @@
     "ssri": ">=8.0.1",
     "swr": "^0.5.4",
     "tailwindcss": "^2.0.4",
+    "unfetch": "^4.2.0",
+    "xmlhttprequest": "^1.8.0",
     "yarn": "^1.22.10"
   }
 }

@@ -10,8 +10,7 @@ handler.get(async (req, res) => {
 
     let data = await req.db.collection(col_name)
         .find(
-            { 'path': 'ieq-poe',  },
-            { fields:{components: 1, _id: 0} }
+            { 'path': 'ieq-poe',  }
             )
         .toArray()
         .then(items => { return items })

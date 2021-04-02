@@ -19,15 +19,15 @@ const menus = [
           "url":"/#result"
         },
         {
-          "id":"menu-code",
-          "title":"Source Code",
-          "url":"https://github.com/myphpmaster/sufian.cloud",
-          "target": "_blank"
+          "id":"menu-form",
+          "title":"Form",
+          "target": "_blank",
+          "url":"/form/#form"
         },
         {
-          "id":"menu-sponsor",
-          "title":"Sponsors",
-          "url":"/#sponsor"
+          "id":"menu-admin",
+          "title":"Dashboard",
+          "url":"/admin"
         }
     ];
         

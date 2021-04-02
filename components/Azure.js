@@ -30,6 +30,10 @@ export const Azure = ({isMobileView}) => {
             
         </div>
         <div className="mx-auto px-4 py-5 sm:px-6 text-center w-full">
+            
+            <h2 className="text-xl tracking-tight font-semibold text-gray-400 pb-10">
+                This following services and applications are supporting this project: 
+            </h2>      
             <Carousel
                     additionalTransfrom={0}
                     arrows={false}

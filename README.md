@@ -26,6 +26,15 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
+## Deploy on Azure
+
+1. Setup the Virtual Machine on Azure using at least Standard B1ms (1 vcpus, 2 GiB memory) size. 
+2. Then, SSH to server to configure the environment for [CapROver](https://caprover.com/docs/get-started.html).
+3. Connect to a domain and access the Caprover captain dashboard to add new App using Github repository hook.
+4. Push to Github when ready.
+
+Check 
+
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.

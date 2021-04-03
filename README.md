@@ -1,42 +1,39 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). 
 
-## Getting Started
+The project specially built for [Microsoft Azure Virtual Hackathon 2021](https://discover-ai-with-microsoft.agorize.com/en/challenges/msazurevirtualhack-2021/pages/timeline-and-guidelines?lang=en). Provide innovative solutions in advanced data analytics and AI for a number of booming industries!
 
-First, run the development server:
+## Introduction
 
-```bash
-npm install
-npm run dev
-```
 
-Open [http://localhost:3003](http://localhost:3003) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3003/api/hello](http://localhost:3003/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## Dependencies
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
 ## Deploy on Azure
 
 1. Setup the Virtual Machine on Azure using at least Standard B1ms (1 vcpus, 2 GiB memory) size. 
-2. Then, SSH to server to configure the environment for [CapROver](https://caprover.com/docs/get-started.html).
-3. Connect to a domain and access the Caprover captain dashboard to add new App using Github repository hook.
-4. Push to Github when ready.
+1. Then, SSH to server to configure the environment for [CapROver](https://caprover.com/docs/get-started.html).
+1. Connect to a domain and access the Caprover captain dashboard to add new App using Github repository hook.
+1. Push to Github when ready.
 
-Check 
+#### Development and production websites on Azure:
+
+* [staging.sufian.cloud](https://staging.sufian.cloud)
+* [sufian.cloud](https://sufian.cloud)
+
 
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out the [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+#### Development and production websites on Vercel:
+
+* [nextjs-git-azure-myphpmaster.vercel.app](https://nextjs-git-azure-myphpmaster.vercel.app)
+* [vercel.sufian.cloud](https://vercel.sufian.cloud)
+
+
+

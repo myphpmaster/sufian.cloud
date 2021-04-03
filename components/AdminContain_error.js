@@ -3,10 +3,8 @@ import React, { useState } from "react";
 import useSWR, { useSWRInfinite } from "swr";
 
 export const Contain = () => {
-    
-    const fetcher = url => fetch(url).then(res => res.json());
 
-/*
+    const fetcher = url => fetch(url).then(res => res.json());
     const PAGE_SIZE = 3;
     
     const { data, error, mutate, size, setSize, isValidating } = useSWRInfinite(
@@ -15,7 +13,8 @@ export const Contain = () => {
         fetcher
       );
 
-    if (error) return (
+
+      if (error) return (
         <div className="py-24 bg-gray-200">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">        
                 <div className="px-4 py-8 sm:px-6 text-center text-3xl tracking-tight font-extrabold text-black">
@@ -53,7 +52,7 @@ export const Contain = () => {
     const isReachingEnd =
         isEmpty || (data && data[data.length - 1]?.length < PAGE_SIZE);
     const isRefreshing = isValidating && data && data.length === size;
-*/
+
 
     const { data: survey } = useSWR(() => '/api/charts/', fetcher)
     const arr = survey ? [].concat(...survey) : [];
@@ -218,7 +217,6 @@ export const Contain = () => {
             { /*<!--Divider-->*/ }
             <hr className="border-b-2 border-gray-400 my-8 mx-4" />
 
-            <div className="pb-5 text-2xl font-bold text-center text-black">Summary Data</div>
             { /* <!--Graph Section --> */ }
             <div className="flex flex-row flex-wrap flex-grow mt-2">
 
@@ -226,7 +224,7 @@ export const Contain = () => {
                     
                     <div className="bg-white border rounded shadow">
                         <div className="border-b p-3">
-                            <h5 className="font-bold uppercase text-gray-600 text-center">Age</h5>
+                            <h5 className="font-bold uppercase text-gray-600">Summary Data Based on Age</h5>
                         </div>
                         <div className="p-5">
                              <div className="relative" style={{width: '100%', height: '500px'}}>
@@ -241,7 +239,7 @@ export const Contain = () => {
                     
                     <div className="bg-white border rounded shadow">
                         <div className="border-b p-3">
-                            <h5 className="font-bold uppercase text-gray-600 text-center">Gender</h5>
+                            <h5 className="font-bold uppercase text-gray-600">Summary Data Based on Gender</h5>
                         </div>
                         <div className="p-5">
                              <div className="relative" style={{width: '100%', height: '500px'}}>
@@ -256,7 +254,7 @@ export const Contain = () => {
                     
                     <div className="bg-white border rounded shadow">
                         <div className="border-b p-3">
-                            <h5 className="font-bold uppercase text-gray-600 text-center">State</h5>
+                            <h5 className="font-bold uppercase text-gray-600">Summary Data Based on State</h5>
                         </div>
                         <div className="p-5">
                              <div className="relative" style={{width: '100%', height: '500px'}}>
@@ -271,7 +269,7 @@ export const Contain = () => {
                     
                     <div className="bg-white border rounded shadow">
                         <div className="border-b p-3">
-                            <h5 className="font-bold uppercase text-gray-600 text-center">Highest Education</h5>
+                            <h5 className="font-bold uppercase text-gray-600">Summary Data Based on Highest Education</h5>
                         </div>
                         <div className="p-5">
                              <div className="relative" style={{width: '100%', height: '500px'}}>
@@ -286,38 +284,11 @@ export const Contain = () => {
                     
                     <div className="bg-white border rounded shadow">
                         <div className="border-b p-3">
-                            <h5 className="font-bold uppercase text-gray-600 text-center">Table</h5>
+                            <h5 className="font-bold uppercase text-gray-600">Latest Data</h5>
                         </div>
-                        <div className="p-5">
-                            <table className="w-full p-5 text-gray-700">
-                                <thead>
-                                    <tr>
-                                        <th className="text-left text-blue-900">Name</th>
-                                        <th className="text-left text-blue-900">Side</th>
-                                        <th className="text-left text-blue-900">Role</th>
-                                    </tr>
-                                </thead>
+                        <div className="p-3">
 
-                                <tbody>
-                                    <tr>
-                                        <td>Obi Wan Kenobi</td>
-                                        <td>Light</td>
-                                        <td>Jedi</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Greedo</td>
-                                        <td>South</td>
-                                        <td>Scumbag</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Darth Vader</td>
-                                        <td>Dark</td>
-                                        <td>Sith</td>
-                                    </tr>
-                                </tbody>
-                            </table>
 
-                            <p className="py-2"><a href="#">See More issues...</a></p>
 
                         </div>
                     </div>

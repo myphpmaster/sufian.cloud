@@ -72,7 +72,7 @@ export const Result = () => {
             </p>
         </div>
         
-    { results.map( (val, index) => (
+        { results.map( (val, index) => (
         <div key={index} className="pb-10 border-gray-200 px-4">
             <dl>
             <div className="text-center bg-gray-200 px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">

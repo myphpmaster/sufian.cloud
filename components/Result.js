@@ -57,7 +57,7 @@ export const Result = () => {
   return (
     <>
 
-<div id="result" className="py-24 bg-gradient-to-r from-indigo-700 to-pink-500 bg-opacity-50">
+<div id="result" className="py-24 animate-gradient bg-gradient-to-r from-indigo-800 to-pink-800 bg-opacity-50">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="px-4 py-5 sm:px-6">

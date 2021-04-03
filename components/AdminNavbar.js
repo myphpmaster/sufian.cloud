@@ -47,7 +47,7 @@ export const Navbar = () => {
 
                 <div className="w-1/2 pl-3">
                     <a className="text-gray-900 text-base xl:text-xl no-underline hover:no-underline font-bold" href="/admin">
-                        <i className="fas fa-sun text-pink-600 pr-3"></i>Dashboard
+                        <i className="fas fa-cloud text-pink-600 pr-3"></i>Dashboard
                     </a>
                 </div>
                 <div className="w-1/2 pr-0">

@@ -16,7 +16,6 @@
     "autoprefixer": "^10.2.5",
     "axios": "^0.21.1",
     "chart.js": "^2.9.4",
-    "formiojs": "^4.12.7",
     "fs": "0.0.1-security",
     "isomorphic-unfetch": "^3.1.0",
     "mongodb": "^3.6.5",

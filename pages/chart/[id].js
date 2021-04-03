@@ -15,6 +15,21 @@ const BarChart = () => {
   const arr = survey ? [].concat(...survey) : [];
   const results = groupArray(arr);
 
+  // Sorting based on values 
+  results.sort(function(a, b) {
+    var valueA, valueB;
+
+    valueA = a['identity']; // Where 1 is your index, from your example
+    valueB = b['identity'];
+    if (valueA < valueB) {
+        return -1;
+    }
+    else if (valueA > valueB) {
+        return 1;
+    }
+    return 0;
+  });
+
   const labels = [];
   const values = [];
 

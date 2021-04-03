@@ -27,7 +27,6 @@ module.exports = {
           jQuery: 'jquery',
           'window.jQuery': 'jquery'
       }))
-
       
       // Important: return the modified config
       return config;

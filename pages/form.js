@@ -75,7 +75,7 @@ export default function Home() {
                             console.log(submission);
                             setTimeout(function(){ 
                                 document.location.href="/result";
-                            }, 500);
+                            }, 1000);
                         });                    
                     });    
                     setTimeout(function () {
@@ -85,7 +85,7 @@ export default function Home() {
                 jQuery( '.page-link' ).click(function() {
                     setTimeout(function () {
                         $('.pagination .page-item').addClass('lg:w-1/6 w-1/3')
-                     }, 500);
+                     }, 1000);
                     });
                 
 			`

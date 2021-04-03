@@ -21,7 +21,7 @@ export const Hero = () => {
                         
                         <div className="flex my-10">
  
-                            <blockquote className="text-2xl flex flex-wrap flex-col bg-white text-indigo-700 border-l-8 italic border-gray-400 px-4 py-3">
+                            <blockquote className="md:text-2xl text-xl flex flex-wrap flex-col bg-white text-indigo-700 border-l-8 italic border-gray-400 px-4 py-3">
                             “People spend 80-90 per cent of their lives in buildings; living, studying, working, entertaining themselves, consuming and even exercising, which means that the indoor conditions can have a strong imprint on wellbeing, health and productivity.”
 
                                 <span className="flex justify-end text-sm text-indigo-400 font-semibold pt-2 underline ">Wargocki et al (1999)</span>
@@ -41,13 +41,13 @@ export const Hero = () => {
                         </p>
                         <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                             <div className="inline-flex rounded-md shadow sm:w-auto w-full text-center">
-                                <a href="#" className=" sm:w-auto w-full inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
-                                Get started
+                                <a href="/form" target="_blank" className=" sm:w-auto w-full inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
+                                Form
                                 </a>
                             </div>
                             <div className="sm:ml-3 sm:mt-0 mt-5 inline-flex rounded-md shadow sm:w-auto w-full text-center">
-                                <a href="#" className=" sm:w-auto w-full inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-indigo-50">
-                                Learn more
+                                <a href="/admin" className=" sm:w-auto w-full inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-indigo-50">
+                                Dashboard
                                 </a>
                             </div>
                         </div>

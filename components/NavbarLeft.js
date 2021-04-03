@@ -13,15 +13,16 @@ const menus = [
           "title":"Overview",
           "url":"/#overview"
         },
-       {
-          "id":"menu-result",
-          "title":"Sample",
-          "url":"/#result"
-        },
         {
           "id":"menu-form",
           "title":"Form",
-          "url":"/form"
+          "url":"/form",
+          "target": "_blank"
+        },
+       {
+          "id":"menu-result",
+          "title":"Result",
+          "url":"/result"
         },
         {
           "id":"menu-admin",

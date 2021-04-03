@@ -97,7 +97,7 @@ export const Navbar = () => {
                             </a>
                         </li>
                         <li className="mr-6 my-2 md:my-0">
-                            <a target="_blank" href="https://captain.app.sufian.cloud/net-data-monitor/#menu_system_submenu_cpu;theme=slate" className="block py-1 md:py-3 pl-1 align-middle text-gray-500 no-underline hover:text-gray-900 border-b-2 border-white hover:border-pink-500">
+                            <a target="_blank" href="https://portal.azure.com" className="block py-1 md:py-3 pl-1 align-middle text-gray-500 no-underline hover:text-gray-900 border-b-2 border-white hover:border-pink-500">
                                 <i className="fas fa-server fa-fw mr-3"></i><span className="pb-1 md:pb-0 text-sm">Server Monitoring</span>
                             </a>
                         </li>

@@ -1,6 +1,7 @@
 /*  ./pages/result.js     */
 import Head from 'next/head'
 import { Hero } from '../components/Hero';
+import { Result } from '../components/Result';
 import { Footer } from '../components/Footer';
 import React, { Component, Suspense } from 'react'
 import axios from 'axios'
@@ -23,7 +24,7 @@ export default function Survey(props) {
 			<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossOrigin="anonymous"></script>
 		</Head>
 		<Hero /> 
-
+		<Result />
 		<Footer /> 
     </>
   )

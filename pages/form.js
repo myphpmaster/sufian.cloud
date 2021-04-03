@@ -1,6 +1,6 @@
 /*  ./pages/result.js     */
 import Head from 'next/head'
-import { Hero } from '../components/Hero';
+import { Hero } from '../components/HeroForm';
 import { Footer } from '../components/Footer';
 
 export default function Home() {
@@ -21,6 +21,40 @@ export default function Home() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">        
                 <div className="px-4 py-5 sm:px-6 text-center">
                     <div id="myform"></div>
+                <style global jsx>{`
+                       #myform .wizard-page {
+                           text-align: left;
+                       }
+                       .formio-component {
+                           margin: 20px 0;
+                       }
+                       .formio-component h3 {
+                           font-size: 25px;
+                           font-weight: bold;
+                           margin-top: 15px;
+                       }
+                       [ref="wrapper"] {
+                           padding-top: 10px;
+                       }
+                       
+                       .table,                       
+                       .table  thead,                       
+                       .table  thead th,
+                        .table  thead th td {
+                            vertical-align: middle;
+                            
+                        }
+                        
+                        @media screen and (max-width: 500px) {
+                            .table  thead th {
+                            vertical-align: bottom;
+                            max-width: 15px;
+                            transform: translate(-77px, 80px) rotate(-90deg);
+                            white-space: nowrap;
+                            height: 200px;
+                            }
+                        }
+                `}</style>
                 </div>
             </div>
         </div>

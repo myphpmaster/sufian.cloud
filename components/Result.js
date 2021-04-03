@@ -16,7 +16,7 @@ export const Result = () => {
 
 
     if (error) return (
-        <div className="py-24 bg-gradient-to-r from-indigo-700 to-pink-500 bg-opacity-50 flex min-h-screen">
+        <div className="py-24 bg-gradient-to-r from-indigo-700 to-pink-500 bg-opacity-50 min-h-screen">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">        
                 <div className="px-4 py-5 sm:px-6 text-center text-white text-red-300">
                     Data not found!
@@ -25,7 +25,7 @@ export const Result = () => {
         </div>
         )
     if (!data) return (
-        <div className="py-24 bg-gradient-to-r from-indigo-700 to-pink-500 bg-opacity-50 flex min-h-screen">
+        <div className="py-24 bg-gradient-to-r from-indigo-700 to-pink-500 bg-opacity-50 min-h-screen">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">        
                 <div className="px-4 py-5 sm:px-6 text-center text-white text-red-300">
                     Loading...
@@ -57,7 +57,7 @@ export const Result = () => {
   return (
     <>
 
-<div id="result" className="py-24 animate-gradient bg-gradient-to-r from-indigo-800 to-pink-800 bg-opacity-50 flex min-h-screen">
+<div id="result" className="py-24 animate-gradient bg-gradient-to-r from-indigo-800 to-pink-800 bg-opacity-50 min-h-screen">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="px-4 py-5 sm:px-6">

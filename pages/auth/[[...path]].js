@@ -1,7 +1,6 @@
 // pages/auth/[[...path]].js 
 import Head from 'next/head'
 import React, { useEffect } from 'react'
-import styles from '../../styles/Home.module.css'
 import dynamic from 'next/dynamic'
 import SuperTokens from 'supertokens-auth-react'
 
@@ -23,13 +22,13 @@ export default function Auth() {
   }, [])
 
   return (
-    <div className={styles.container}>
+    <div className="container">
       <Head>
         <title>SuperTokens 💫</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
+      <main className="main">
         <SuperTokensComponentNoSSR />
       </main>
     </div>

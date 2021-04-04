@@ -65,6 +65,3 @@ Check out the [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 * [nextjs-git-azure-myphpmaster.vercel.app](https://nextjs-git-azure-myphpmaster.vercel.app)
 * [vercel.sufian.cloud](https://vercel.sufian.cloud)
-
-
-

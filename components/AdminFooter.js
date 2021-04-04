@@ -58,7 +58,7 @@ export const Footer = () => {
                         <ul className="list-reset items-center text-sm pt-3">
                             
                         { menus.map( (menu, index) => ( 
-                            <li className="inline-block pr-5">
+                            <li key={index} className="inline-block pr-5">
                                 <Link key={index} href={menu.url}>
                                     <a id={menu.id}  target={menu.target ? menu.target : `_self`}
                                             className="inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-1">

@@ -4,18 +4,37 @@ import { Navbar } from '../components/AdminNavbar';
 import { Contain } from '../components/AdminContain';
 import { Footer } from '../components/AdminFooter';
 import React, { Component } from 'react'
-import { connectToDatabase } from '../util/mongodb'
+import { signIn, signOut, useSession } from 'next-auth/client'
+import Login from '../components/AdminLogin';
+import { useState, useEffect } from 'react'
 
-export default function Admin({dataResult, dataSchema, total, summary, isConnected}) {
+export default function Admin() {
 
+	const [ session, loading ] = useSession()
+	const [ content , setContent ] = useState()
+  
+	// Fetch content from protected route
+	useEffect(()=>{
+	  const fetchData = async () => {
+		const res = await fetch('/api/sccount/protected')
+		const json = await res.json()
+		if (json.content) { setContent(json.content) }
+	  }
+	  fetchData()
+	},[session])
+  
+	// When rendering client side don't display anything until loading is complete
+	if (typeof window !== 'undefined' && loading) return null
+  
+	// If no session exists, display access denied message
+	if (!session) { return (<Login />)}
+  
   return (
     <>
 		<Head>
 			<title>IEQ POE Online System - Administrator</title>
 			<link rel="icon" href="/favicon.ico" />		
-            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous"></link>
-			<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossOrigin="anonymous"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js" integrity="sha256-XF29CBwU1MWLaGEnsELogU6Y6rcc5nCkhhx89nFMIDQ=" crossorigin="anonymous"></script>
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossOrigin="anonymous" />
 		</Head>
 
 		<Navbar />
@@ -25,14 +44,4 @@ export default function Admin({dataResult, dataSchema, total, summary, isConnect
     </>
   )
 }
-
-export async function getServerSideProps(context) {
-	const { client } = await connectToDatabase()
-  
-	const isConnected = await client.isConnected()
-  
-	return {
-	  props: { isConnected },
-	}
-  }
   

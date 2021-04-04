@@ -16,9 +16,9 @@ export default function Home() {
             <script src="https://unpkg.com/formiojs@4.12.7/dist/formio.full.min.js" />	
 		</Head>
 		<Navbar />         
-        <div id="form" className="py-5 bg-gradient-to-r from-indigo-700 to-pink-500 bg-opacity-50 min-h-screen justify-center content-center">
+        <div id="form" className="py-5 md:bg-gradient-to-r md:from-indigo-700 md:to-pink-500 md:bg-opacity-50 bg-gray-100 min-h-screen justify-center content-center">
             <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">        
-                <div className="px-2 py-5 md:py-10 text-center bg-gray-100">
+                <div className="py-5 md:py-10 text-center bg-gray-100">
                     <div id="myform" className="px-2 md:px-10"></div>
                 <style global jsx>{`
                        #myform .wizard-page {

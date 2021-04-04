@@ -182,7 +182,7 @@ export const Contain = () => {
         <div className="w-full px-4 md:px-0 md:mt-8 mb-16 text-gray-800 leading-normal">
 
             {       /*  <!--Console Content-->  */      }
-            <div class="flex flex-wrap">
+            <div className="flex flex-wrap">
 
                 <div className="w-full md:w-1/2 xl:w-1/3 p-3">
                     

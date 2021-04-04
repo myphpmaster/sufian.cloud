@@ -16,7 +16,7 @@ export default function Admin() {
 	// Fetch content from protected route
 	useEffect(()=>{
 	  const fetchData = async () => {
-		const res = await fetch('/api/sccount/protected')
+		const res = await fetch('/api/account/protected')
 		const json = await res.json()
 		if (json.content) { setContent(json.content) }
 	  }

@@ -68,7 +68,7 @@ export async function getDatas(db, limits, skips) {
         { 'data.age': { '$exists': 1 } },
         { 
             skip: skips, 
-            fields:{data: 1, _id: 0}, 
+            projection:{data: 1, _id: 0}, 
             sort:{ _id: -1 }              
         }
    

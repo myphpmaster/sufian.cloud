@@ -13,25 +13,21 @@ const menus = [
           "title":"Overview",
           "url":"/#overview"
         },
+        {
+          "id":"menu-form",
+          "title":"Form",
+          "url":"/form",
+          "target": "_blank"
+        },
        {
-          "id":"menu-data",
+          "id":"menu-result",
           "title":"Result",
-          "url":"/#result"
+          "url":"/result"
         },
         {
-          "id":"menu-report",
-          "title":"Report",
-          "url":"/#report"
-        },
-        {
-          "id":"menu-code",
-          "title":"Source Code",
-          "url":"/#code"
-        },
-        {
-          "id":"menu-slide",
-          "title":"Slide",
-          "url":"/#slide"
+          "id":"menu-admin",
+          "title":"Dashboard",
+          "url":"/admin"
         }
     ];
         
@@ -53,9 +49,9 @@ export const Navbar = () => {
             <nav className="relative flex items-center justify-between sm:h-10 lg:justify-start" aria-label="Global">
                 <div className="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
                     <div className="flex items-center justify-between w-full md:w-auto">
-                    <a href="#">
-                        <span className="sr-only">Workflow</span>
-                        <img className="h-8 w-auto sm:h-10" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" />
+                    <a href="/">
+                        <span className="sr-only">sufian.cloud</span>
+                        <img className="h-8 w-auto sm:h-10" src="/logo.png" />
                     </a>
                     <div className="-mr-2 flex items-center md:hidden">
                         <button onClick={handleClick} type="button" className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500" aria-expanded="false">
@@ -70,11 +66,13 @@ export const Navbar = () => {
                 </div>
                 
                 <div className="hidden md:block md:ml-10 md:pr-4 md:space-x-8">    
-                { menus.map( menu => ( 
-                    <Link key={menu.id} href={menu.url}>
-                    <a id={menu.id} className="font-medium text-gray-500 hover:text-gray-900">
-                        {menu.title}
-                    </a>
+                { menus.map( (menu, index) => ( 
+                    <Link key={index} href={menu.url}>
+                        <a id={menu.id+'-mobile'}  target={menu.target ? menu.target : `_self`}
+                                className={`${ menu.class ? menu.class : '' }
+                                font-medium text-gray-500 hover:text-gray-900`}>
+                            {menu.title}
+                        </a>
                     </Link>
                 ))}
 
@@ -109,9 +107,11 @@ export const Navbar = () => {
                     </div>
                     <div className="px-6 pt-2 pb-3 space-y-1">
                         
-                    { menus.map( (x,menu) => (
-                        <Link key={x} href={menu.url}>
-                        <a id={menu.id+'-mobile'} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
+                    { menus.map( (menu,index) => (
+                        <Link key={index} href={menu.url}>
+                        <a id={menu.id+'-mobile'}  target={menu.target ? menu.target : `_self`}
+                            className={`${ menu.class ? menu.class : '' }
+                             block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50`} >
                             {menu.title}
                         </a>
                         </Link>

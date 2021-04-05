@@ -112,11 +112,12 @@ export const Overview = () => {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
                         </svg>
                         </div>
-                        <p className="ml-16 text-lg leading-6 font-medium text-gray-900">Flexibility of Design</p>
+                        <p className="ml-16 text-lg leading-6 font-medium text-gray-900">Serverless Technology</p>
                     </dt>
                     <dd className="mt-2 ml-16 text-base text-gray-500">
-                    Complex types of surveys can be easily conducted through the Internet. The questionnaire may include more than one type of response format 
-                    in such a way that the respondents would not get discouraged from the changes in the manner they answer the questions.
+                    A cloud computing execution model in which the cloud provider allocates machine resources on demand, taking care of the servers on behalf of their customers. 
+                    Serverless computing does not hold resources in volatile memory; computing is rather done in short bursts with the results persisted to storage. 
+                    When an app is not in use, there are no computing resources allocated to the app.
                     </dd>
                     </div>
 

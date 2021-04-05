@@ -267,7 +267,11 @@ export const Contain = () => {
             { /*<!--Divider-->*/ }
             <hr className="border-b-2 border-gray-400 my-8 mx-4" />
 
-            <div className="pb-5 text-2xl font-bold text-center text-black">Buillding Data</div>
+            <div className="pb-5 text-2xl font-bold text-center text-black">
+                
+                <a href="/admin/">General</a> | <a href="/admin/building">Building</a>
+            
+            </div>
             { /* <!--Graph Section --> */ }
             <div className="flex flex-row flex-wrap flex-grow mt-2">
 

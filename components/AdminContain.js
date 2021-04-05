@@ -165,10 +165,10 @@ export const Contain = () => {
     var today = new Date();
     today.setDate(today.getDate() - diff)
     const { data: latest } = useSWR(() => '/api/latest/?from=' + today.toISOString(), fetcher)
-    console.log(today.toISOString())
+//    console.log(today.toISOString())
 
     var yesterday = new Date();
-    yesterday.setDate(today.getDate() - 2*diff)
+    yesterday.setDate(yesterday.getDate() - 2*diff)
     const { data: lastLatest } = useSWR(() => '/api/latest/?from=' + yesterday.toISOString(), fetcher)
     console.log(yesterday.toISOString())
 
@@ -240,7 +240,7 @@ export const Contain = () => {
                             </div>
                             <div className="flex-1 text-right md:text-center">
                                 <h5 className="font-bold uppercase text-gray-500">New Respondents</h5>
-                                <h3 className="font-bold text-3xl">{latest} <span className="text-yellow-600"><i className={`fas ${difSign}`}></i></span></h3>
+                                <h3 className="font-bold text-3xl">{latest ? latest : '0'} <span className="text-yellow-600"><i className={`fas ${difSign}`}></i></span></h3>
                             </div>
                         </div>
                     </div>

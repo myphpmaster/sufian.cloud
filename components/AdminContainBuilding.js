@@ -161,7 +161,7 @@ export const Contain = () => {
     const { data: count } = useSWR(() => '/api/count/', fetcher)
 
     // Latest entry at least n days   
-    var diff = 2;
+    var diff = 1;
     var today = new Date();
     today.setDate(today.getDate() - diff)
     const { data: latest } = useSWR(() => '/api/latest/?from=' + today.toISOString(), fetcher)
@@ -180,20 +180,6 @@ export const Contain = () => {
         difSign = 'fa-caret-down';
     }
     
-    /* Calculate Server running time */
-    function mongoDate(date) {
-        seconds = Number(seconds);
-        var d = Math.floor(seconds / (3600*24));
-        var h = Math.floor(seconds % (3600*24) / 3600);
-        var m = Math.floor(seconds % 3600 / 60);
-        var s = Math.floor(seconds % 60);
-        
-        var dDisplay = d > 0 ? d + (d == 1 ? " day " : " days ") : "";
-        var hDisplay = h < 10 ? '0' + h + 'h:' : h + 'h:';
-        var mDisplay = m < 10 ? '0' + m + 'm' : m + 'm' ;
-        return dDisplay + hDisplay + mDisplay;
-    }
-
     /* Calculate Server running time */
     function secondsToDhms(seconds) {
         seconds = Number(seconds);
@@ -308,7 +294,7 @@ export const Contain = () => {
                         </div>
                         <div className="p-5">
                              <div className="relative" style={{width: '100%', height: '500px'}}>
-                                <iframe className="absolute inset-0 w-full h-full" src="/chart/polar/buildingCategory" frameBorder="0" />
+                                <iframe className="absolute inset-0 w-full h-full" src="/chart/horizontal/buildingCategory" frameBorder="0" />
                             </div>
                         </div>
                     </div>
@@ -383,7 +369,7 @@ export const Contain = () => {
                         </div>
                         <div className="p-5">
                              <div className="relative" style={{width: '100%', height: '500px'}}>
-                                <iframe className="absolute inset-0 w-full h-full" src="/chart/radar/windowsInUse" frameBorder="0" />
+                                <iframe className="absolute inset-0 w-full h-full" src="/chart/polar/windowsInUse" frameBorder="0" />
                             </div>
                         </div>
                     </div>
@@ -398,7 +384,7 @@ export const Contain = () => {
                         </div>
                         <div className="p-5">
                              <div className="relative" style={{width: '100%', height: '500px'}}>
-                                <iframe className="absolute inset-0 w-full h-full" src="/chart/radar/doorsInUse" frameBorder="0" />
+                                <iframe className="absolute inset-0 w-full h-full" src="/chart/doughnut/doorsInUse" frameBorder="0" />
                             </div>
                         </div>
                     </div>

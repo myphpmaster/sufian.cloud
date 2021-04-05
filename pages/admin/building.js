@@ -1,11 +1,11 @@
 /*  ./pages/admin.js     */
 import Head from 'next/head'
-import { Navbar } from '../components/AdminNavbar';
-import { Contain } from '../components/AdminContain';
-import { Footer } from '../components/AdminFooter';
+import { Navbar } from '../../components/AdminNavbar';
+import { Contain } from '../../components/AdminContainBuilding';
+import { Footer } from '../../components/AdminFooter';
 import React, { Component } from 'react'
 import { signIn, signOut, useSession } from 'next-auth/client'
-import Login from '../components/AdminLogin';
+import Login from '../../components/AdminLogin';
 import { useState, useEffect } from 'react'
 
 export default function Admin() {

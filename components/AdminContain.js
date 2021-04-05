@@ -161,10 +161,11 @@ export const Contain = () => {
     const { data: count } = useSWR(() => '/api/count/', fetcher)
 
     // Latest entry at least n days   
-    var diff = 2;
+    var diff = 1;
     var today = new Date();
     today.setDate(today.getDate() - diff)
     const { data: latest } = useSWR(() => '/api/latest/?from=' + today.toISOString(), fetcher)
+    console.log(today.toISOString())
 
     var yesterday = new Date();
     yesterday.setDate(today.getDate() - 2*diff)
@@ -267,7 +268,11 @@ export const Contain = () => {
             { /*<!--Divider-->*/ }
             <hr className="border-b-2 border-gray-400 my-8 mx-4" />
 
-            <div className="pb-5 text-2xl font-bold text-center text-black">General Data</div>
+            <div className="pb-5 text-2xl font-bold text-center text-black">
+                
+                <a href="/admin/">General</a> | <a href="/admin/building">Building</a>
+            
+            </div>
             { /* <!--Graph Section --> */ }
             <div className="flex flex-row flex-wrap flex-grow mt-2">
 
@@ -469,7 +474,7 @@ export const Contain = () => {
                                     Doors in Use
                                     </dt>
                                     <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                        {val.doorsInUseg}
+                                        {val.doorsInUse}
                                     </dd>
                                 </div>
                                 <div className="bg-gray-200 text-center px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">

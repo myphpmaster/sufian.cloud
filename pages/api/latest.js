@@ -36,7 +36,7 @@ export async function getDatas(db, from) {
     return db
       .collection(col_name)
       .find({ 
-          'data.age': { $exists: 1 }, 
+          'data.gender': { $exists: 1 }, 
           'created': { $gte: from }         
       })
       .sort({ created: -1 })

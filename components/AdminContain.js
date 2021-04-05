@@ -161,18 +161,18 @@ export const Contain = () => {
     const { data: count } = useSWR(() => '/api/count/', fetcher)
 
     // Latest entry at least n days   
-    var diff = 2;
+    var diff = 1;
     var today = new Date();
-    today.setDate(today.getDate() - diff)
-    const { data: latest } = useSWR(() => '/api/latest/?from=' + today.toISOString(), fetcher)
+    today.setDate(today.getDate() - diff).toISOString()
+    const { data: latest } = useSWR(() => '/api/latest/?from=' + today, fetcher)
 //    console.log(today.toISOString())
 
     var yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 2*diff)
-    const { data: lastLatest } = useSWR(() => '/api/latest/?from=' + yesterday.toISOString(), fetcher)
+    yesterday.setDate(yesterday.getDate() - 2*diff).toISOString()
+    const { data: lastLatest } = useSWR(() => '/api/latest/?from=' + yesterday, fetcher)
     console.log(yesterday.toISOString())
 
-    const yesterDay = (lastLatest - latest)/2
+    const yesterDay = lastLatest - latest
     const diffDay = latest - yesterDay
 
     var difSign = 'fa-minus';

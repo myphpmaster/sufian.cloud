@@ -2,7 +2,9 @@
 import Link from 'next/link';
 import { Transition } from '@headlessui/react'
 import React, { useState } from "react";
-const menus = [
+        
+export const Navbar = () => {
+    const menus = [
        {
           "id":"menu-home",
           "title":"Home",
@@ -30,9 +32,6 @@ const menus = [
           "url":"/admin"
         }
     ];
-        
-
-export const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
   
     const handleClick = () => {

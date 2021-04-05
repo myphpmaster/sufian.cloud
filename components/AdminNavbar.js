@@ -3,7 +3,10 @@ import Link from 'next/link';
 import { Transition } from '@headlessui/react'
 import { signIn, signOut, useSession } from 'next-auth/client'
 import React, { useState } from "react";
-const menus = [
+
+export const Navbar = () => {
+
+    const menus = [
        {
           "id":"menu-home",
           "title":"Home",
@@ -32,14 +35,22 @@ const menus = [
         }
     ];
         
+    const [ session, loading ] = useSession()  
 
-export const Navbar = () => {
-    const [isOpen, setIsOpen] = useState(false);
-    const [ session, loading ] = useSession()
-  
-    const handleClick = () => {
-        setIsOpen(!isOpen);
-    };
+    const [isOpen, setIsOpen] = useState({
+        navi: false,   // mobile menu - refer to button name attribute
+        user: false,   // user menu
+        noti: false    // notification
+      });
+    
+      const handleClick = (e) => {
+          setIsOpen(isOpen => ({
+            ...isOpen,
+            [e.target.name]: !isOpen[e.target.name]
+          })
+        );
+      };
+    
 
   return (
     <>
@@ -72,7 +83,7 @@ export const Navbar = () => {
                                     </a>
                             </>}
                             {session && <>
-                            <button onClick={handleClick} id="userButton" className="flex items-center focus:outline-none mr-3">
+                            <button onClick={handleClick} name="user" id="userButton" className="flex items-center focus:outline-none mr-3">
                                 {session.user.image && <img className="w-8 h-8 rounded-full mr-4" src={session.user.image} alt="Avatar of User" />}
                                 <span className="hidden md:inline-block">Hi, {session.user.email || session.user.name} </span>
                                 <svg className="pl-2 h-2" version="1.1" xmlnsXlink="https://www.w3.org/2000/svg" viewBox="0 0 129 129" xlinkHref="https://www.w3.org/1999/xlink" enableBackground="new 0 0 129 129">
@@ -81,11 +92,9 @@ export const Navbar = () => {
                                     </g>
                                 </svg>
                             </button>
-                            <div id="userMenu" className={`${ (isOpen) ? '' : 'invisible' } bg-white rounded shadow-md mt-2 absolute mt-12 top-0 right-0 min-w-full overflow-auto z-30`}>
+                            <div id="userMenu" className={`${ (isOpen.user) ? '' : 'invisible' } bg-white rounded shadow-md mt-2 absolute mt-12 top-0 right-0 min-w-full overflow-auto z-30`}>
                                 <ul className="list-reset">
                                     <li><a href="/" className="px-4 py-2 block text-gray-900 hover:bg-gray-400 no-underline hover:no-underline">Frontend</a></li>
-                                    <li><a href="#" className="px-4 py-2 block text-gray-900 hover:bg-gray-400 no-underline hover:no-underline">My account</a></li>
-                                    <li><a href="#" className="px-4 py-2 block text-gray-900 hover:bg-gray-400 no-underline hover:no-underline">Notifications</a></li>
                                     <li>
                                         <hr className="border-t mx-2 border-gray-400" />
                                     </li>
@@ -107,7 +116,7 @@ export const Navbar = () => {
                         </div>
 
                         <div className="block lg:hidden pr-4">
-                            <button id="nav-toggle" className="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-gray-900 hover:border-teal-500 appearance-none focus:outline-none">
+                            <button onClick={handleClick} name="navi" id="nav-toggle" className="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-gray-900 hover:border-teal-500 appearance-none focus:outline-none">
                                 <svg className="fill-current h-3 w-3" viewBox="0 0 20 20" xmlnsXlink="https://www.w3.org/2000/svg">
                                     <title>Menu</title>
                                     <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
@@ -119,7 +128,7 @@ export const Navbar = () => {
                 </div>
 
 
-                <div className="w-full px-2 flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block mt-2 lg:mt-0 bg-white z-20" id="nav-content">
+                <div className={`${ (isOpen.navi) ? '' : 'hidden' } w-full px-2 flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block mt-2 lg:mt-0 bg-white z-20`} id="nav-content">
                     <ul className="list-reset lg:flex flex-1 items-center px-4 md:px-0">
                         <li className="mr-6 my-2 md:my-0">
                             <a href="/" className="block py-1 md:py-3 pl-1 align-middle text-pink-600 no-underline hover:text-gray-900 border-b-2 border-orange-600 hover:border-orange-600">

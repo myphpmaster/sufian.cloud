@@ -1,11 +1,11 @@
 /*  ./pages/admin.js     */
 import Head from 'next/head'
-import { Navbar } from '../components/AdminNavbar';
-import { Contain } from '../components/AdminContain';
-import { Footer } from '../components/AdminFooter';
+import { Navbar } from '../../components/AdminNavbar';
+import { Contain } from '../../components/AdminContainBuilding';
+import { Footer } from '../../components/AdminFooter';
 import React, { Component } from 'react'
 import { signIn, signOut, useSession } from 'next-auth/client'
-import Login from '../components/AdminLogin';
+import Login from '../../components/AdminLogin';
 import { useState, useEffect } from 'react'
 
 export default function Admin() {
@@ -16,7 +16,7 @@ export default function Admin() {
 	// Fetch content from protected route
 	useEffect(()=>{
 	  const fetchData = async () => {
-		const res = await fetch('/api/sccount/protected')
+		const res = await fetch('/api/account/protected')
 		const json = await res.json()
 		if (json.content) { setContent(json.content) }
 	  }

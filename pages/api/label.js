@@ -65,13 +65,13 @@ handler.get(async (req, res) => {
 export async function getDatas(db, keys) {
     return db
       .collection(col_name)
-      .find(
-        { 'path': 'ieq-poe' },        
-        { 
+      .find({ 
+          'path': 'ieq-poe' 
+      },        
+      { 
             skip: 0, 
             projection: { components: 1, _id: 0}
-        }   
-      )
+      })
       .sort({ created: -1 })
       .toArray()
       .then(items => { return items })

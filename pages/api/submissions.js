@@ -70,8 +70,7 @@ export async function getDatas(db, limits, skips) {
             skip: skips, 
             projection:{data: 1, _id: 0}, 
             sort:{ _id: -1 }              
-        }
-   
+        }   
       )
       .sort({ created: -1 })
       .limit(limits || 5)

@@ -1,5 +1,4 @@
 /*  ./components/Hero.js     */
-
 import { Navbar } from '../components/NavbarLeft';
 
 export const Hero = () => {
@@ -12,7 +11,7 @@ export const Hero = () => {
 
                 <Navbar />    
 
-                <main className="min-h-screen items-center flex mx-auto max-w-7xl px-4 mt-0 sm:px-6 lg:px-8 justify-center" style={{ 'minHeight':'calc(100vh - 64px)'}}>
+                <main className="py-10 min-h-screen items-center flex mx-auto max-w-7xl px-4 mt-0 sm:px-6 lg:px-8 justify-center" style={{ 'minHeight':'calc(100vh - 64px)'}}>
                     <div className="sm:text-center lg:text-left px-4">
                         <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
                             <span className="block xl:inline">IEQ Post Occupancy </span>

@@ -172,7 +172,7 @@ export const Contain = () => {
     yesterday.setDate(yesterday.getDate() - 2*diff)
     yesterday.toISOString()
     const { data: lastLatest } = useSWR(() => '/api/latest/?from=' + yesterday, fetcher)
-    console.log(lasstLatest)
+    console.log(lastLatest)
 
     const yesterDay = lastLatest - latest
     const diffDay = latest - yesterDay

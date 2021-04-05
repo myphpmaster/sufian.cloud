@@ -163,12 +163,14 @@ export const Contain = () => {
     // Latest entry at least n days   
     var diff = 1;
     var today = new Date();
-    today.setDate(today.getDate() - diff).toISOString()
+    today.setDate(today.getDate() - diff)
+    today.toISOString()
     const { data: latest } = useSWR(() => '/api/latest/?from=' + today, fetcher)
 //    console.log(today.toISOString())
 
     var yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 2*diff).toISOString()
+    yesterday.setDate(yesterday.getDate() - 2*diff)
+    yesterday.toISOString()
     const { data: lastLatest } = useSWR(() => '/api/latest/?from=' + yesterday, fetcher)
     console.log(yesterday.toISOString())
 

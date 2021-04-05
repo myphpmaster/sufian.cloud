@@ -128,7 +128,7 @@ export const Navbar = () => {
                 </div>
 
 
-                <div className={`${ (isOpen.a) ? '' : 'hidden' } w-full px-2 flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block mt-2 lg:mt-0 bg-white z-20`} id="nav-content">
+                <div className={`${ (isOpen.a) ? '' : 'hidden' } w-full px-2 flex-grow lg:flex lg:items-center lg:w-auto lg:block mt-2 lg:mt-0 bg-white z-20`} id="nav-content">
                     <ul className="list-reset lg:flex flex-1 items-center px-4 md:px-0">
                         <li className="mr-6 my-2 md:my-0">
                             <a href="/" className="block py-1 md:py-3 pl-1 align-middle text-pink-600 no-underline hover:text-gray-900 border-b-2 border-orange-600 hover:border-orange-600">

@@ -83,7 +83,7 @@ export const Navbar = () => {
                                     </a>
                             </>}
                             {session && <>
-                            <button onClick={handleClick} name="user" id="userButton" className="flex items-center focus:outline-none mr-3">
+                            <button onClick={handleClick} name="b" id="userButton" className="flex items-center focus:outline-none mr-3">
                                 {session.user.image && <img className="w-8 h-8 rounded-full mr-4" src={session.user.image} alt="Avatar of User" />}
                                 <span className="hidden md:inline-block">Hi, {session.user.email || session.user.name} </span>
                                 <svg className="pl-2 h-2" version="1.1" xmlnsXlink="https://www.w3.org/2000/svg" viewBox="0 0 129 129" xlinkHref="https://www.w3.org/1999/xlink" enableBackground="new 0 0 129 129">
@@ -116,7 +116,7 @@ export const Navbar = () => {
                         </div>
 
                         <div className="block lg:hidden pr-4">
-                            <button onClick={handleClick} name="navi" id="nav-toggle" className="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-gray-900 hover:border-teal-500 appearance-none focus:outline-none">
+                            <button onClick={handleClick} name="a" id="nav-toggle" className="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-gray-900 hover:border-teal-500 appearance-none focus:outline-none">
                                 <svg className="fill-current h-3 w-3" viewBox="0 0 20 20" xmlnsXlink="https://www.w3.org/2000/svg">
                                     <title>Menu</title>
                                     <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />

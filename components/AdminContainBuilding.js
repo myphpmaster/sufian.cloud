@@ -238,7 +238,7 @@ export const Contain = () => {
                             </div>
                             <div className="flex-1 text-right md:text-center">
                                 <h5 className="font-bold uppercase text-gray-500">New Respondents</h5>
-                                <h3 className="font-bold text-3xl">{latest ? latest : '0'} <span className="text-yellow-600"><i className={`fas ${difSign}`}></i></span></h3>
+                                <h3 className="font-bold text-3xl">{latest} <span className="text-yellow-600"><i className={`fas ${difSign}`}></i></span></h3>
                             </div>
                         </div>
                     </div>

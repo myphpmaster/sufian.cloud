@@ -15,7 +15,7 @@ handler.get(async (req, res) => {
 
     const from = req.query.from ? new Date(req.query.from) : today
 
-//    console.log(from)
+    console.log(from)
     
     const data = await getDatas(      
         req.db,

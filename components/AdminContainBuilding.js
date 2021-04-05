@@ -181,6 +181,20 @@ export const Contain = () => {
     }
     
     /* Calculate Server running time */
+    function mongoDate(date) {
+        seconds = Number(seconds);
+        var d = Math.floor(seconds / (3600*24));
+        var h = Math.floor(seconds % (3600*24) / 3600);
+        var m = Math.floor(seconds % 3600 / 60);
+        var s = Math.floor(seconds % 60);
+        
+        var dDisplay = d > 0 ? d + (d == 1 ? " day " : " days ") : "";
+        var hDisplay = h < 10 ? '0' + h + 'h:' : h + 'h:';
+        var mDisplay = m < 10 ? '0' + m + 'm' : m + 'm' ;
+        return dDisplay + hDisplay + mDisplay;
+    }
+
+    /* Calculate Server running time */
     function secondsToDhms(seconds) {
         seconds = Number(seconds);
         var d = Math.floor(seconds / (3600*24));
@@ -267,7 +281,7 @@ export const Contain = () => {
             { /*<!--Divider-->*/ }
             <hr className="border-b-2 border-gray-400 my-8 mx-4" />
 
-            <div className="pb-5 text-2xl font-bold text-center text-black">General Data</div>
+            <div className="pb-5 text-2xl font-bold text-center text-black">Buillding Data</div>
             { /* <!--Graph Section --> */ }
             <div className="flex flex-row flex-wrap flex-grow mt-2">
 
@@ -275,11 +289,11 @@ export const Contain = () => {
                     
                     <div className="bg-white border rounded shadow">
                         <div className="border-b p-3">
-                            <h5 className="font-bold uppercase text-gray-600 text-center">Age</h5>
+                            <h5 className="font-bold uppercase text-gray-600 text-center">State</h5>
                         </div>
                         <div className="p-5">
                              <div className="relative" style={{width: '100%', height: '500px'}}>
-                                <iframe className="absolute inset-0 w-full h-full" src="/chart/line/age" frameBorder="0" />
+                                <iframe className="absolute inset-0 w-full h-full" src="/chart/state" frameBorder="0" />
                             </div>
                         </div>
                     </div>
@@ -290,11 +304,11 @@ export const Contain = () => {
                     
                     <div className="bg-white border rounded shadow">
                         <div className="border-b p-3">
-                            <h5 className="font-bold uppercase text-gray-600 text-center">Gender</h5>
+                            <h5 className="font-bold uppercase text-gray-600 text-center">Building Category</h5>
                         </div>
                         <div className="p-5">
                              <div className="relative" style={{width: '100%', height: '500px'}}>
-                                <iframe className="absolute inset-0 w-full h-full" src="/chart/polar/gender" frameBorder="0" />
+                                <iframe className="absolute inset-0 w-full h-full" src="/chart/polar/buildingCategory" frameBorder="0" />
                             </div>
                         </div>
                     </div>
@@ -305,11 +319,11 @@ export const Contain = () => {
                     
                     <div className="bg-white border rounded shadow">
                         <div className="border-b p-3">
-                            <h5 className="font-bold uppercase text-gray-600 text-center">Highest Education</h5>
+                            <h5 className="font-bold uppercase text-gray-600 text-center">Location</h5>
                         </div>
                         <div className="p-5">
                              <div className="relative" style={{width: '100%', height: '500px'}}>
-                                <iframe className="absolute inset-0 w-full h-full" src="/chart/doughnut/education" frameBorder="0" />
+                                <iframe className="absolute inset-0 w-full h-full" src="/chart/doughnut/location" frameBorder="0" />
                             </div>
                         </div>
                     </div>
@@ -320,11 +334,11 @@ export const Contain = () => {
                     
                     <div className="bg-white border rounded shadow">
                         <div className="border-b p-3">
-                            <h5 className="font-bold uppercase text-gray-600 text-center">Height [cm]</h5>
+                            <h5 className="font-bold uppercase text-gray-600 text-center">Air Conditioning System</h5>
                         </div>
                         <div className="p-5">
                              <div className="relative" style={{width: '100%', height: '500px'}}>
-                                <iframe className="absolute inset-0 w-full h-full" src="/chart/line/height" frameBorder="0" />
+                                <iframe className="absolute inset-0 w-full h-full" src="/chart/pie/airConditioning" frameBorder="0" />
                             </div>
                         </div>
                     </div>
@@ -335,11 +349,56 @@ export const Contain = () => {
                     
                     <div className="bg-white border rounded shadow">
                         <div className="border-b p-3">
-                            <h5 className="font-bold uppercase text-gray-600 text-center">Weight [kg]</h5>
+                            <h5 className="font-bold uppercase text-gray-600 text-center">Blinds in Use</h5>
                         </div>
                         <div className="p-5">
                              <div className="relative" style={{width: '100%', height: '500px'}}>
-                                <iframe className="absolute inset-0 w-full h-full" src="/chart/line/weight" frameBorder="0" />
+                                <iframe className="absolute inset-0 w-full h-full" src="/chart/doughnut/blindsInUse" frameBorder="0" />
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <div className="w-full md:w-1/2 p-3">
+                    
+                    <div className="bg-white border rounded shadow">
+                        <div className="border-b p-3">
+                            <h5 className="font-bold uppercase text-gray-600 text-center">Fan in Use</h5>
+                        </div>
+                        <div className="p-5">
+                             <div className="relative" style={{width: '100%', height: '500px'}}>
+                                <iframe className="absolute inset-0 w-full h-full" src="/chart/pie/fanInUse" frameBorder="0" />
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <div className="w-full md:w-1/2 p-3">
+                    
+                    <div className="bg-white border rounded shadow">
+                        <div className="border-b p-3">
+                            <h5 className="font-bold uppercase text-gray-600 text-center">Windows in Use</h5>
+                        </div>
+                        <div className="p-5">
+                             <div className="relative" style={{width: '100%', height: '500px'}}>
+                                <iframe className="absolute inset-0 w-full h-full" src="/chart/radar/windowsInUse" frameBorder="0" />
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <div className="w-full md:w-1/2 p-3">
+                    
+                    <div className="bg-white border rounded shadow">
+                        <div className="border-b p-3">
+                            <h5 className="font-bold uppercase text-gray-600 text-center">Doors in Use</h5>
+                        </div>
+                        <div className="p-5">
+                             <div className="relative" style={{width: '100%', height: '500px'}}>
+                                <iframe className="absolute inset-0 w-full h-full" src="/chart/radar/doorsInUse" frameBorder="0" />
                             </div>
                         </div>
                     </div>
@@ -450,7 +509,7 @@ export const Contain = () => {
                                 </div>
                                 <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt className="text-sm font-medium text-gray-500">
-                                    Fan in Use
+                                    Fan in System
                                     </dt>
                                     <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                         {val.fanInUse}
@@ -466,7 +525,7 @@ export const Contain = () => {
                                 </div>
                                 <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt className="text-sm font-medium text-gray-500">
-                                    Doors in Use
+                                    Air Conditioning System
                                     </dt>
                                     <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                         {val.doorsInUseg}

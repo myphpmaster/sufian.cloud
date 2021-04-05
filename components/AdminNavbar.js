@@ -4,7 +4,6 @@ import { Transition } from '@headlessui/react'
 import { signIn, signOut, useSession } from 'next-auth/client'
 import React, { useState } from "react";
 
-
 export const Navbar = () => {
 
     const menus = [

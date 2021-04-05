@@ -15,7 +15,7 @@ handler.get(async (req, res) => {
 
     const from = req.query.from ? new Date(req.query.from) : today
 
-//    console.log(from)
+    console.log(from)
     
     const data = await getDatas(      
         req.db,
@@ -36,9 +36,9 @@ export async function getDatas(db, from) {
     return db
       .collection(col_name)
       .find({ 
-          'data.age': { $exists: 1 }, 
-          'created': { $gte: from } },        
-      )
+          'data.gender': { $exists: 1 }, 
+          'created': { $gte: from }         
+      })
       .sort({ created: -1 })
       .limit(0)
       .toArray()

@@ -20,19 +20,7 @@ export const Navbar = () => {
   };
 
   const menus = [
-/*
-    {
-       "id":"menu-home",
-       "title":"Home",
-       "url":"/",
-       "class": "bg-gray-900 text-white px-3 py-2 rounded-md text-sm"
-    },
-    {
-       "id":"menu-overview",
-       "title":"Overview",
-       "url":"/#overview"
-     },
-*/
+
      {
        "id":"menu-form",
        "title":"Form",
@@ -43,14 +31,8 @@ export const Navbar = () => {
        "id":"menu-result",
        "title":"Result",
        "url":"/result"
-     },
-/*
-     {
-       "id":"menu-admin",
-       "title":"Dashboard",
-       "url":"/admin"
      }
-*/
+     
  ];
      
   return (

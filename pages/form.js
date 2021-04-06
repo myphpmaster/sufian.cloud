@@ -1,14 +1,13 @@
 /*  ./pages/result.js     */
 import Head from 'next/head'
-import React, {useEffect} from 'react';
-import { Navbar } from '../components/Navbar';
+import { Navbar } from '../components/NavbarForm';
 
 export default function Home() {
 
   return (
     <>
 		<Head>
-			<title>IEQ POE Online System - Home</title>
+			<title>IEQ POE Online System - Questionnaire Form</title>
 			<link rel="icon" href="/favicon.ico" />		       
             <link rel="stylesheet" type="text/css" href="https://unpkg.com/formiojs@4.12.7/dist/formio.full.min.css" />
             <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />

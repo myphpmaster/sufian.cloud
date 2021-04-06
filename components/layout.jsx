@@ -1,4 +1,4 @@
-import { Navbar } from '../components/Navbar';
+import { Navbar } from './NavbarFull';
 import React from 'react';
 import Head from 'next/head';
 
@@ -12,6 +12,7 @@ export default function Layout({ children }) {
         `}
       </style>
       <Head />
+      <Navbar />
       <main>{children}</main>
     </>
   );

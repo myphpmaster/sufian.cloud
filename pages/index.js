@@ -3,7 +3,6 @@ import Head from 'next/head'
 import { Hero } from '../components/Hero';
 import { Overview } from '../components/Overview';
 import { Azure } from '../components/Azure';
-import { Result } from '../components/Result';
 import { Footer } from '../components/Footer';
 import React, { Component } from 'react'
 import { connectToDatabase } from '../util/mongodb'

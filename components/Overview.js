@@ -16,7 +16,7 @@ export const Overview = () => {
                 and improving the health and wellbeing of occupants – requires a more comprehensive understanding of how the indoor environments of buildings are operated.
                 </p>
                 <p className="mt-4 max-w-6xl text-lg text-gray-500 lg:mx-auto">
-                This new era of indoor environmental monitoring based upon online system affords a fundamentally new approach to built environmental field research 
+                In this new era of Industrial Revolution 4.0, the indoor environmental monitoring online system affords a fundamentally new approach to built environmental field research 
                 that holds significant promise to improve building performance and indoor environmental quality and occupant satisfaction, health, wellbeing and performance.
                 </p>
                 </div>

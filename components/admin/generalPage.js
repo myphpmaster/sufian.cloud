@@ -159,7 +159,7 @@ export const Contain = () => {
             <hr className="border-b-2 border-gray-400 my-8 mx-4" />
 
             <div className="pb-5 text-2xl font-bold text-center text-black">
-                <a href="/admin/">General</a> | <a href="/admin/building">Building</a>
+                <a href="/admin/" class="text-blue-500">General</a> | <a href="/admin/building">Building</a> | <a href="/admin/thermal">Thermal</a> 
             </div>            
             
             <div className="flex flex-row flex-wrap flex-grow mt-2">

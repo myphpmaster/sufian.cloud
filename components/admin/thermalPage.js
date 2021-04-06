@@ -1,6 +1,6 @@
 /*  ./components/admin/buildingPage.js     */
 import { RespondData } from './respondData';
-import { Chart } from './chart/Building';
+import { Chart } from './chart/Thermal';
 import { Table } from './latestSubmission';
 
 export const Contain = () => {
@@ -16,8 +16,8 @@ export const Contain = () => {
 
             <hr className="border-b-2 border-gray-400 my-8 mx-4" />
 
-            <div className="pb-5 text-2xl font-bold text-center text-black">                
-                <a href="/admin/">General</a> | <a href="/admin/building" class="text-blue-500">Building</a> | <a href="/admin/thermal">Thermal</a> 
+            <div className="pb-5 text-2xl font-bold text-center text-black">
+                <a href="/admin/">General</a> | <a href="/admin/building">Building</a> | <a href="/admin/thermal" class="text-blue-500">Thermal</a>            
             </div>            
 
             <div className="flex flex-row flex-wrap flex-grow mt-2">

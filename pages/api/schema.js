@@ -1,6 +1,6 @@
 import nextConnect from 'next-connect';
 import middleware from '../../middleware/db';
-
+const maxAge = 1 * 24 * 60 * 60;
 const handler = nextConnect();
 const col_name = 'forms';
 
@@ -16,6 +16,10 @@ handler.get(async (req, res) => {
         .then(items => { return items })
         .catch(err => console.error(`Failed to find documents: ${err}`))
 
+    if (data.length > 0) {
+        res.setHeader('cache-control', `public, max-age=${maxAge}`);
+    }
+    
     res.json(data[0]);
 });
 

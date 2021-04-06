@@ -3,9 +3,7 @@ import middleware from '../../middleware/db';
 
 const handler = nextConnect();
 const col_name = 'forms';
-
 handler.use(middleware);
-
 const maxAge = 1 * 24 * 60 * 60;
 
 /*
@@ -35,13 +33,11 @@ handler.get(async (req, res) => {
       req.db,
       key ? key : '',
     );
-  
-    if (req.query.from && data.length > 0) {
-      // This is safe to cache because from defines
-      //  a concrete range of data
+
+  if (data.length > 0) {
       res.setHeader('cache-control', `public, max-age=${maxAge}`);
-    }
-  
+  }
+
     res.json(data);
   });
   

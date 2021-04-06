@@ -156,20 +156,20 @@ export const Contain = () => {
         // `array` is a reference to the array itself (i.e. `datas` in this case)
         results.push(value.data);
     }); 
-    
+   
     // Total respondents
     const { data: count } = useSWR(() => '/api/count/', fetcher)
 
     // Latest entry at least n days   
-    var diff = 1;
+    const diff = 1;
     var today = new Date();
     today.setDate(today.getDate() - diff)
-    today.toISOString()
+    today = today.toISOString().split('T')[0]
     const { data: latest } = useSWR(() => '/api/latest/?from=' + today, fetcher)
-    console.log(latest)
 
     var yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 2*diff)
+    yesterday = yesterday.toISOString().split('T')[0]
     const { data: lastLatest } = useSWR(() => '/api/latest/?from=' + yesterday, fetcher)
 
     const yesterDay = lastLatest - latest

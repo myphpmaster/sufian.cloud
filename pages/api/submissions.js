@@ -1,11 +1,8 @@
 import nextConnect from 'next-connect';
 import middleware from '../../middleware/db';
-
 const handler = nextConnect();
 const col_name = 'submissions';
-
 handler.use(middleware);
-
 const maxAge = 1 * 24 * 60 * 60;
 
 /*
@@ -35,7 +32,7 @@ handler.get(async (req, res) => {
       req.query.skip ? parseInt(req.query.skip, 0) : req.query.limit*(req.query.page-1),
     );
   
-    if (req.query.from && data.length > 0) {
+    if (req.query.skip && data.length > 0) {
       // This is safe to cache because from defines
       //  a concrete range of data
       res.setHeader('cache-control', `public, max-age=${maxAge}`);

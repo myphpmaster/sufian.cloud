@@ -1,4 +1,4 @@
-/*  ./components/AdminLogin.js     */
+/*  ./components/admin/login.js     */
 import { signIn } from 'next-auth/client'
 
 export default function Login () {

@@ -36,7 +36,7 @@ handler.get(async (req, res) => {
       key ? key : '',
     );
   
-    if (req.query.from && data.length > 0) {
+    if (req.query.key && data.length > 0) {
       // This is safe to cache because from defines
       //  a concrete range of data
       res.setHeader('cache-control', `public, max-age=${maxAge}`);

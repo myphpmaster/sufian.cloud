@@ -1,5 +1,5 @@
 /*  ./components/admin/chart/General.js     */
-export const Chart = () => {
+export const General = () => {
     
   return (
 

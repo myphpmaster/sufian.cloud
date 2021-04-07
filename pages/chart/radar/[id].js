@@ -1,7 +1,7 @@
 /*  ./chart/multiline/[id].js     */
 import React, { useState } from "react";
 import useSWR, { useSWRInfinite } from "swr";
-import { Line } from 'react-chartjs-2';
+import { Radar, Line } from 'react-chartjs-2';
 import { useRouter } from "next/router";
 
 const Chart = () => {
@@ -35,23 +35,37 @@ const Chart = () => {
         return 0;
   });
 
-  const labels = [];
-  const values = [];
+  var labels = {
+      never: 'Never',
+      rarely: 'Rarely',
+      sometimes: 'Sometimes',
+      often: 'Often',
+      always: 'Always',
+    };
+
+  var values = [];
   var splits = [];
-  var count = 0;
+  var objects = {};
+  var counter = 0;
 
   for (const [key, val] of Object.entries(results)) {
 
-        splits[count] = val.identity.split('~');
-        
-            labels[splits][count][0].push(val.identity);
-            values[splits][count][0].push(val.count);
-        
-        count++;
-  }
+    splits = val.identity.split('~');
 
-  console.log(labels)
-  console.log(values)
+    console.log(splits[0])
+    
+    console.log(splits[1])
+    
+    labels.push(val.identity);
+    values.push(val.count);
+    
+    objects[splits[0]] = val.count;
+
+    counter++;
+}
+
+console.log(labels)
+console.log(JSON.stringify(objects))
 
   var options = {
         responsive: true,
@@ -79,85 +93,40 @@ const Chart = () => {
 
     };
 
-    const checkinsData = {
-        labels: [
-          "4 P.M",
-          "5 P.M",
-          "6 P.M",
-          "7 P.M",
-          "8 P.M",
-          "9 P.M",
-          "10 P.M",
-          "11 P.M",
-          "12 A.M",
-          "1 A.M",
-          "2 A.M",
-          "3 A.M",
-          "4 A.M"
-        ],
-        datasets: [
-          {
-            label: "Day",
-            backgroundColor: "blue",
-            borderColor: "#333",
-            borderWidth: 2,
-            lineTension: 0.1,
-            fill: true,
-            data: [4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3, 4]
-          },
-          {
-            label: "Week",
-            backgroundColor: "green",
-            borderColor: "#333",
-            borderWidth: 2,
-            lineTension: 0.1,
-            fill: true,
-            labels: ["Sun", "Mon", "Tue", "Web", "Thu", "Fri", "Sat"],
-            data: [12, 22, 30, 14, 55, 6, 70]
-          },
-          {
-            label: "Month",
-            backgroundColor: "red",
-            borderColor: "#333",
-            borderWidth: 2,
-            lineTension: 0.1,
-            fill: true,
-            data: [100, 224, 88, 40, 500, 600, 78, 800, 91, 100, 1000, 120]
-          }
-        ]
-      };
-      
-    const sample_data = {
-        labels: ['January', 'February', 'March', 'April'],
-        datasets: [
-        {
-            type: 'bar',
-            label: 'Bar Dataset',
-            data: [10, 20, 30, 40]
-        }, {
-            type: 'line',
-            label: 'Line Dataset',
-            data: [50, 50, 50, 50],
-        }
-        ]
-    }
-  
+    
+const data = {
+    labels: ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'],
+    datasets: [
+      {
+        label: 'My First dataset',
+        backgroundColor: 'rgba(179,181,198,0.2)',
+        borderColor: 'rgba(179,181,198,1)',
+        pointBackgroundColor: 'rgba(179,181,198,1)',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: 'rgba(179,181,198,1)',
+        data: [65, 59, 90, 81, 56, 55, 40]
+      },
+      {
+        label: 'My Second dataset',
+        backgroundColor: 'rgba(255,99,132,0.2)',
+        borderColor: 'rgba(255,99,132,1)',
+        pointBackgroundColor: 'rgba(255,99,132,1)',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: 'rgba(255,99,132,1)',
+        data: [28, 48, 40, 19, 96, 27, 100]
+      }
+    ]
+  };
+
     return (
     <>
       <div width="300" height="400">
         <Line
-            data={checkinsData}
-            options={{
-              title: {
-                text: "Total Check-ins",
-                fontSize: 20,
-                display: true
-              },
-              legend: {
-                display: true,
-                position: "top"
-              }
-            }}
+            data={data}
+            width={750}
+            height={500}
         />          
       </div>
     </>

@@ -19,7 +19,7 @@ export default function Admin() {
 	const [ content , setContent ] = useState()
   
 	const router = useRouter();
-	const slug = router.query.slug || []
+	const slug = router.query.slug ? router.query.slug : 'general'
 
 	const menus = [	
 		{

@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import useSWR from 'swr';
 import Carousel from "react-multi-carousel";
+import Image from 'next/image'
 import "react-multi-carousel/lib/styles.css";
 
 export const Azure = ({isMobileView}) => {
@@ -84,7 +85,14 @@ export const Azure = ({isMobileView}) => {
                     swipeable
                 >
                 { images.map( (imgPath, index) => ( 
-                    <img width="64" height="64" key={index} src={imgPath} alt=""/>
+                
+                <Image
+                key={index}
+                src={decodeURIComponent(imgPath.replace('\\', '\/'))}
+                layout="fixed"
+                width={64}
+                height={64}
+            />
                 ))}
             </Carousel>
         </div>

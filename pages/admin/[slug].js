@@ -5,13 +5,18 @@ import { useRouter } from "next/router";
 import Head from 'next/head'
 import Link from 'next/link';
 import Login from '../../components/admin/login';
+
 import { Navbar } from '../../components/admin/navbar';
 import { RespondData } from '../../components/admin/respondData';
-import { General } from '../../components/admin/chart/General';
-import { Building } from '../../components/admin/chart/Building';
-import { Thermal } from '../../components/admin/chart/Thermal';
 import { Table } from '../../components/admin/latestSubmission';
 import { Footer } from '../../components/admin/footer';
+
+import { Chart as General } from '../../components/admin/chart/General';
+import { Chart as Building } from '../../components/admin/chart/Building';
+import { Chart as Thermal } from '../../components/admin/chart/Thermal';
+import { Chart as Acoustic } from '../../components/admin/chart/Acoustic';
+import { Chart as Visual } from '../../components/admin/chart/Visual';
+import { Chart as SBS } from '../../components/admin/chart/SBS';
 
 export default function Admin() {
 
@@ -19,7 +24,7 @@ export default function Admin() {
 	const [ content , setContent ] = useState()
   
 	const router = useRouter();
-	const slug = router.query.slug ? router.query.slug : 'general'
+	const slug = router.query.slug
 
 	const menus = [	
 		{
@@ -36,6 +41,21 @@ export default function Admin() {
 			"id":"thermal",
 			"title":"Thermal",
 			"url":"/admin/thermal",
+		},
+		{
+			"id":"acoustic",
+			"title":"Acoustic",
+			"url":"/admin/acoustic",
+		},
+		{
+			"id":"visual",
+			"title":"Visual",
+			"url":"/admin/visual",
+		},
+		{
+			"id":"sbs",
+			"title":"SBS",
+			"url":"/admin/sbs",
 		},
 	];
 	
@@ -73,16 +93,18 @@ export default function Admin() {
 				<hr className="border-b-2 border-gray-400 my-8 mx-4" />
 
 				<div className="pb-5 text-2xl font-bold text-center text-black">					
-					<nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+					<nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
 
 					{ menus.map( (menu, index) => ( 
+					<>
 						<Link key={index} href={menu.url}>
 						<a id={menu.id}
-							className={`${ menu.id==slug ? 'bg-blue-100 hover:bg-blue-50' : 'bg-gray-50 hover:bg-gray-150' }
-							relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700 `}>
+							className={`${ menu.id==slug ? 'bg-blue-100' : 'bg-gray-50' }
+							relative inline-flex items-center px-4 py-2 border border-gray-300 hover:bg-gray-200 text-sm font-medium text-gray-700 `}>
 							{menu.title}
 						</a>
 						</Link>
+					</>
 					))}
 					
 					</nav>
@@ -100,6 +122,18 @@ export default function Admin() {
 
 					{ (slug==='thermal') && <>
 						<Thermal />
+					</>}
+
+					{ (slug==='acoustic') && <>
+						<Acoustic />
+					</>}
+
+					{ (slug==='visual') && <>
+						<Visual />
+					</>}
+
+					{ (slug==='sbs') && <>
+						<SBS />
 					</>}
 
 					<Table />

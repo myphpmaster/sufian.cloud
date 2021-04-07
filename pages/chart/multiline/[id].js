@@ -1,10 +1,10 @@
 /*  ./chart/multiline/[id].js     */
 import React, { useState } from "react";
 import useSWR, { useSWRInfinite } from "swr";
-import {Line} from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 import { useRouter } from "next/router";
 
-const BarChart = () => {
+const Chart = () => {
 
   const router = useRouter();
   const key = router.query.id
@@ -37,11 +37,21 @@ const BarChart = () => {
 
   const labels = [];
   const values = [];
+  var splits = [];
+  var count = 0;
 
   for (const [key, val] of Object.entries(results)) {
-        labels.push(val.identity);
-        values.push(val.count);
+
+        splits[count] = val.identity.split('~');
+        
+            labels[splits][count][0].push(val.identity);
+            values[splits][count][0].push(val.count);
+        
+        count++;
   }
+
+  console.log(labels)
+  console.log(values)
 
   var options = {
         responsive: true,
@@ -69,65 +79,88 @@ const BarChart = () => {
 
     };
 
-    const sample_data = {
-        labels: labels,
+    const checkinsData = {
+        labels: [
+          "4 P.M",
+          "5 P.M",
+          "6 P.M",
+          "7 P.M",
+          "8 P.M",
+          "9 P.M",
+          "10 P.M",
+          "11 P.M",
+          "12 A.M",
+          "1 A.M",
+          "2 A.M",
+          "3 A.M",
+          "4 A.M"
+        ],
         datasets: [
-            {
-                data: values,
-                label: '# of Respondents',
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                hoverBackgroundColor: [
-                    'rgba(255, 99, 132, 0.8)',
-                    'rgba(54, 162, 235, 0.8)',
-                    'rgba(255, 206, 86, 0.8)',
-                    'rgba(75, 192, 192, 0.8)',
-                    'rgba(153, 102, 255, 0.8)',
-                    'rgba(255, 159, 64, 0.8)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1,
-                borderCapStyle: 'butt',
-                borderDash: [],
-                borderDashOffset: 0.0,
-                borderJoinStyle: 'miter',
-                pointBorderColor: 'rgba(75,192,192,1)',
-                pointBackgroundColor: '#fff',
-                pointBorderWidth: 1,
-                pointHoverRadius: 5,
-                pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-                pointHoverBorderColor: 'rgba(220,220,220,1)',
-                pointHoverBorderWidth: 2,
-                pointRadius: 1,
-                pointHitRadius: 10,
-            }
+          {
+            label: "Day",
+            backgroundColor: "blue",
+            borderColor: "#333",
+            borderWidth: 2,
+            lineTension: 0.1,
+            fill: true,
+            data: [4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3, 4]
+          },
+          {
+            label: "Week",
+            backgroundColor: "green",
+            borderColor: "#333",
+            borderWidth: 2,
+            lineTension: 0.1,
+            fill: true,
+            labels: ["Sun", "Mon", "Tue", "Web", "Thu", "Fri", "Sat"],
+            data: [12, 22, 30, 14, 55, 6, 70]
+          },
+          {
+            label: "Month",
+            backgroundColor: "red",
+            borderColor: "#333",
+            borderWidth: 2,
+            lineTension: 0.1,
+            fill: true,
+            data: [100, 224, 88, 40, 500, 600, 78, 800, 91, 100, 1000, 120]
+          }
+        ]
+      };
+      
+    const sample_data = {
+        labels: ['January', 'February', 'March', 'April'],
+        datasets: [
+        {
+            type: 'bar',
+            label: 'Bar Dataset',
+            data: [10, 20, 30, 40]
+        }, {
+            type: 'line',
+            label: 'Line Dataset',
+            data: [50, 50, 50, 50],
+        }
         ]
     }
   
     return (
-      <>
+    <>
       <div width="300" height="400">
         <Line
-            data={sample_data}
-            width={750}
-            height={500}
-            options={options}
+            data={checkinsData}
+            options={{
+              title: {
+                text: "Total Check-ins",
+                fontSize: 20,
+                display: true
+              },
+              legend: {
+                display: true,
+                position: "top"
+              }
+            }}
         />          
       </div>
-      </>
+    </>
     );
     
 };
@@ -282,4 +315,4 @@ const objectSize = (obj = {}) => {
     return size;
 };
 
-export default BarChart
+export default Chart

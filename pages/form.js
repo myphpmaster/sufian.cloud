@@ -1,8 +1,8 @@
-/*  ./pages/result.js     */
+/*  ./pages/form.js     */
 import Head from 'next/head'
 import { Navbar } from '../components/NavbarForm';
 
-export default function Home() {
+export default function Form() {
 
   return (
     <>

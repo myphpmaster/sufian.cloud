@@ -29,7 +29,7 @@ export const Navbar = () => {
         {
           "id":"menu-admin",
           "title":"Dashboard",
-          "url":"/admin"
+          "url":"/admin/general"
         }
     ];
     const [isOpen, setIsOpen] = useState(false);

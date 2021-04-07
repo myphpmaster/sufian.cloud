@@ -1,5 +1,5 @@
 /*  ./components/admin/chart/Thermal.js     */
-export const Thermal = () => {
+export const Chart = () => {
     
   return (
 

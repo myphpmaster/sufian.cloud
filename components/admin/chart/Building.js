@@ -1,5 +1,5 @@
 /*  ./components/admin/chart/Building.js     */
-export const Building = () => {
+export const Chart = () => {
         
   return (
 

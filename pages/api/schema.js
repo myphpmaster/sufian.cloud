@@ -23,4 +23,5 @@ handler.get(async (req, res) => {
     res.json(data[0]);
 });
 
+
 export default handler;

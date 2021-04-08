@@ -132,7 +132,7 @@ export const Result = () => {
             </div>
             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
-                Temperature in your work space
+                ASHRAE thermal sensation
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                 <ul className="border border-gray-200 rounded-md divide-y divide-gray-200">
@@ -140,44 +140,22 @@ export const Result = () => {
                     <div className="w-0 flex-1 flex items-center">
 
                         <span className="ml-2 flex-1 w-0 truncate">
-                        Morning (08:00 - 11:00)
+                        Workspace
                         </span>
                     </div>
                     <div className="ml-4 flex-shrink-0">
-                        {val.tempCommon.morning}
+                        {val.ASHRAEthermalsensation.workspace}
                     </div>
                     </li>
                     <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
                         <div className="w-0 flex-1 flex items-center">
 
                             <span className="ml-2 flex-1 w-0 truncate">
-                            Noon (11:00 - 13:00)
+                            Common Area
                             </span>
                         </div>
                         <div className="ml-4 flex-shrink-0">
-                            {val.tempCommon.noon}
-                        </div>
-                    </li>
-                    <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-                        <div className="w-0 flex-1 flex items-center">
-
-                            <span className="ml-2 flex-1 w-0 truncate">
-                            Afternoon (13:00 - 17:00)
-                            </span>
-                        </div>
-                        <div className="ml-4 flex-shrink-0">
-                            {val.tempCommon.afternoon}
-                        </div>
-                    </li>
-                    <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-                        <div className="w-0 flex-1 flex items-center">
-
-                            <span className="ml-2 flex-1 w-0 truncate">
-                            Evening (17:00 - 21:00)
-                            </span>
-                        </div>
-                        <div className="ml-4 flex-shrink-0">
-                            {val.tempCommon.evening}
+                            {val.ASHRAEthermalsensation.commonArea}
                         </div>
                     </li>
                 </ul>

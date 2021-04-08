@@ -100,7 +100,7 @@ export default function Admin() {
 						<Link key={index} href={menu.url}>
 						<a id={menu.id}
 							className={`${ menu.id==slug ? 'bg-blue-100' : 'bg-gray-50' }
-							relative inline-flex items-center px-4 py-2 border border-gray-300 hover:bg-gray-200 text-sm font-medium text-gray-700 `}>
+							w-1/3 md:w-auto relative inline-flex items-center px-4 py-2 border border-gray-300 hover:bg-gray-200 text-sm font-medium text-gray-700 `}>
 							{menu.title}
 						</a>
 						</Link>

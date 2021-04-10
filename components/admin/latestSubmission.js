@@ -43,7 +43,7 @@ export const Table = () => {
                                             </dt>
                                         </div>
                                         
-                                        { renderData(section.components,val) }
+                                        { ReactDOMServer.render(renderData(section.components,val)) }
 
                                     </>
 

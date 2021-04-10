@@ -32,7 +32,8 @@ export default function Admin() {
 			"id":"entry",
 			"title":"Latest Entry",
 			"url":"/admin/entry",
-			"class": 'bg-red-200'
+			"class": 'bg-red-100 w-full',
+			"classActive": 'bg-red-200'
 		},
 		{
 			"id":"general",
@@ -111,7 +112,9 @@ export default function Admin() {
 					<>
 						<Link key={index} href={menu.url}>
 							<a id={menu.id}
-								className={`${ menu.id==slug ? ( menu.class ? menu.class : 'bg-blue-100') : 'bg-gray-50' } inline-block w-1/3 md:w-auto items-center px-4 py-2 border border-gray-300 hover:bg-gray-200 text-sm font-medium text-gray-700`}>
+								className={`${ menu.id==slug ? ( menu.classActive ? menu.classActive : 'bg-blue-100') : 'bg-gray-50' }
+								 hover:${ menu.class ? menu.class : 'bg-blue-50 w-1/3' } inline-block md:w-auto items-center px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700`}>
+								 
 								{menu.title}
 							</a>
 						</Link>

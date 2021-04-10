@@ -82,9 +82,9 @@ function renderData(params, variable, id) {
 
             }
 
-            console.log('objNames => ' + JSON.stringify(objNames) )
-            console.log('objVal => ' + JSON.stringify(objVal) )
-            console.log('newArr => ' + JSON.stringify(newArr) )
+//          console.log('objNames => ' + JSON.stringify(objNames) )
+//          console.log('objVal => ' + JSON.stringify(objVal) )
+//          console.log('newArr => ' + JSON.stringify(newArr) )
 
             return (
                 <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -96,7 +96,7 @@ function renderData(params, variable, id) {
                             
                             { objNames.map( (com, num)=> (    
                                                     
-                                renderSubdata(com, params, newArr, num) 
+                                renderSubdata(com, newArr, num) 
                                 
                             ))}
 
@@ -108,7 +108,7 @@ function renderData(params, variable, id) {
         }
 }
 
-function renderSubdata(params, variable, array, key) {
+function renderSubdata(params, array, key) {
 
 //    console.log( params + variable + array + key )
 

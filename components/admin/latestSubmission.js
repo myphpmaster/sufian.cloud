@@ -113,7 +113,6 @@ function renderSubdata(params, array, key) {
 //    console.log( params + variable + array + key )
 
     return (
-
         
         <li key={key} className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
             <div className="w-0 flex-1 flex items-center">

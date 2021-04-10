@@ -74,7 +74,7 @@ function renderData(params, variable, id) {
             const obj = variable[params.key];
             const objNames = Object.keys(obj);
             const objVal = Object.values(obj);
-            const newArr = []
+            var newArr = []
 
             for (let k in obj){
 
@@ -94,7 +94,7 @@ function renderData(params, variable, id) {
                     <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                         <ul className="border border-gray-200 rounded-md divide-y divide-gray-200">
                             
-                            { newArr.map( (com, num, arr)=> (    
+                            { objNames.map( (com, num, arr)=> (    
                                                     
                                 renderSubdata(com, params, arr, num) 
                                 
@@ -123,7 +123,7 @@ function renderSubdata(params, variable, array, key) {
                 </span>
             </div>
             <div className="ml-4 flex-shrink-0">
-                    {params}
+                    {array[params]}
             </div>
         </li>
 

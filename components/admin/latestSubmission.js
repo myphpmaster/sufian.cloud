@@ -15,6 +15,8 @@ export const Table = () => {
         
     const { data: schem } = useSWR(() => '/api/label', fetcher)
     const schems = schem ? [].concat(...schem) : [];
+
+    console.log(results)
     
   return (
 
@@ -28,7 +30,9 @@ export const Table = () => {
                         </div>
                         <div className="p-5">
                             
-                            <div className="pb-10 border-gray-400 border mx-4">
+                        { results.map( (val, index) => (
+                            <div key={index} className="pb-10 border-gray-400 border mx-4">
+                                <dl>
 
                                 { schems.map( (section, key) => (
                                     
@@ -38,27 +42,13 @@ export const Table = () => {
                                             {section.title}
                                             </dt>
                                         </div>
-
-                                        <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                            <dt className="text-sm font-medium text-gray-500">
-                                            Age [years old]
-                                            </dt>
-                                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                            {new Date().toLocaleTimeString()}
-                                            </dd>
-                                        </div>
+                                        
+                                        { renderData(section.components,val) }
 
                                     </>
 
                                 ))}
-
-                            </div>
-
-
-                        { results.map( (val, index) => (
-                            <div key={index} className="pb-10 border-gray-400 border mx-4">
-                                <dl>
-
+                                
                                     <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                         <dt className="text-sm font-medium text-gray-500">
                                         Thermal Acceptability
@@ -290,3 +280,30 @@ export const Table = () => {
 
   );
 };
+
+function renderData(params, variable) {
+
+    var html = '';
+
+    for (let i = 0; i < params.length; i++) {
+
+        if( typeof variable[params[i].key] !== 'object'  ){
+
+            html += '' +
+                <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt className="text-sm font-medium text-gray-500">
+                        {params[i].label}
+                    </dt>
+                    <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                        {variable[params[i].key]}
+                    </dd>
+                </div>;
+            
+
+        }
+
+    }
+
+    return html;
+
+}

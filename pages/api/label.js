@@ -25,9 +25,7 @@ handler.get(async (req, res) => {
   
     if(key){
       data.forEach(function(o){if (o.key == key) result.push(o);} );
-      result = purge(result[0].components)
-      
-      
+      result = purge(result[0].components)      
     }else{
       result = data
     }
@@ -89,7 +87,6 @@ function purge(array) {
     delete element.shortcut
     delete element.fieldSet
     delete element.optionsLabelPosition
-
   });
 
     return array

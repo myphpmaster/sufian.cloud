@@ -94,9 +94,9 @@ function renderData(params, variable, id) {
                     <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                         <ul className="border border-gray-200 rounded-md divide-y divide-gray-200">
                             
-                            { objNames.map( (com, num, arr)=> (    
+                            { objNames.map( (com, num)=> (    
                                                     
-                                renderSubdata(com, params, arr, num) 
+                                renderSubdata(com, params, newArr, num) 
                                 
                             ))}
 
@@ -110,7 +110,7 @@ function renderData(params, variable, id) {
 
 function renderSubdata(params, variable, array, key) {
 
-    console.log( params + variable + array + key )
+//    console.log( params + variable + array + key )
 
     return (
 

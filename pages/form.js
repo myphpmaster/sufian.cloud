@@ -60,7 +60,7 @@ export default function Form() {
 				__html: `                
                 jQuery( document ).ready(function($) {
                     
-                    Formio.createForm(document.getElementById('myform'), "http://survey.alibaba.sufian.cloud/ieq-poe", {
+                    Formio.createForm(document.getElementById('myform'), "https://survey.alibaba.sufian.cloud/ieq-poe", {
                         readOnly: false
                         }).then(function(form) {
                 
@@ -76,7 +76,7 @@ export default function Form() {
                                 document.location.href="/result";
                             }, 1000);
                         });        
-                                    
+
                     });    
                     setTimeout(function () {
                         $('.pagination .page-item').addClass('lg:w-1/6 w-1/3')

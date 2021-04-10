@@ -75,7 +75,8 @@ export default function Form() {
                             setTimeout(function(){ 
                                 document.location.href="/result";
                             }, 1000);
-                        });                    
+                        });        
+                                    
                     });    
                     setTimeout(function () {
                         $('.pagination .page-item').addClass('lg:w-1/6 w-1/3')

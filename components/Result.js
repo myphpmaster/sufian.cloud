@@ -38,10 +38,6 @@ export const Result = () => {
 
     const results = [];
     datas.forEach(function(value, index, array) {
-        // The callback is executed for each element in the array.
-        // `value` is the element itself (equivalent to `array[index]`)
-        // `index` will be the index of the element in the array
-        // `array` is a reference to the array itself (i.e. `datas` in this case)
         results.push(value.data);
     }); 
     

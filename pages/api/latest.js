@@ -1,4 +1,5 @@
 import nextConnect from 'next-connect';
+import { ObjectId, ObjectID } from 'bson';
 import middleware from '../../middleware/db';
 
 const handler = nextConnect();
@@ -29,12 +30,13 @@ handler.get(async (req, res) => {
 });
 
 export async function getDatas(db, from) {
+    const form = new ObjectID("606e53e9642f2cd011d871b4")
     
     return db
       .collection(col_name)
       .find({ 
-          'data.gender': { $exists: 1 }, 
-          'created': { $gte: from }         
+            'form': form,
+            'created': { $gte: from }         
       })
       .sort({ created: -1 })
       .limit(0)

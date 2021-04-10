@@ -1,3 +1,4 @@
+import { ObjectID } from 'bson';
 import nextConnect from 'next-connect';
 import middleware from '../../middleware/db';
 const handler = nextConnect();
@@ -41,34 +42,17 @@ handler.get(async (req, res) => {
     res.json(data);
   });
   
-  /*
-  handler.post(async (req, res) => {
-    if (!req.user) {
-      return res.status(401).send('unauthenticated');
-    }
-  
-    if (!req.body.content) return res.status(400).send('You must write something');
-  
-    const post = await insertPost(req.db, {
-      content: req.body.content,
-      creatorId: req.user._id,
-    });
-  
-    return res.json({ post });
-  });
-  */
-
 export async function getDatas(db, limits, skips) {
+    const form = new ObjectID("606e53e9642f2cd011d871b4")
     return db
       .collection(col_name)
-      .find(
-        { 'data.age': { '$exists': 1 } },
-        { 
-            skip: skips, 
-            projection:{data: 1, _id: 0}, 
-            sort:{ _id: -1 }              
-        }   
-      )
+      .find({
+        "form": form
+      })
+      .project({
+            data: 1, 
+            _id: 0
+      })
       .sort({ created: -1 })
       .limit(limits || 5)
       .toArray()

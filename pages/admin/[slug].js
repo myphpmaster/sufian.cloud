@@ -13,6 +13,7 @@ import { Footer } from '../../components/admin/footer';
 
 import { Chart as General } from '../../components/admin/chart/General';
 import { Chart as Building } from '../../components/admin/chart/Building';
+import { Chart as Condition } from '../../components/admin/chart/Condition';
 import { Chart as Thermal } from '../../components/admin/chart/Thermal';
 import { Chart as Acoustic } from '../../components/admin/chart/Acoustic';
 import { Chart as Visual } from '../../components/admin/chart/Visual';
@@ -36,6 +37,11 @@ export default function Admin() {
 			"id":"building",
 			"title":"Building",
 			"url":"/admin/building",
+		},
+		{
+			"id":"condition",
+			"title":"Condition",
+			"url":"/admin/condition",
 		},
 		{
 			"id":"thermal",
@@ -92,16 +98,16 @@ export default function Admin() {
 
 				<hr className="border-b-2 border-gray-400 my-8 mx-4" />
 
-				<div className="pb-5 text-2xl font-bold text-center text-black">					
-					<nav className="relative z-0 flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+				<div className="container w-full pb-5 text-2xl font-bold text-center text-black">					
+					<nav className="relative z-0 rounded-md -space-x-px" aria-label="Pagination">
 
 					{ menus.map( (menu, index) => ( 
 					<>
 						<Link key={index} href={menu.url}>
-						<a id={menu.id}
-							className={`${ menu.id==slug ? 'bg-blue-100' : 'bg-gray-50' } w-1/3 md:w-auto items-center px-4 py-2 border border-gray-300 hover:bg-gray-200 text-sm font-medium text-gray-700`}>
-							{menu.title}
-						</a>
+							<a id={menu.id}
+								className={`${ menu.id==slug ? 'bg-blue-100' : 'bg-gray-50' } inline-block w-1/3 md:w-auto items-center px-4 py-2 border border-gray-300 hover:bg-gray-200 text-sm font-medium text-gray-700`}>
+								{menu.title}
+							</a>
 						</Link>
 					</>
 					))}
@@ -117,6 +123,10 @@ export default function Admin() {
 
 					{ (slug==='building') && <>
 						<Building />
+					</>}
+
+					{ (slug==='condition') && <>
+						<Condition />
 					</>}
 
 					{ (slug==='thermal') && <>

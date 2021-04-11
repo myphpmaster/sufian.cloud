@@ -37,8 +37,8 @@ export const Table = () => {
                                                     {section.title}
                                                     </dt>
                                                 </div>
-                                                { section.components.map( (com,id)=> (    
-                                                    renderData(com,val,id) 
+                                                { section.components.map( (com,id)=> (  
+                                                    renderData(com, val, schems, id) 
                                                 ))}
                                             </>
                                         ))}    
@@ -53,7 +53,11 @@ export const Table = () => {
     );
 };
 
-function renderData(params, variable, id) {
+function renderData(params, variable, schema, id) {
+
+    let key = variable[params.key]  // variables[parameters.key]
+    let val = params.key            // parameters.key
+    let rawData = realValue(key, val, schema)
 
         if( typeof variable[params.key] !== 'object' ){
 
@@ -63,7 +67,7 @@ function renderData(params, variable, id) {
                         {params.label}
                     </dt>
                     <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        {variable[params.key]}
+                        {rawData}
                     </dd>
                 </div>
             );
@@ -95,7 +99,7 @@ function renderData(params, variable, id) {
                             
                             { objNames.map( (com, num)=> (    
                                                     
-                                renderSubdata(com, newArr, num) 
+                                renderSubdata(com, newArr, params.key, schema, num) 
                                 
                             ))}
 
@@ -107,24 +111,71 @@ function renderData(params, variable, id) {
         }
 }
 
-function renderSubdata(params, array, key) {
-
-//    console.log( params + variable + array + key )
-
+function renderSubdata(subparams, array, key, schema, id) {
+   
+    let rawTitle = realValue(subparams, key, schema, true)
+    let rawData = realValue(array[subparams], key, schema) 
+    
     return (
         
-        <li key={key} className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+        <li key={id} className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
             <div className="w-0 flex-1 flex items-center">
 
                 <span className="ml-2 flex-1 w-0 truncate">
-                    {params}
+                    {rawTitle}
                 </span>
             </div>
             <div className="ml-4 flex-shrink-0">
-                    {array[params]}
+                    {rawData}
             </div>
         </li>
 
     )
 
+}
+
+function realValue(key, value, schema, title=false){
+
+    let rawData = key
+    let rawKey = value
+
+    for (let i = 0; i < schema.length; i++) {
+
+        let obj = schema[i].components
+
+        for (let j = 0; j < obj.length; j++) {
+
+            console.log('obj[j].key =>' + obj[j].key)
+
+            if (rawKey == obj[j].key) {
+
+                let values = obj[j]
+
+                // For dropdown select input
+                if( values.hasOwnProperty('data') ){
+                    values = values.data
+                }
+
+                // radio input directly have this property
+                if( values.hasOwnProperty('values') ){
+
+                    let realVal = values.values
+
+                    if(title){
+                        realVal = values.questions
+                    }
+
+                    for (let k = 0; k < realVal.length; k++) {
+
+                        if(rawData == realVal[k].value || rawData === realVal[k].value ) {
+
+                            rawData = realVal[k].label
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return rawData
 }

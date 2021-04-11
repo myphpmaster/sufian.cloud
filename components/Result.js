@@ -91,9 +91,9 @@ export const Result = ({query}) => {
 
 /*/}
             <p className="mt-5 mb-1 text-lg md:text-white text-black md:text-right">
-                <label htmlFor="page">Select page:</label>
+                <label htmlFor="page">Select record:</label>
 
-                <select style={{width: 50 + 'px'}} name="page" defaultValue="1" id="page" onChange={e => handleChange(e)} className="custom-select text-white bg-transparent focus:text-gray-900 focus:bg-transparent text-center">
+                <select style={{width: 50 + 'px'}} name="page" defaultValue="1" id="page" onChange={e => handleChange(e)} className="custom-select md:text-white text-black bg-transparent focus:text-gray-900 text-center">
                     { selects.map( (page,key) => ( 
                         <>
                             <option key={key} value={page}>{page}</option>
@@ -119,7 +119,7 @@ export const Result = ({query}) => {
                                 </dt>
                             </div>
                             { section.components.map( (com,id)=> (    
-                                renderData(com,val,id) 
+                                renderData(com, val, schems, id) 
                             ))}
                         </>
                     ))}    
@@ -168,14 +168,11 @@ export const Result = ({query}) => {
   );
 };
 
-export async function getServerSideProps({ ctx }) {
-    
-    const { query } = ctx;
-      // Pass data to the page via props
-    return { props: { query } }
-}
+function renderData(params, variable, schema, id) {
 
-function renderData(params, variable, id) {
+    let key = variable[params.key]  // variables[parameters.key]
+    let val = params.key            // parameters.key
+    let rawData = realValue(key, val, schema)
 
     if( typeof variable[params.key] !== 'object' ){
 
@@ -185,7 +182,7 @@ function renderData(params, variable, id) {
                     {params.label}
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    {variable[params.key]}
+                    {rawData}
                 </dd>
             </div>
         );
@@ -211,8 +208,9 @@ function renderData(params, variable, id) {
                     <ul className="border border-gray-200 rounded-md divide-y divide-gray-200">
                         
                         { objNames.map( (com, num)=> (    
-                                                
-                            renderSubdata(com, newArr, num) 
+                            
+
+                            renderSubdata(com, newArr, params.key, schema, num) 
                             
                         ))}
 
@@ -224,22 +222,71 @@ function renderData(params, variable, id) {
     }
 }
 
-function renderSubdata(params, array, key) {
-
+function renderSubdata(subparams, array, key, schema, id) {
+   
+    let rawTitle = realValue(subparams, key, schema, true)
+    let rawData = realValue(array[subparams], key, schema) 
+    
     return (
         
-        <li key={key} className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+        <li key={id} className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
             <div className="w-0 flex-1 flex items-center">
 
                 <span className="ml-2 flex-1 w-0 truncate">
-                    {params}
+                    {rawTitle}
                 </span>
             </div>
             <div className="ml-4 flex-shrink-0">
-                    {array[params]}
+                    {rawData}
             </div>
         </li>
 
     )
 
+}
+
+function realValue(key, value, schema, title=false){
+
+    let rawData = key
+    let rawKey = value
+
+    for (let i = 0; i < schema.length; i++) {
+
+        let obj = schema[i].components
+
+        for (let j = 0; j < obj.length; j++) {
+
+            console.log('obj[j].key =>' + obj[j].key)
+
+            if (rawKey == obj[j].key) {
+
+                let values = obj[j]
+
+                // For dropdown select input
+                if( values.hasOwnProperty('data') ){
+                    values = values.data
+                }
+
+                // radio input directly have this property
+                if( values.hasOwnProperty('values') ){
+
+                    let realVal = values.values
+
+                    if(title){
+                        realVal = values.questions
+                    }
+
+                    for (let k = 0; k < realVal.length; k++) {
+
+                        if(rawData == realVal[k].value || rawData === realVal[k].value ) {
+
+                            rawData = realVal[k].label
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return rawData
 }

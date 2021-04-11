@@ -6,7 +6,7 @@ export const Result = () => {
 
     // Fetch submissions data
     const fetcher = url => fetch(url).then(res => res.json());
-    const PAGE_SIZE = 1;
+    const PAGE_SIZE = 3;
     
     const { data, error, mutate, size, setSize, isValidating } = useSWRInfinite(
         index =>

@@ -1,6 +1,5 @@
 /*  ./components/admin/generalData.js     */
 import React, { useState } from "react";
-import ReactDOM from 'react-dom'
 import useSWR, { useSWRInfinite } from "swr";
 
 export const Table = () => {

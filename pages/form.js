@@ -79,12 +79,12 @@ export default function Form() {
 
                     });    
                     setTimeout(function () {
-                        $('.pagination .page-item').addClass('lg:w-1/6 w-1/3')
+                        $('.pagination .page-item').addClass('lg:w-auto w-1/3')
                      }, 2000);
                 });
                 jQuery( '.page-link' ).click(function() {
                     setTimeout(function () {
-                        $('.pagination .page-item').addClass('lg:w-1/6 w-1/3')
+                        $('.pagination .page-item').addClass('lg:w-auto w-1/3')
                      }, 1000);
                     });
                 

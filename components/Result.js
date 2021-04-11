@@ -6,7 +6,7 @@ export const Result = () => {
 
     // Fetch submissions data
     const fetcher = url => fetch(url).then(res => res.json());
-    const PAGE_SIZE = 3;
+    const PAGE_SIZE = 1;
     
     const { data, error, mutate, size, setSize, isValidating } = useSWRInfinite(
         index =>
@@ -41,14 +41,18 @@ export const Result = () => {
         results.push(value.data);
     }); 
     
-  const isLoadingInitialData = !data && !error;
-  const isLoadingMore =
-    isLoadingInitialData ||
-    (size > 0 && data && typeof data[size - 1] === "undefined");
-  const isEmpty = data?.[0]?.length === 0;
-  const isReachingEnd =
-    isEmpty || (data && data[data.length - 1]?.length < PAGE_SIZE);
-  const isRefreshing = isValidating && data && data.length === size;
+    
+    const { data: schem } = useSWR(() => '/api/label', fetcher)
+    const schems = schem ? [].concat(...schem) : [];
+
+    const isLoadingInitialData = !data && !error;
+    const isLoadingMore =
+        isLoadingInitialData ||
+        (size > 0 && data && typeof data[size - 1] === "undefined");
+    const isEmpty = data?.[0]?.length === 0;
+    const isReachingEnd =
+        isEmpty || (data && data[data.length - 1]?.length < PAGE_SIZE);
+    const isRefreshing = isValidating && data && data.length === size;
 
   return (
     <>
@@ -69,97 +73,25 @@ export const Result = () => {
         </div>
         
         { results.map( (val, index) => (
-        <div key={index} className="pb-10 border-gray-200 px-4">
-            <dl>
-            <div className="text-center bg-gray-200 px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
-                <dt className="text-sm font-medium text-black">
-                General
-                </dt>
-            </div>
-            <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">
-                Age
-                </dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    {val.age} years
-                </dd>
-            </div>
-            <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">
-                Gender
-                </dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    {val.gender}
-                </dd>
-            </div>
-            <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">
-                Highest Education
-                </dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    {val.education}
-                </dd>
-            </div>
-            <div className="bg-gray-200 text-center px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
-                <dt className="text-sm font-medium text-black">
-                Building
-                </dt>
-            </div>
-            <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">
-                State
-                </dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    {val.state}
-                </dd>
-            </div>
-            <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">
-                Building Category
-                </dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    {val.buildingCategory}
-                </dd>
-            </div>
-            <div className="bg-gray-200 text-center px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
-                <dt className="text-sm font-medium text-black">
-                Thermal
-                </dt>
-            </div>
-            <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">
-                ASHRAE thermal sensation
-                </dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                <ul className="border border-gray-200 rounded-md divide-y divide-gray-200">
-                    <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-                    <div className="w-0 flex-1 flex items-center">
-
-                        <span className="ml-2 flex-1 w-0 truncate">
-                        Workspace
-                        </span>
-                    </div>
-                    <div className="ml-4 flex-shrink-0">
-                        {val.ASHRAEthermalsensation.workspace}
-                    </div>
-                    </li>
-                    <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-                        <div className="w-0 flex-1 flex items-center">
-
-                            <span className="ml-2 flex-1 w-0 truncate">
-                            Common Area
-                            </span>
-                        </div>
-                        <div className="ml-4 flex-shrink-0">
-                            {val.ASHRAEthermalsensation.commonArea}
-                        </div>
-                    </li>
-                </ul>
-                </dd>
-            </div>
-            </dl>
-        </div>        
-    ))}
+            
+            <div key={index} className="pb-10 border-gray-400 border mx-4">
+                <dl>
+                    { schems.map( (section, key) => (                                       
+                        <>
+                            <div key={key} className="text-center bg-gray-200 px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
+                                <dt className="text-sm font-medium text-black">
+                                    {section.title}
+                                </dt>
+                            </div>
+                            { section.components.map( (com,id)=> (    
+                                renderData(com,val,id) 
+                            ))}
+                        </>
+                    ))}    
+                </dl>
+            </div>        
+              
+        ))}
     
         <div className="px-4 py-5 sm:px-6 text-center">
             <p className="mt-1 mb-5 text-lg md:text-white text-black md:text-center">
@@ -197,3 +129,76 @@ export const Result = () => {
     </>
   );
 };
+
+
+function renderData(params, variable, id) {
+
+    if (id>3) return
+
+    if( typeof variable[params.key] !== 'object' ){
+
+        return (
+            <div key={id} className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                    {params.label}
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    {variable[params.key]}
+                </dd>
+            </div>
+        );
+
+    } else {
+
+        const obj = variable[params.key];
+        const objNames = Object.keys(obj);
+        const objVal = Object.values(obj);
+        var newArr = []
+
+        for (let k in obj){
+
+            newArr[k] = obj[k]
+
+        }
+
+        return (
+            <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                    {params.label}
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    <ul className="border border-gray-200 rounded-md divide-y divide-gray-200">
+                        
+                        { objNames.map( (com, num)=> (    
+                                                
+                            renderSubdata(com, newArr, num) 
+                            
+                        ))}
+
+                    </ul>
+                </dd>
+            </div>
+        );
+
+    }
+}
+
+function renderSubdata(params, array, key) {
+
+return (
+    
+    <li key={key} className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+        <div className="w-0 flex-1 flex items-center">
+
+            <span className="ml-2 flex-1 w-0 truncate">
+                {params}
+            </span>
+        </div>
+        <div className="ml-4 flex-shrink-0">
+                {array[params]}
+        </div>
+    </li>
+
+)
+
+}

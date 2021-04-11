@@ -50,8 +50,7 @@ export const Result = ({query}) => {
     datas.forEach(function(value, index, array) {
         results.push(value.data);
     }); 
-    
-    
+        
     const { data: schem } = useSWR(() => '/api/label', fetcher)
     const schems = schem ? [].concat(...schem) : [];
     

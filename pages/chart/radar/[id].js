@@ -35,14 +35,6 @@ const Chart = () => {
         return 0;
   });
 
-  var labels = {
-      never: 'Never',
-      rarely: 'Rarely',
-      sometimes: 'Sometimes',
-      often: 'Often',
-      always: 'Always',
-    };
-
   var values = [];
   var splits = [];
   var objects = {};

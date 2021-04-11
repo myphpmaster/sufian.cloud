@@ -1,7 +1,7 @@
 /*  ./chart/radar/[id].js     */
 import React, { useState } from "react";
 import useSWR, { useSWRInfinite } from "swr";
-import { Radar, Line } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 import { useRouter } from "next/router";
 
 const Chart = () => {
@@ -15,15 +15,15 @@ const Chart = () => {
     const arr = survey ? [].concat(...survey) : [];
     const results = groupArray(arr);
 
-    console.log('results =>' + JSON.stringify(results));
+//    console.log('results =>' + JSON.stringify(results));
 
-    const { data: schem } = useSWR(() => '/api/label/', fetcher)
+    const { data: schem } = useSWR(() => '/api/label', fetcher)
     const schems = schem ? [].concat(...schem) : [];
 
     var cats = getGroupKeys(key, schems, true)
     var vals = getGroupKeys(key, schems)
 
-    console.log('cats =>' + JSON.stringify(cats));
+//    console.log('cats =>' + JSON.stringify(cats));
 
     const groups = []
     const labels = []
@@ -198,7 +198,7 @@ const Chart = () => {
     return (
         <>
         <div width="300" height="400">
-            <Line
+            <Bar
                 data={data}
                 width={750}
                 height={500}

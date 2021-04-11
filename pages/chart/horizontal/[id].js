@@ -4,7 +4,7 @@ import useSWR, { useSWRInfinite } from "swr";
 import { HorizontalBar } from 'react-chartjs-2';
 import { useRouter } from "next/router";
 
-const BarChart = () => {
+const Chart = () => {
 
   const router = useRouter();
   const key = router.query.id
@@ -197,7 +197,7 @@ function realValue(key, value, schema, title=false){
 
         for (let j = 0; j < obj.length; j++) {
 
-            console.log('obj[j].key =>' + obj[j].key)
+            // console.log('obj[j].key =>' + obj[j].key)
 
             if (rawKey == obj[j].key) {
 
@@ -232,4 +232,4 @@ function realValue(key, value, schema, title=false){
     return rawData
 }
 
-export default BarChart
+export default Chart

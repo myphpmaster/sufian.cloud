@@ -158,7 +158,7 @@ const Chart = () => {
     return (
         <>
         <div width="300" height="400">
-            <Radar
+            <Line
                 data={data}
                 width={750}
                 height={500}

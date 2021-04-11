@@ -2,19 +2,28 @@
 import React, { useState } from "react";
 import useSWR, { useSWRInfinite } from "swr";
 
-export const Result = () => {
+export const Result = ({query}) => {
 
     // Fetch submissions data
     const fetcher = url => fetch(url).then(res => res.json());
-    const PAGE_SIZE = 3;
+    const PAGE_SIZE = 1;
     
+/*
     const { data, error, mutate, size, setSize, isValidating } = useSWRInfinite(
         index =>
           `/api/submissions?limit=${PAGE_SIZE}&page=${index + 1}`,
         fetcher
       );
+*/
+    const [index, setState] = useState(1);
 
+    const handleChange = (e) => {
+        setState(e.target.value)
+    };
 
+    const { data, error } = useSWR( `/api/submissions?limit=${PAGE_SIZE}&page=${index}`, fetcher)
+
+    /*
     if (error) return (
         <div className="py-24 bg-gradient-to-r from-indigo-700 to-pink-500 bg-opacity-50 min-h-screen">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">        
@@ -33,7 +42,8 @@ export const Result = () => {
             </div>
         </div>
         )    
-    
+    */
+
     const datas = data ? [].concat(...data) : [];
 
     const results = [];
@@ -44,15 +54,21 @@ export const Result = () => {
     
     const { data: schem } = useSWR(() => '/api/label', fetcher)
     const schems = schem ? [].concat(...schem) : [];
+    
+    // Total respondents
+    const { data: count } = useSWR(() => '/api/count/', fetcher)
 
+    const selects = [];
+    for (let i=1; i<=count; i++){
+        selects[i] = i;
+    }
+/*
     const isLoadingInitialData = !data && !error;
-    const isLoadingMore =
-        isLoadingInitialData ||
-        (size > 0 && data && typeof data[size - 1] === "undefined");
+    const isLoadingMore = isLoadingInitialData || (size > 0 && data && typeof data[size - 1] === "undefined");
     const isEmpty = data?.[0]?.length === 0;
-    const isReachingEnd =
-        isEmpty || (data && data[data.length - 1]?.length < PAGE_SIZE);
+    const isReachingEnd = isEmpty || (data && data[data.length - 1]?.length < PAGE_SIZE);
     const isRefreshing = isValidating && data && data.length === size;
+*/
 
   return (
     <>
@@ -67,14 +83,33 @@ export const Result = () => {
             <p className="my-2 text-xl md:text-white text-black">
                 Real-time IEQ POE Evaluation Data.
             </p>
+{/*
             <p className="mt-5 mb-1 text-lg md:text-white text-black md:text-right">
                 Showing {size} page(s) of {isLoadingMore ? "..." : datas.length}{" "} data(s){" "}
             </p>
+            
+
+/*/}
+            <p className="mt-5 mb-1 text-lg md:text-white text-black md:text-right">
+                <label htmlFor="page">Select page:</label>
+
+                <select style={{width: 50 + 'px'}} name="page" defaultValue="1" id="page" onChange={e => handleChange(e)} className="custom-select text-white bg-transparent focus:text-gray-900 focus:bg-transparent text-center">
+                    { selects.map( (page,key) => ( 
+                        <>
+                            <option key={key} value={page}>{page}</option>
+                        </>
+                    ))}
+                </select>
+            </p>
+            
+
+
+
         </div>
         
         { results.map( (val, index) => (
             
-            <div key={index} className="pb-10 border-gray-400 border mx-4">
+            <div key={index} className="mb-10 border-gray-400 border mx-4">
                 <dl>
                     { schems.map( (section, key) => (                                       
                         <>
@@ -94,6 +129,8 @@ export const Result = () => {
         ))}
     
         <div className="px-4 py-5 sm:px-6 text-center">
+
+{/*
             <p className="mt-1 mb-5 text-lg md:text-white text-black md:text-center">
                 Showing {size} page(s) of {isLoadingMore ? "..." : datas.length}{" "} data(s){" "}
             </p>
@@ -111,16 +148,17 @@ export const Result = () => {
                 </button>
                 <button 
                 className="w-full md:w-auto transition duration-500 ease-in-out bg-white hover:bg-blue-500 transform text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded mr-2 mb-2"
-                disabled={isRefreshing} onClick={() => mutate()}>
-                {isRefreshing ? "Refreshing..." : "Refresh"}
+                    disabled={isRefreshing} onClick={() => mutate()}>
+                    {isRefreshing ? "Refreshing..." : "Refresh"}
                 </button>                
                 <button 
-                className="w-full md:w-auto transition duration-500 ease-in-out bg-white hover:bg-blue-500 transform text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-                disabled={!size} onClick={() => setSize(1)}>
-                Reset
+                    className="w-full md:w-auto transition duration-500 ease-in-out bg-white hover:bg-blue-500 transform text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                    disabled={!size} onClick={() => setSize(1)}>
+                    Reset
                 </button>
             </div>
-
+*/}
+            
         </div>
 
     </div>
@@ -130,10 +168,14 @@ export const Result = () => {
   );
 };
 
+export async function getServerSideProps({ ctx }) {
+    
+    const { query } = ctx;
+      // Pass data to the page via props
+    return { props: { query } }
+}
 
 function renderData(params, variable, id) {
-
-    if (id>3) return
 
     if( typeof variable[params.key] !== 'object' ){
 
@@ -152,7 +194,6 @@ function renderData(params, variable, id) {
 
         const obj = variable[params.key];
         const objNames = Object.keys(obj);
-        const objVal = Object.values(obj);
         var newArr = []
 
         for (let k in obj){
@@ -162,7 +203,7 @@ function renderData(params, variable, id) {
         }
 
         return (
-            <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <div key={id} className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
                     {params.label}
                 </dt>
@@ -185,20 +226,20 @@ function renderData(params, variable, id) {
 
 function renderSubdata(params, array, key) {
 
-return (
-    
-    <li key={key} className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-        <div className="w-0 flex-1 flex items-center">
+    return (
+        
+        <li key={key} className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+            <div className="w-0 flex-1 flex items-center">
 
-            <span className="ml-2 flex-1 w-0 truncate">
-                {params}
-            </span>
-        </div>
-        <div className="ml-4 flex-shrink-0">
-                {array[params]}
-        </div>
-    </li>
+                <span className="ml-2 flex-1 w-0 truncate">
+                    {params}
+                </span>
+            </div>
+            <div className="ml-4 flex-shrink-0">
+                    {array[params]}
+            </div>
+        </li>
 
-)
+    )
 
 }

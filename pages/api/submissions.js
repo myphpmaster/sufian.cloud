@@ -54,6 +54,7 @@ export async function getDatas(db, limits, skips) {
             _id: 0
       })
       .sort({ created: -1 })
+      .skip(skips)
       .limit(limits || 5)
       .toArray()
       .then(items => { return items })

@@ -186,8 +186,9 @@ console.log('datas =>' + JSON.stringify(datas));
 
                     console.log('k =>' + JSON.stringify(k)); 
                     console.log('labelName =>' + JSON.stringify(labelName)); 
+                    console.log(Object.keys(route[i]).find(key => route[i][key] === labelName))
                     
-                    if( k == Object.keys(route).find(key => route[key] === labelName) ){
+                    if( k == Object.keys(route[i]).find(key => route[i][key] === labelName) ){
 
                         let subdata = datas[k]
                         console.log('subdata =>' + JSON.stringify(subdata)); 

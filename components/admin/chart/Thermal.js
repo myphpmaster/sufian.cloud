@@ -28,7 +28,7 @@ export const Chart = () => {
                         </div>
                         <div className="p-5">
                              <div className="relative" style={{width: '100%', height: '500px'}}>
-                                <iframe className="absolute inset-0 w-full h-full" src="/chart/radar/ACcontroller" frameBorder="0" />
+                                <iframe className="absolute inset-0 w-full h-full" src="/chart/pie/ACcontroller" frameBorder="0" />
                             </div>
                         </div>
                     </div>
@@ -43,7 +43,7 @@ export const Chart = () => {
                         </div>
                         <div className="p-5">
                              <div className="relative" style={{width: '100%', height: '500px'}}>
-                                <iframe className="absolute inset-0 w-full h-full" src="/chart/multiline/ASHRAEthermalsensation" frameBorder="0" />
+                                <iframe className="absolute inset-0 w-full h-full" src="/chart/multibar/ASHRAEthermalsensation" frameBorder="0" />
                             </div>
                         </div>
                     </div>

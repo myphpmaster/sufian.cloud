@@ -1,13 +1,14 @@
 /*  ./chart/radar/[id].js     */
 import React, { useState } from "react";
 import useSWR, { useSWRInfinite } from "swr";
-import { Bar } from 'react-chartjs-2';
+import { Radar, Line, Bar } from 'react-chartjs-2';
 import { useRouter } from "next/router";
 
 const Chart = () => {
 
     const router = useRouter();
     const key = router.query.id
+    const subkey = router.query.type ? router.query.type : false;
         
     const fetcher = url => fetch(url).then(res => res.json());
     const { data: survey } = useSWR(() => '/api/charts/?key=' + key, fetcher)
@@ -23,12 +24,16 @@ const Chart = () => {
     var cats = getGroupKeys(key, schems, true)
     var vals = getGroupKeys(key, schems)
 
-//    console.log('cats =>' + JSON.stringify(cats));
+    console.log('cats =>' + JSON.stringify(cats));
+    console.log('cats =>' + JSON.stringify(cats));
 
     const groups = []
     const labels = []
     const labelsKey = []
-    const datas = {}    
+    const labelsAlt = []
+    const labelsKeyAlt = []
+    const datas = {}
+
     for (let i = 0; i < cats.length; i++) {
 
         const cat = cats[i];
@@ -49,16 +54,23 @@ const Chart = () => {
                     bar[l] = countGroup(j, l, results)
              //       console.log('l =>' + JSON.stringify(l));
                     datas[j][l] = bar[l]
+                    
+                    if(!labelsAlt.includes(val[l])) {
+                        labelsAlt.push(val[l])
+                    }
+                    if(!labelsKeyAlt.includes(l)) {
+                        labelsKeyAlt.push(l)
+                    }
 
                 }
                 foo[j] = bar
-
-                if(!labels.includes(cat[j])) {
-                    labels.push(cat[j])
-                }
-                if(!labelsKey.includes(j)) {
-                    labelsKey.push(j)
-                }
+            }
+            
+            if(!labels.includes(cat[j])) {
+                labels.push(cat[j])
+            }
+            if(!labelsKey.includes(j)) {
+                labelsKey.push(j)
             }
         }
         groups.push(foo)
@@ -67,7 +79,7 @@ const Chart = () => {
 // console.log('groups =>' + JSON.stringify(groups));
 // console.log('labelsKey =>' + JSON.stringify(labelsKey));
 // console.log('labels =>' + JSON.stringify(labels));
-// console.log('datas =>' + JSON.stringify(datas));
+console.log('datas =>' + JSON.stringify(datas));
 
     var options = {
             responsive: true,
@@ -154,12 +166,14 @@ const Chart = () => {
         },
         ]
 
+    var route = (subkey == 'likert') ? cats : vals
+
     const dataset = []
     var foo = {}
+    
+    for (let i = 0; i < route.length; i++) {
 
-    for (let i = 0; i < vals.length; i++) {
-
-        let labelObj = vals[i]
+        let labelObj = route[i]
         let labelName = ''
         let arrayData = []
 
@@ -167,7 +181,28 @@ const Chart = () => {
             labelName = labelObj[j]
 
             for (let k in datas) {
-                arrayData.push(datas[k][j])
+
+                if (subkey == 'likert'){ 
+
+                    console.log('k =>' + JSON.stringify(k)); 
+                    console.log('labelName =>' + JSON.stringify(labelName)); 
+                    console.log(Object.keys(route[i]).find(key => route[i][key] === labelName))
+
+                    if( k == Object.keys(route[i]).find(key => route[i][key] === labelName) ){
+
+                        let subdata = datas[k]
+                        console.log('subdata =>' + JSON.stringify(subdata)); 
+
+                        for (let l in subdata) {
+                            
+                            console.log('subdata[l] =>' + JSON.stringify(subdata[l]));     
+                            arrayData.push(subdata[l])
+                        }
+                    }
+                    
+                }else{
+                    arrayData.push(datas[k][j])
+                }
             }
 
         }
@@ -187,21 +222,23 @@ const Chart = () => {
         dataset.push(foo)
     }
 
+    const useLabel = (subkey == 'likert') ? labelsAlt : labels
+
     const data = {
-        labels: labels,
+        labels: useLabel,
         datasets: dataset
     };
 
-//    console.log('vals =>' + JSON.stringify(vals));
-//    console.log('data =>' + JSON.stringify(data));
+    console.log('vals =>' + JSON.stringify(vals));
+    console.log('data =>' + JSON.stringify(data));
 
     return (
         <>
-        <div width="300" height="400">
+        <div width="640" height="480">
             <Bar
                 data={data}
-                width={750}
-                height={500}
+                width={640}
+                height={480}
             />          
         </div>
         </>

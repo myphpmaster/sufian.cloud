@@ -1,7 +1,9 @@
 import { MongoClient } from 'mongodb'
 
-const { MONGODB_URI, MONGODB_DB } = process.env
+const { MONGODB_URI_AZURE, MONGODB_URI_ALIBABA, MONGODB_DB, MONGODB_SERVER } = process.env
+const mongoURI = MONGODB_SERVER == 'azure' ? MONGODB_URI_AZURE : MONGODB_URI_ALIBABA
 
+/*
 if (!MONGODB_URI) {
   throw new Error(
     'Please define the MONGODB_URI environment variable inside .env.local'
@@ -13,6 +15,7 @@ if (!MONGODB_DB) {
     'Please define the MONGODB_DB environment variable inside .env.local'
   )
 }
+*/
 
 /**
  * Global is used here to maintain a cached connection across hot reloads

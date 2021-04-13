@@ -1,13 +1,14 @@
 import { ObjectId } from 'bson';
 import nextConnect from 'next-connect';
 import middleware from '../../middleware/db';
+const { MONGODB_SERVER } = process.env
 
 const handler = nextConnect();
 const col_name = 'submissions';
 handler.use(middleware);
 const maxAge = 1 * 24 * 60 * 60;
 // const form = new ObjectID("606e53e9642f2cd011d871b4")
-const form = new ObjectID("605f377e249aa13843b38138")
+const form = MONGODB_SERVER=='azure' ? new ObjectID("605f377e249aa13843b38138") : new ObjectID("606e53e9642f2cd011d871b4")
 
 handler.get(async (req, res) => {
 

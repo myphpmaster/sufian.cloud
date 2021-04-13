@@ -60,7 +60,7 @@ export default function Form() {
 				__html: `                
                 jQuery( document ).ready(function($) {
                     
-                    Formio.createForm(document.getElementById('myform'), "https://survey.alibaba.sufian.cloud/ieq-poe", {
+                    Formio.createForm(document.getElementById('myform'), "https://survey.app.sufian.cloud/ieq-poe", {
                         readOnly: false
                         }).then(function(form) {
                 

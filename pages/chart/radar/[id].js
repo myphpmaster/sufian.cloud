@@ -193,7 +193,7 @@ const Chart = () => {
                         // Not finished yet
                         let subdata = Object.keys(varies[k]).sort().reduce((r, l) => (r[l] = varies[k][l], r), {})
 
-                        console.log('subdata => ' + JSON.stringify(subdata))
+                        // console.log('subdata => ' + JSON.stringify(subdata))
 
                         for (let l in subdata) {    
                             objData[l] = subdata[l]

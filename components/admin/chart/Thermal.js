@@ -43,7 +43,7 @@ export const Chart = () => {
                         </div>
                         <div className="p-5">
                              <div className="relative" style={{width: '100%', height: '500px'}}>
-                                <iframe className="absolute inset-0 w-full h-full" src="/chart/multibar/ASHRAEthermalsensation" frameBorder="0" />
+                                <iframe className="absolute inset-0 w-full h-full" src="/chart/multibar/ASHRAEthermalsensation/?type=likert" frameBorder="0" />
                             </div>
                         </div>
                     </div>
@@ -58,7 +58,7 @@ export const Chart = () => {
                         </div>
                         <div className="p-5">
                              <div className="relative" style={{width: '100%', height: '500px'}}>
-                                <iframe className="absolute inset-0 w-full h-full" src="/chart/multiline/thermalAcceptability" frameBorder="0" />
+                                <iframe className="absolute inset-0 w-full h-full" src="/chart/multiline/thermalAcceptability/?type=likert" frameBorder="0" />
                             </div>
                         </div>
                     </div>
@@ -73,7 +73,7 @@ export const Chart = () => {
                         </div>
                         <div className="p-5">
                              <div className="relative" style={{width: '100%', height: '500px'}}>
-                                <iframe className="absolute inset-0 w-full h-full" src="/chart/radar/thermalComfort" frameBorder="0" />
+                                <iframe className="absolute inset-0 w-full h-full" src="/chart/multibar/thermalComfort/?type=likert" frameBorder="0" />
                             </div>
                         </div>
                     </div>
@@ -88,7 +88,7 @@ export const Chart = () => {
                         </div>
                         <div className="p-5">
                              <div className="relative" style={{width: '100%', height: '500px'}}>
-                                <iframe className="absolute inset-0 w-full h-full" src="/chart/multiline/thermalPreference" frameBorder="0" />
+                                <iframe className="absolute inset-0 w-full h-full" src="/chart/multiline/thermalPreference/?type=likert" frameBorder="0" />
                             </div>
                         </div>
                     </div>
@@ -103,7 +103,7 @@ export const Chart = () => {
                         </div>
                         <div className="p-5">
                              <div className="relative" style={{width: '100%', height: '500px'}}>
-                                <iframe className="absolute inset-0 w-full h-full" src="/chart/radar/airMovementAcceptability" frameBorder="0" />
+                                <iframe className="absolute inset-0 w-full h-full" src="/chart/multibar/airMovementAcceptability/?type=likert" frameBorder="0" />
                             </div>
                         </div>
                     </div>
@@ -118,7 +118,7 @@ export const Chart = () => {
                         </div>
                         <div className="p-5">
                              <div className="relative" style={{width: '100%', height: '500px'}}>
-                                <iframe className="absolute inset-0 w-full h-full" src="/chart/polar/airMovementPreference" frameBorder="0" />
+                                <iframe className="absolute inset-0 w-full h-full" src="/chart/multibar/airMovementPreference/?type=likert" frameBorder="0" />
                             </div>
                         </div>
                     </div>

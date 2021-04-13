@@ -1,7 +1,7 @@
 /*  ./chart/radar/[id].js     */
 import React, { useState } from "react";
 import useSWR, { useSWRInfinite } from "swr";
-import { Radar, Line } from 'react-chartjs-2';
+import { Radar, Line, Bar } from 'react-chartjs-2';
 import { useRouter } from "next/router";
 
 const Chart = () => {
@@ -16,16 +16,16 @@ const Chart = () => {
     const arr = survey ? [].concat(...survey) : [];
     const results = groupArray(arr);
 
-//    console.log('results =>' + JSON.stringify(results));
+    console.log('results =>' + JSON.stringify(results));
 
     const { data: schem } = useSWR(() => '/api/label', fetcher)
     const schems = schem ? [].concat(...schem) : [];
 
-    var cats = getGroupKeys(key, schems, true)
-    var vals = getGroupKeys(key, schems)
+    const cats = getGroupKeys(key, schems, true)
+    const vals = getGroupKeys(key, schems)
 
-    console.log('cats =>' + JSON.stringify(cats));
-    console.log('cats =>' + JSON.stringify(cats));
+    // console.log('cats =>' + JSON.stringify(cats));
+    // console.log('vals =>' + JSON.stringify(vals));
 
     const groups = []
     const labels = []
@@ -33,27 +33,33 @@ const Chart = () => {
     const labelsAlt = []
     const labelsKeyAlt = []
     const datas = {}
+    const datasAlt = {}
 
     for (let i = 0; i < cats.length; i++) {
 
         const cat = cats[i];
         var foo = {}      
         var bar = {}
-
         for (var j in cat) {
             
-           // console.log('j =>' + JSON.stringify(j));
             datas[j]={}
+            datasAlt[j]={}
+
+            let x=0;
+            let y=0;
 
             for (let k = 0; k < vals.length; k++) {
 
                 const val = vals[k];
 
+                console.log('val =>' + JSON.stringify(val));
+
                 for (var l in val) {            
 
                     bar[l] = countGroup(j, l, results)
-             //       console.log('l =>' + JSON.stringify(l));
+                    
                     datas[j][l] = bar[l]
+                    datasAlt[j][x] = bar[l]
                     
                     if(!labelsAlt.includes(val[l])) {
                         labelsAlt.push(val[l])
@@ -61,9 +67,10 @@ const Chart = () => {
                     if(!labelsKeyAlt.includes(l)) {
                         labelsKeyAlt.push(l)
                     }
-
+                    x++;
                 }
                 foo[j] = bar
+
             }
             
             if(!labels.includes(cat[j])) {
@@ -75,11 +82,6 @@ const Chart = () => {
         }
         groups.push(foo)
     }
-
-// console.log('groups =>' + JSON.stringify(groups));
-// console.log('labelsKey =>' + JSON.stringify(labelsKey));
-// console.log('labels =>' + JSON.stringify(labels));
-console.log('datas =>' + JSON.stringify(datas));
 
     var options = {
             responsive: true,
@@ -167,6 +169,7 @@ console.log('datas =>' + JSON.stringify(datas));
         ]
 
     var route = (subkey == 'likert') ? cats : vals
+    var varies = (subkey == 'likert') ? datasAlt : datas
 
     const dataset = []
     var foo = {}
@@ -176,6 +179,7 @@ console.log('datas =>' + JSON.stringify(datas));
         let labelObj = route[i]
         let labelName = ''
         let arrayData = []
+        let objData = {}
 
         for (let j in labelObj){ 
             labelName = labelObj[j]
@@ -184,27 +188,22 @@ console.log('datas =>' + JSON.stringify(datas));
 
                 if (subkey == 'likert'){ 
 
-                    console.log('k =>' + JSON.stringify(k)); 
-                    console.log('labelName =>' + JSON.stringify(labelName)); 
-                    console.log(Object.keys(route[i]).find(key => route[i][key] === labelName))
-                    
                     if( k == Object.keys(route[i]).find(key => route[i][key] === labelName) ){
 
-                        let subdata = datas[k]
-                        console.log('subdata =>' + JSON.stringify(subdata)); 
+                        // Not finished yet
+                        let subdata = Object.keys(varies[k]).sort().reduce((r, l) => (r[l] = varies[k][l], r), {})
 
-                        for (let l in subdata) {
-                            
-                            console.log('subdata[l] =>' + JSON.stringify(subdata[l]));     
-                            arrayData.push(subdata[l])
+                        console.log('subdata => ' + JSON.stringify(subdata))
+
+                        for (let l in subdata) {    
+                            objData[l] = subdata[l]
+                            arrayData.push(objData[l])
                         }
-                    }
-                    
+                    }                    
                 }else{
                     arrayData.push(datas[k][j])
                 }
             }
-
         }
 
         foo = 
@@ -229,8 +228,8 @@ console.log('datas =>' + JSON.stringify(datas));
         datasets: dataset
     };
 
-    console.log('vals =>' + JSON.stringify(vals));
-    console.log('data =>' + JSON.stringify(data));
+    // console.log('vals =>' + JSON.stringify(vals));
+    // console.log('data =>' + JSON.stringify(data));
 
     return (
         <>

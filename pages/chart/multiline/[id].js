@@ -34,7 +34,6 @@ const Chart = () => {
     const labelsKeyAlt = []
     const datas = {}
     const datasAlt = {}
-    console.log('=========START============');
 
     for (let i = 0; i < cats.length; i++) {
 
@@ -59,10 +58,6 @@ const Chart = () => {
 
                     bar[l] = countGroup(j, l, results)
 
-                    console.log('ijkl=>' + JSON.stringify(i+j+k+l));
-                    console.log('bar[l] =>' + JSON.stringify(bar[l]));
-                    console.log('l =>' + JSON.stringify(l));
-                    
                     datas[j][l] = bar[l]
                     datasAlt[j][x] = bar[l]
                     
@@ -87,10 +82,6 @@ const Chart = () => {
         }
         groups.push(foo)
     }
-
-console.log('=========STOP============');
-console.log('datasAlt =>' + JSON.stringify(datasAlt));
-console.log('datas =>' + JSON.stringify(datas));
 
     var options = {
             responsive: true,

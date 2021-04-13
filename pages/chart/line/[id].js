@@ -8,6 +8,7 @@ const Chart = () => {
 
   const router = useRouter();
   const key = router.query.id
+  const subkey = router.query.type ? router.query.type : false;
     
   const fetcher = url => fetch(url).then(res => res.json());
   const { data: survey } = useSWR(() => '/api/charts/?key=' + key, fetcher)
@@ -33,16 +34,45 @@ const Chart = () => {
   const { data: schem } = useSWR(() => '/api/label', fetcher)
   const schems = schem ? [].concat(...schem) : [];
 
+  const vals = getGroupKeys(key, schems)
+
   const labels = [];
   const values = [];
 
-  for (const [id, val] of Object.entries(results)) {
+  for (const [i, v] of Object.entries(results)) {
 
-        let rawData = realValue(val.identity, key, schems)
+        let rawData = realValue(v.identity, key, schems)
+
+        console.log(rawData)
 
         labels.push(rawData);
-        values.push(val.count);
+        values.push(v.count);
   }
+  
+  console.log('results : ' + JSON.stringify(results))
+  console.log('labels : ' + JSON.stringify(labels))
+  console.log('values : ' + JSON.stringify(values))
+
+  const labelsAlt = []  
+  const valuesAlt = []
+  
+  var x = 0
+
+  for (let k = 0; k < vals.length; k++) {
+
+    const val = vals[k];
+
+    for (var l in val) {            
+        
+        labelsAlt[l] = val[l]
+        valuesAlt[x] = countGroup(l, results)
+        
+        x++;
+    }
+  }        
+  
+  console.log('labelsAlt=>' + JSON.stringify(labelsAlt));
+  console.log('valuesAlt=>' + JSON.stringify(valuesAlt));
 
   var options = {
         responsive: true,
@@ -70,10 +100,13 @@ const Chart = () => {
 
     };
 
+    const displayLabel =  (subkey == 'likert') ? labelsAlt : labels;
+    const displayData =  (subkey == 'likert') ? valuesAlt : values;
+
     const sample_data = {
-        labels: labels,
+        labels: displayLabel,
         datasets: [{
-            data: values,
+            data: displayData,
             label: '# of Respondents',
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
@@ -188,7 +221,7 @@ function groupArray (arr = []) {
         }
         const res = Array.from(map.values())
         return res;
-    };
+};
     
 const objectSize = (obj = {}) => {
         var size = 0, key;
@@ -245,5 +278,71 @@ function realValue(key, value, schema, title=false){
     }
     return rawData
 }
+
+function getGroupKeys(key, schema, title=false){
+
+    let groupKeys=[]
+
+    for (let i = 0; i < schema.length; i++) {
+
+        let obj = schema[i].components
+
+        for (let j = 0; j < obj.length; j++) {
+
+            // console.log('obj[j].key =>' + obj[j].key)
+
+            if (key == obj[j].key) {
+
+                let values = obj[j]
+
+                // For dropdown select input
+                if( values.hasOwnProperty('data') ){
+                    values = values.data
+                }
+
+                // radio input directly have this property
+                if( values.hasOwnProperty('values') ){
+
+                    let realVal = values.values
+
+                    if(title){
+                        realVal = values.questions
+                    }
+
+//                    console.log('realVal =>' + JSON.stringify(realVal))
+
+                    for (let k = 0; k < realVal.length; k++) {
+
+                        var foo = {};
+                        foo[realVal[k].value.toString()] = realVal[k].label
+                        groupKeys.push(foo);
+                        
+//                        console.log('realVal[k] =>' + k + JSON.stringify(realVal[k]))
+
+                    }
+                }
+            }
+        }
+    }
+    return groupKeys
+}
+
+// function to group all data counts
+function countGroup (val='', datas = []) {
+    var counts = 0
+    for (let i = 0; i < datas.length; i++) {
+        let obj = datas[i]
+        
+        if( obj instanceof Object ){                                    
+            for (let j in obj){     
+                
+                if(obj.identity.toString() === val.toString() ) {
+                    counts = obj.count
+                }
+            }
+        } 
+    }
+    return counts;
+};
 
 export default Chart

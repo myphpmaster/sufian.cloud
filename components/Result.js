@@ -117,7 +117,7 @@ export const Result = ({query}) => {
                                     {section.title}
                                 </dt>
                             </div>
-                            { section.components.map( (com,id)=> (    
+                            { section.components.map( (com, id)=> (    
                                 renderData(com, val, schems, id) 
                             ))}
                         </>
@@ -173,6 +173,8 @@ function renderData(params, variable, schema, id) {
     let val = params.key            // parameters.key
     let rawData = realValue(key, val, schema)
 
+    if(!validType(params.type)) return
+
     if( typeof variable[params.key] !== 'object' ){
 
         return (
@@ -207,7 +209,6 @@ function renderData(params, variable, schema, id) {
                     <ul className="border border-gray-200 rounded-md divide-y divide-gray-200">
                         
                         { objNames.map( (com, num)=> (    
-                            
 
                             renderSubdata(com, newArr, params.key, schema, num) 
                             
@@ -255,7 +256,7 @@ function realValue(key, value, schema, title=false){
 
         for (let j = 0; j < obj.length; j++) {
 
-            console.log('obj[j].key =>' + obj[j].key)
+            // console.log('obj[j].key =>' + obj[j].key)
 
             if (rawKey == obj[j].key) {
 
@@ -288,4 +289,15 @@ function realValue(key, value, schema, title=false){
         }
     }
     return rawData
+}
+
+function validType(type){
+    const types = [
+        'number',
+        'radio',
+        'text',
+        'select',
+        'survey',
+    ]
+    return types.includes(type) ? true : false
 }

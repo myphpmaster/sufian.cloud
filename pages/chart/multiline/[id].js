@@ -24,8 +24,8 @@ const Chart = () => {
     const cats = getGroupKeys(key, schems, true)
     const vals = getGroupKeys(key, schems)
 
-    console.log('cats =>' + JSON.stringify(cats));
-    console.log('vals =>' + JSON.stringify(vals));
+    // console.log('cats =>' + JSON.stringify(cats));
+    // console.log('vals =>' + JSON.stringify(vals));
 
     const groups = []
     const labels = []
@@ -33,29 +33,38 @@ const Chart = () => {
     const labelsAlt = []
     const labelsKeyAlt = []
     const datas = {}
+    const datasAlt = {}
+    console.log('=========START============');
 
     for (let i = 0; i < cats.length; i++) {
 
         const cat = cats[i];
         var foo = {}      
         var bar = {}
-
         for (var j in cat) {
             
-           // console.log('j =>' + JSON.stringify(j));
             datas[j]={}
+            datasAlt[j]={}
+
+            let x=0;
+            let y=0;
 
             for (let k = 0; k < vals.length; k++) {
 
                 const val = vals[k];
+
                 console.log('val =>' + JSON.stringify(val));
 
                 for (var l in val) {            
 
                     bar[l] = countGroup(j, l, results)
-                    console.log('bar =>' + JSON.stringify(bar));
+
+                    console.log('ijkl=>' + JSON.stringify(i+j+k+l));
+                    console.log('bar[l] =>' + JSON.stringify(bar[l]));
+                    console.log('l =>' + JSON.stringify(l));
                     
                     datas[j][l] = bar[l]
+                    datasAlt[j][x] = bar[l]
                     
                     if(!labelsAlt.includes(val[l])) {
                         labelsAlt.push(val[l])
@@ -63,9 +72,10 @@ const Chart = () => {
                     if(!labelsKeyAlt.includes(l)) {
                         labelsKeyAlt.push(l)
                     }
-
+                    x++;
                 }
                 foo[j] = bar
+
             }
             
             if(!labels.includes(cat[j])) {
@@ -78,11 +88,8 @@ const Chart = () => {
         groups.push(foo)
     }
 
-// console.log('groups =>' + JSON.stringify(groups));
-console.log('labelsKey =>' + JSON.stringify(labelsKey));
-console.log('labels =>' + JSON.stringify(labels));
-console.log('labelsKeyAlt =>' + JSON.stringify(labelsKeyAlt));
-console.log('labelsAlt =>' + JSON.stringify(labelsAlt));
+console.log('=========STOP============');
+console.log('datasAlt =>' + JSON.stringify(datasAlt));
 console.log('datas =>' + JSON.stringify(datas));
 
     var options = {
@@ -171,8 +178,7 @@ console.log('datas =>' + JSON.stringify(datas));
         ]
 
     var route = (subkey == 'likert') ? cats : vals
-    var varie = (subkey == 'likert') ? vals : cats
-    var sorter = (subkey == 'likert') ? labelsKeyAlt : labelsKey
+    var varies = (subkey == 'likert') ? datasAlt : datas
 
     const dataset = []
     var foo = {}
@@ -193,9 +199,8 @@ console.log('datas =>' + JSON.stringify(datas));
 
                     if( k == Object.keys(route[i]).find(key => route[i][key] === labelName) ){
 
-                        
                         // Not finished yet
-                        let subdata = Object.keys(datas[k]).sort((a, b) => parseInt(a) - parseInt(b) || a.localeCompare(b, undefined, {sensitivity: 'base'})).reduce((r, l) => (r[l] = datas[k][l], r), {})
+                        let subdata = Object.keys(varies[k]).sort().reduce((r, l) => (r[l] = varies[k][l], r), {})
 
                         console.log('subdata => ' + JSON.stringify(subdata))
 
@@ -232,8 +237,8 @@ console.log('datas =>' + JSON.stringify(datas));
         datasets: dataset
     };
 
-    console.log('vals =>' + JSON.stringify(vals));
-    console.log('data =>' + JSON.stringify(data));
+    // console.log('vals =>' + JSON.stringify(vals));
+    // console.log('data =>' + JSON.stringify(data));
 
     return (
         <>

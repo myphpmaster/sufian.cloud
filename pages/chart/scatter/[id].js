@@ -4,7 +4,7 @@ import useSWR, { useSWRInfinite } from "swr";
 import {Scatter} from 'react-chartjs-2';
 import { useRouter } from "next/router";
 
-const BarChart = () => {
+const Chart = () => {
 
   const router = useRouter();
   const key = router.query.id
@@ -178,4 +178,4 @@ const objectSize = (obj = {}) => {
     return size;
 };
 
-export default BarChart
+export default Chart

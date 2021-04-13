@@ -10,8 +10,10 @@ handler.get(async (req, res) => {
 
     let data = await req.db.collection(col_name)
         .find(
-            { 'path': 'ieq-poe',  }
-            )
+            { 
+                'path': 'ieq-poe',  
+            }
+        )
         .toArray()
         .then(items => { return items })
         .catch(err => console.error(`Failed to find documents: ${err}`))

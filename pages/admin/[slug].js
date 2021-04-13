@@ -11,6 +11,14 @@ import { RespondData } from '../../components/admin/respondData';
 import { Table } from '../../components/admin/latestSubmission';
 import { Footer } from '../../components/admin/footer';
 
+import { Chart as General } from '../../components/admin/chart/General';
+import { Chart as Building } from '../../components/admin/chart/Building';
+import { Chart as Condition } from '../../components/admin/chart/Condition';
+import { Chart as Thermal } from '../../components/admin/chart/Thermal';
+import { Chart as Acoustic } from '../../components/admin/chart/Acoustic';
+import { Chart as Visual } from '../../components/admin/chart/Visual';
+import { Chart as SBS } from '../../components/admin/chart/SBS';
+
 export default function Admin() {
 
 	const [ session, loading ] = useSession()
@@ -97,11 +105,6 @@ export default function Admin() {
 
 				<hr className="border-b-2 border-gray-400 my-8 mx-4" />
 
-                <div className="text-center font-black text-2xl min-h-full py-12">
-                    Welcome to POE IEQ Dashboard
-                </div>
-					
-
 				<div className="container w-full pb-5 text-2xl font-bold text-center text-black">					
 					<nav className="relative z-0 rounded-md -space-x-px" aria-label="Pagination">
 
@@ -121,6 +124,41 @@ export default function Admin() {
 					</nav>
 				</div>            
 				
+				<div className="flex flex-row flex-wrap flex-grow mt-2">
+
+					{ (slug==='general') && <>
+						<General />
+					</>}
+
+					{ (slug==='building') && <>
+						<Building />
+					</>}
+
+					{ (slug==='condition') && <>
+						<Condition />
+					</>}
+
+					{ (slug==='thermal') && <>
+						<Thermal />
+					</>}
+
+					{ (slug==='acoustic') && <>
+						<Acoustic />
+					</>}
+
+					{ (slug==='visual') && <>
+						<Visual />
+					</>}
+
+					{ (slug==='sbs') && <>
+						<SBS />
+					</>}
+
+					{ (slug==='entry') && <>
+						<Table />
+					</>}
+					
+				</div>
 
 			</div>
     	</div>

@@ -1,8 +1,8 @@
-/*  ./pages/result.js     */
+/*  ./pages/form.js     */
 import Head from 'next/head'
 import { Navbar } from '../components/NavbarForm';
 
-export default function Home() {
+export default function Form() {
 
   return (
     <>
@@ -60,7 +60,7 @@ export default function Home() {
 				__html: `                
                 jQuery( document ).ready(function($) {
                     
-                    Formio.createForm(document.getElementById('myform'), "https://survey.app.sufian.cloud/ieq-poe", {
+                    Formio.createForm(document.getElementById('myform'), "https://survey.alibaba.sufian.cloud/ieq-poe", {
                         readOnly: false
                         }).then(function(form) {
                 
@@ -75,15 +75,16 @@ export default function Home() {
                             setTimeout(function(){ 
                                 document.location.href="/result";
                             }, 1000);
-                        });                    
+                        });        
+
                     });    
                     setTimeout(function () {
-                        $('.pagination .page-item').addClass('lg:w-1/6 w-1/3')
+                        $('.pagination .page-item').addClass('lg:w-auto w-1/3')
                      }, 2000);
                 });
                 jQuery( '.page-link' ).click(function() {
                     setTimeout(function () {
-                        $('.pagination .page-item').addClass('lg:w-1/6 w-1/3')
+                        $('.pagination .page-item').addClass('lg:w-auto w-1/3')
                      }, 1000);
                     });
                 

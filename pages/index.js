@@ -13,7 +13,6 @@ export default function Home({isConnected}) {
     <>
 		<Head>
 			<title>IEQ POE Online System - Home</title>
-			<link rel="icon" href="/favicon.ico" />
 		</Head>
 		<Hero /> 
 		<Overview /> 

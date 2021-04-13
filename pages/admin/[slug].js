@@ -19,6 +19,8 @@ import { Chart as Acoustic } from '../../components/admin/chart/Acoustic';
 import { Chart as Visual } from '../../components/admin/chart/Visual';
 import { Chart as SBS } from '../../components/admin/chart/SBS';
 
+const { MONGODB_SERVER } = process.env
+
 export default function Admin() {
 
 	const [ session, loading ] = useSession()
@@ -45,11 +47,19 @@ export default function Admin() {
 			"title":"Building",
 			"url":"/admin/building",
 		},
-		{
-			"id":"condition",
-			"title":"Condition",
-			"url":"/admin/condition",
-		},
+	];
+
+	if(MONGODB_SERVER=='alibaba'){
+		menus.push(
+			{
+				"id":"condition",
+				"title":"Condition",
+				"url":"/admin/condition",
+			}
+		)
+	}
+
+	menus.push(
 		{
 			"id":"thermal",
 			"title":"Thermal",
@@ -70,7 +80,7 @@ export default function Admin() {
 			"title":"SBS",
 			"url":"/admin/sbs",
 		},
-	];
+	)
 	
 	// Fetch content from protected route
 	useEffect(()=>{

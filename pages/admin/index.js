@@ -11,6 +11,8 @@ import { RespondData } from '../../components/admin/respondData';
 import { Table } from '../../components/admin/latestSubmission';
 import { Footer } from '../../components/admin/footer';
 
+const { MONGODB_SERVER } = process.env
+
 export default function Admin() {
 
 	const [ session, loading ] = useSession()
@@ -37,11 +39,19 @@ export default function Admin() {
 			"title":"Building",
 			"url":"/admin/building",
 		},
-		{
-			"id":"condition",
-			"title":"Condition",
-			"url":"/admin/condition",
-		},
+	];
+
+	if(MONGODB_SERVER=='alibaba'){
+		menus.push(
+			{
+				"id":"condition",
+				"title":"Condition",
+				"url":"/admin/condition",
+			}
+		)
+	}
+
+	menus.push(
 		{
 			"id":"thermal",
 			"title":"Thermal",
@@ -62,7 +72,7 @@ export default function Admin() {
 			"title":"SBS",
 			"url":"/admin/sbs",
 		},
-	];
+	)
 	
 	// Fetch content from protected route
 	useEffect(()=>{

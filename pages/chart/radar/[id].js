@@ -16,7 +16,7 @@ const Chart = () => {
     const arr = survey ? [].concat(...survey) : [];
     const results = groupArray(arr);
 
-    console.log('results =>' + JSON.stringify(results));
+    // console.log('results =>' + JSON.stringify(results));
 
     const { data: schem } = useSWR(() => '/api/label', fetcher)
     const schems = schem ? [].concat(...schem) : [];

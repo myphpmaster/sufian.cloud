@@ -119,7 +119,6 @@ export default function Admin() {
 					<nav className="relative z-0 rounded-md -space-x-px" aria-label="Pagination">
 
 					{ menus.map( (menu, index) => ( 
-					<>
 						<Link key={index} href={menu.url}>
 							<a id={menu.id}
 								className={`${ menu.id==slug ? ( menu.classActive ? menu.classActive : 'bg-blue-100') : 'bg-gray-50' }
@@ -128,7 +127,6 @@ export default function Admin() {
 								{menu.title}
 							</a>
 						</Link>
-					</>
 					))}
 					
 					</nav>

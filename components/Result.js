@@ -1,8 +1,8 @@
 /*  ./components/Result.js     */
 import React, { useState } from "react";
-import useSWR, { useSWRInfinite } from "swr";
+import useSWR from "swr";
 
-export const Result = ({query}) => {
+export const Result = () => {
 
     // Fetch submissions data
     const fetcher = url => fetch(url).then(res => res.json());
@@ -94,16 +94,11 @@ export const Result = ({query}) => {
 
                 <select style={{width: 50 + 'px'}} name="page" defaultValue="1" id="page" onChange={e => handleChange(e)} className="custom-select md:text-white text-black bg-transparent focus:text-gray-900 text-center">
                     { selects.map( (page,key) => ( 
-                        <>
-                            <option key={key} value={page}>{page}</option>
-                        </>
+                        <option key={key} value={page}>{page}</option>
                     ))}
                 </select>
             </p>
             
-
-
-
         </div>
         
         { results.map( (val, index) => (
@@ -111,16 +106,16 @@ export const Result = ({query}) => {
             <div key={index} className="mb-10 border-gray-400 border mx-4">
                 <dl>
                     { schems.map( (section, key) => (                                       
-                        <>
-                            <div key={key} className="text-center bg-gray-200 px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
+                        <div key={index+key}>
+                            <div className="text-center bg-gray-200 px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
                                 <dt className="text-sm font-medium text-black">
                                     {section.title}
                                 </dt>
                             </div>
                             { section.components.map( (com, id)=> (    
-                                renderData(com, val, schems, id) 
+                                renderData(com, val, schems, index+key+id) 
                             ))}
-                        </>
+                        </div>
                     ))}    
                 </dl>
             </div>        

@@ -54,10 +54,7 @@ export const RespondData = () => {
 
   return (
 
-<>
-
-            {/*  <!--Console Content-->  */}
-            <div className="flex flex-wrap">
+            <section className="flex flex-wrap">
 
                 <div className="w-full md:w-1/2 xl:w-1/3 p-3">
                     
@@ -107,10 +104,7 @@ export const RespondData = () => {
                     
                 </div>
 
-            </div>
-            {       /*  <!--Console Content-->  */      }
-
-</>
+            </section>
 
   );
 };

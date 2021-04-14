@@ -20,7 +20,6 @@ export const Table = () => {
     
     return (
 
-            <>
                 <div className="w-full p-3">
                     <div className="bg-white border rounded shadow">
                         <div className="border-b p-3">
@@ -48,7 +47,6 @@ export const Table = () => {
                         </div>
                     </div>
                 </div>
-            </>
 
     );
 };

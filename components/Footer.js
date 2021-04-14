@@ -434,17 +434,6 @@ export const Footer = () => {
                 </footer>
             </div>
         </div>
-    
-        <script
-        dangerouslySetInnerHTML={
-            {
-            __html: `
-            jQuery( document ).ready(function($) {
-
-            });
-            `
-        }}
-      />
     </>
   );
 };

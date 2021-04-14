@@ -1,7 +1,5 @@
 /*   ./styles/_app.js              */
 import { Provider } from 'next-auth/client'
-import Head from 'next/head'
-import Layout from '../components/layout';
 import '../styles/globals.scss'
 import '../styles/custom.scss';
 

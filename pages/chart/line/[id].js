@@ -43,15 +43,15 @@ const Chart = () => {
 
         let rawData = realValue(v.identity, key, schems)
 
-        console.log(rawData)
+        // console.log(rawData)
 
         labels.push(rawData);
         values.push(v.count);
   }
   
-  console.log('results : ' + JSON.stringify(results))
-  console.log('labels : ' + JSON.stringify(labels))
-  console.log('values : ' + JSON.stringify(values))
+  // console.log('results : ' + JSON.stringify(results))
+  // console.log('labels : ' + JSON.stringify(labels))
+  // console.log('values : ' + JSON.stringify(values))
 
   const labelsAlt = []  
   const valuesAlt = []
@@ -71,8 +71,8 @@ const Chart = () => {
     }
   }        
   
-  console.log('labelsAlt=>' + JSON.stringify(labelsAlt));
-  console.log('valuesAlt=>' + JSON.stringify(valuesAlt));
+  // console.log('labelsAlt=>' + JSON.stringify(labelsAlt));
+  // console.log('valuesAlt=>' + JSON.stringify(valuesAlt));
 
   var options = {
         responsive: true,

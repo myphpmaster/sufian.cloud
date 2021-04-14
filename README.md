@@ -54,7 +54,6 @@ The following tasks will be part of future development
 * [staging.sufian.cloud](https://staging.sufian.cloud)
 * [sufian.cloud](https://sufian.cloud)
 
-
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
@@ -65,3 +64,12 @@ Check out the [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 * [nextjs-git-azure-myphpmaster.vercel.app](https://nextjs-git-azure-myphpmaster.vercel.app)
 * [vercel.sufian.cloud](https://vercel.sufian.cloud)
+
+## Deploy on Alibaba
+
+Similar steps as in Azure cloud
+
+#### Development and production websites on Azure:
+
+* [staging-sufian-cloud.alibaba.sufian.cloud](https://staging-sufian-cloud.alibaba.sufian.cloud/)
+* [/sufian-cloud.alibaba.sufian.cloud](https://sufian-cloud.alibaba.sufian.cloud/)

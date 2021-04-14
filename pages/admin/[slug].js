@@ -57,7 +57,7 @@ export default function Admin() {
 
 	const single = charts.length == 1 ? true : false
 	
-	console.log('menus =>' + JSON.stringify(menus))
+	// console.log('menus =>' + JSON.stringify(menus))
 
 	// Fetch content from protected route
 	useEffect(()=>{

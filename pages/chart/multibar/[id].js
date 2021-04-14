@@ -234,11 +234,11 @@ const Chart = () => {
 
     return (
         <>
-        <div width="640" height="480">
+        <div width="600" height="400">
             <Bar
                 data={data}
-                width={640}
-                height={480}
+                width={600}
+                height={400}
             />          
         </div>
         </>

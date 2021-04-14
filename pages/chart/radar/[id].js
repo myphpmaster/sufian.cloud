@@ -233,11 +233,11 @@ const Chart = () => {
 
     return (
         <>
-        <div width="640" height="480">
+        <div width="500" height="500">
             <Radar
                 data={data}
-                width={640}
-                height={480}
+                width={500}
+                height={500}
             />          
         </div>
         </>

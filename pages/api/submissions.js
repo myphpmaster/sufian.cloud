@@ -35,7 +35,7 @@ handler.get(async (req, res) => {
       req.query.skip ? parseInt(req.query.skip, 0) : req.query.limit*(req.query.page-1),
     );
   
-    if (req.query.skip && data.length > 0) {
+    if (!req.query.nocache && data.length > 0) {
       // This is safe to cache because from defines
       //  a concrete range of data
       res.setHeader('cache-control', `public, max-age=${maxAge}`);

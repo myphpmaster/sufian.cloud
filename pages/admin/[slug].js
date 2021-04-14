@@ -132,7 +132,7 @@ export default function Admin() {
 					</nav>
 				</div>            
 				
-				<div className="flex flex-row flex-wrap flex-grow mt-2">
+				<div className="container w-full">
 
 					{ (slug==='general') && <>
 						<General />

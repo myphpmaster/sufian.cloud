@@ -15,7 +15,7 @@ handler.get(async (req, res) => {
       key ? key : '',
     );
 
-    if (data.length > 0) {
+    if (typeof req.query.nocache === 'undefined' && data.length > 0) {
         res.setHeader('cache-control', `public, max-age=${maxAge}`);
     }
 

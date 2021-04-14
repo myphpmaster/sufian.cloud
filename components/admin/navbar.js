@@ -52,7 +52,6 @@ export const Navbar = () => {
     
 
   return (
-    <>
 
         <nav id="header" className="bg-white fixed w-full z-10 top-0 shadow">
             <div className="w-full container mx-auto flex flex-wrap items-center mt-0 pt-3 pb-3 md:pb-0">
@@ -169,7 +168,5 @@ export const Navbar = () => {
 
             </div>
         </nav>
-
-    </>
   );
 };

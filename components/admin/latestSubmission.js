@@ -20,7 +20,6 @@ export const Table = () => {
     
     return (
 
-            <>
                 <div className="w-full p-3">
                     <div className="bg-white border rounded shadow">
                         <div className="border-b p-3">
@@ -31,8 +30,8 @@ export const Table = () => {
                                 <div key={index} className="pb-10 border-gray-400 border mx-4">
                                     <dl>
                                         { schems.map( (section, key) => (                                       
-                                            <>
-                                                <div key={key} className="text-center bg-gray-200 px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
+                                            <div key={key} >
+                                                <div className="text-center bg-gray-200 px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
                                                     <dt className="text-sm font-medium text-black">
                                                     {section.title}
                                                     </dt>
@@ -40,7 +39,7 @@ export const Table = () => {
                                                 { section.components.map( (com,id)=> (  
                                                     renderData(com, val, schems, id) 
                                                 ))}
-                                            </>
+                                            </div>
                                         ))}    
                                     </dl>
                                 </div>        
@@ -48,7 +47,6 @@ export const Table = () => {
                         </div>
                     </div>
                 </div>
-            </>
 
     );
 };

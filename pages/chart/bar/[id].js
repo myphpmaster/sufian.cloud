@@ -1,7 +1,7 @@
 /*  ./components/bar.js     */
 import React, { useState } from "react";
 import useSWR, { useSWRInfinite } from "swr";
-import {Line} from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 import { useRouter } from "next/router";
 
 const Chart = () => {
@@ -152,7 +152,7 @@ const Chart = () => {
     return (
       <>
       <div width="300" height="400">
-        <Line
+        <Bar
             data={sample_data}
             width={750}
             height={500}

@@ -2,6 +2,7 @@
 import React, { Component, useState, useEffect } from 'react'
 import { signIn, signOut, useSession } from 'next-auth/client'
 import { useRouter } from "next/router";
+import useSWR, { useSWRInfinite } from "swr";
 import Head from 'next/head'
 import Link from 'next/link';
 import Login from '../../components/admin/login';
@@ -21,6 +22,9 @@ export default function Admin() {
 	const router = useRouter();
 	const slug = router.query.slug
 
+    const fetcher = url => fetch(url).then(res => res.json());
+    const { data: schem, error } = useSWR(() => '/api/label/', fetcher)
+    const schems = schem ? [].concat(...schem) : [];
 	const menus = [	
 		{
 			"id":"entry",
@@ -28,51 +32,20 @@ export default function Admin() {
 			"url":"/admin/entry",
 			"class": 'bg-red-100 w-full mr-2 mb-2 md:mb-0 hover:bg-red-50',
 			"classActive": 'bg-red-200'
-		},
-		{
-			"id":"general",
-			"title":"General",
-			"url":"/admin/general",
-		},
-		{
-			"id":"building",
-			"title":"Building",
-			"url":"/admin/building",
-		},
+		}
 	];
 
-	if(MONGODB_SERVER=='alibaba'){
-		menus.push(
-			{
-				"id":"condition",
-				"title":"Condition",
-				"url":"/admin/condition",
-			}
-		)
-	}
-
-	menus.push(
-		{
-			"id":"thermal",
-			"title":"Thermal",
-			"url":"/admin/thermal",
-		},
-		{
-			"id":"acoustic",
-			"title":"Acoustic",
-			"url":"/admin/acoustic",
-		},
-		{
-			"id":"visual",
-			"title":"Visual",
-			"url":"/admin/visual",
-		},
-		{
-			"id":"sbs",
-			"title":"SBS",
-			"url":"/admin/sbs",
-		},
-	)
+    for (let i = 0; i < schems.length; i++) {
+        if(schems[i].type == 'panel') {
+			menus.push(
+				{
+					"id": schems[i].key,
+					"title": schems[i].title,
+					"url":"/admin/" + schems[i].key,
+				}
+			)
+        }
+    }
 	
 	// Fetch content from protected route
 	useEffect(()=>{

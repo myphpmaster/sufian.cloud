@@ -52,7 +52,7 @@ const Chart = () => {
 
                 const val = vals[k];
 
-                console.log('val =>' + JSON.stringify(val));
+                //console.log('val =>' + JSON.stringify(val));
 
                 for (var l in val) {            
 
@@ -225,7 +225,8 @@ const Chart = () => {
 
     const data = {
         labels: useLabel,
-        datasets: dataset
+        datasets: dataset,
+        options: options
     };
 
     // console.log('vals =>' + JSON.stringify(vals));
@@ -233,11 +234,11 @@ const Chart = () => {
 
     return (
         <>
-        <div width="500" height="500">
-            <Radar
+        <div width="600" height="400">
+            <Bar
                 data={data}
-                width={500}
-                height={500}
+                width={600}
+                height={400}
             />          
         </div>
         </>

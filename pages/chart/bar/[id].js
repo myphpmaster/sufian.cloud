@@ -1,13 +1,14 @@
 /*  ./components/bar.js     */
 import React, { useState } from "react";
 import useSWR, { useSWRInfinite } from "swr";
-import {Scatter} from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 import { useRouter } from "next/router";
 
 const Chart = () => {
 
   const router = useRouter();
   const key = router.query.id
+  const subkey = router.query.type ? router.query.type : false;
     
   const fetcher = url => fetch(url).then(res => res.json());
   const { data: survey } = useSWR(() => '/api/charts/?key=' + key, fetcher)
@@ -15,13 +16,63 @@ const Chart = () => {
   const arr = survey ? [].concat(...survey) : [];
   const results = groupArray(arr);
 
+  // Sorting based on values 
+  results.sort(function(a, b) {
+        var valueA, valueB;
+
+        valueA = a['identity']; // Where 1 is your index, from your example
+        valueB = b['identity'];
+        if (valueA < valueB) {
+            return -1;
+        }
+        else if (valueA > valueB) {
+            return 1;
+        }
+        return 0;
+  });
+
+  const { data: schem } = useSWR(() => '/api/label', fetcher)
+  const schems = schem ? [].concat(...schem) : [];
+
+  const vals = getGroupKeys(key, schems)
+
   const labels = [];
   const values = [];
 
-  for (const [key, val] of Object.entries(results)) {
-        labels.push(val.identity);
-        values.push(val.count);
+  for (const [i, v] of Object.entries(results)) {
+
+        let rawData = realValue(v.identity, key, schems)
+
+        // console.log(rawData)
+
+        labels.push(rawData);
+        values.push(v.count);
   }
+  
+  // console.log('results : ' + JSON.stringify(results))
+  // console.log('labels : ' + JSON.stringify(labels))
+  // console.log('values : ' + JSON.stringify(values))
+
+  const labelsAlt = []  
+  const valuesAlt = []
+  
+  var x = 0
+
+  for (let k = 0; k < vals.length; k++) {
+
+    const val = vals[k];
+
+    for (var l in val) {            
+        
+        labelsAlt[l] = val[l]
+        valuesAlt[x] = countGroup(l, results)
+        
+        x++;
+    }
+  }        
+  
+  // console.log('labelsAlt=>' + JSON.stringify(labelsAlt));
+  // console.log('valuesAlt=>' + JSON.stringify(valuesAlt));
 
   var options = {
         responsive: true,
@@ -30,7 +81,8 @@ const Chart = () => {
             yAxes: [{
                 display: true,
                 ticks: {
-                    beginAtZero: true
+                    beginAtZero: true,
+                    stepSize: 1
                 }
             }]
         },
@@ -48,10 +100,13 @@ const Chart = () => {
 
     };
 
+    const displayLabel =  (subkey == 'likert') ? labelsAlt : labels;
+    const displayData =  (subkey == 'likert') ? valuesAlt : values;
+
     const sample_data = {
-        labels: labels,
+        labels: displayLabel,
         datasets: [{
-            data: values,
+            data: displayData,
             label: '# of Respondents',
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
@@ -97,7 +152,7 @@ const Chart = () => {
     return (
       <>
       <div width="300" height="400">
-        <Scatter
+        <Bar
             data={sample_data}
             width={750}
             height={500}
@@ -166,7 +221,7 @@ function groupArray (arr = []) {
         }
         const res = Array.from(map.values())
         return res;
-    };
+};
     
 const objectSize = (obj = {}) => {
         var size = 0, key;
@@ -176,6 +231,118 @@ const objectSize = (obj = {}) => {
           }
         } 
     return size;
+};
+
+function realValue(key, value, schema, title=false){
+
+    let rawData = key
+    let rawKey = value
+
+    for (let i = 0; i < schema.length; i++) {
+
+        let obj = schema[i].components
+
+        for (let j = 0; j < obj.length; j++) {
+
+            // console.log('obj[j].key =>' + obj[j].key)
+
+            if (rawKey == obj[j].key) {
+
+                let values = obj[j]
+
+                // For dropdown select input
+                if( values.hasOwnProperty('data') ){
+                    values = values.data
+                }
+
+                // radio input directly have this property
+                if( values.hasOwnProperty('values') ){
+
+                    let realVal = values.values
+
+                    if(title){
+                        realVal = values.questions
+                    }
+
+                    for (let k = 0; k < realVal.length; k++) {
+
+                        if(rawData == realVal[k].value || rawData === realVal[k].value ) {
+
+                            rawData = realVal[k].label
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return rawData
+}
+
+function getGroupKeys(key, schema, title=false){
+
+    let groupKeys=[]
+
+    for (let i = 0; i < schema.length; i++) {
+
+        let obj = schema[i].components
+
+        for (let j = 0; j < obj.length; j++) {
+
+            // console.log('obj[j].key =>' + obj[j].key)
+
+            if (key == obj[j].key) {
+
+                let values = obj[j]
+
+                // For dropdown select input
+                if( values.hasOwnProperty('data') ){
+                    values = values.data
+                }
+
+                // radio input directly have this property
+                if( values.hasOwnProperty('values') ){
+
+                    let realVal = values.values
+
+                    if(title){
+                        realVal = values.questions
+                    }
+
+//                    console.log('realVal =>' + JSON.stringify(realVal))
+
+                    for (let k = 0; k < realVal.length; k++) {
+
+                        var foo = {};
+                        foo[realVal[k].value.toString()] = realVal[k].label
+                        groupKeys.push(foo);
+                        
+//                        console.log('realVal[k] =>' + k + JSON.stringify(realVal[k]))
+
+                    }
+                }
+            }
+        }
+    }
+    return groupKeys
+}
+
+// function to group all data counts
+function countGroup (val='', datas = []) {
+    var counts = 0
+    for (let i = 0; i < datas.length; i++) {
+        let obj = datas[i]
+        
+        if( obj instanceof Object ){                                    
+            for (let j in obj){     
+                
+                if(obj.identity.toString() === val.toString() ) {
+                    counts = obj.count
+                }
+            }
+        } 
+    }
+    return counts;
 };
 
 export default Chart

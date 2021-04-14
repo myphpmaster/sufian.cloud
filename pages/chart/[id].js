@@ -4,7 +4,7 @@ import useSWR, { useSWRInfinite } from "swr";
 import {Bar} from 'react-chartjs-2';
 import { useRouter } from "next/router";
 
-const BarChart = () => {
+const Chart = () => {
 
   const router = useRouter();
   const key = router.query.id
@@ -30,12 +30,18 @@ const BarChart = () => {
     return 0;
   });
 
+  const { data: schem } = useSWR(() => '/api/label', fetcher)
+  const schems = schem ? [].concat(...schem) : [];
+
   const labels = [];
   const values = [];
 
-  for (const [key, val] of Object.entries(results)) {
-        labels.push(val.identity);
-        values.push(val.count);
+  for (const [id, val] of Object.entries(results)) {
+
+    let rawData = realValue(val.identity, key, schems)
+
+    labels.push(rawData);
+    values.push(val.count);
   }
 
   var options = {
@@ -172,4 +178,50 @@ const objectSize = (obj = {}) => {
     return size;
 };
 
-export default BarChart
+function realValue(key, value, schema, title=false){
+
+    let rawData = key
+    let rawKey = value
+
+    for (let i = 0; i < schema.length; i++) {
+
+        let obj = schema[i].components
+
+        for (let j = 0; j < obj.length; j++) {
+
+            // console.log('obj[j].key =>' + obj[j].key)
+
+            if (rawKey == obj[j].key) {
+
+                let values = obj[j]
+
+                // For dropdown select input
+                if( values.hasOwnProperty('data') ){
+                    values = values.data
+                }
+
+                // radio input directly have this property
+                if( values.hasOwnProperty('values') ){
+
+                    let realVal = values.values
+
+                    if(title){
+                        realVal = values.questions
+                    }
+
+                    for (let k = 0; k < realVal.length; k++) {
+
+                        if(rawData == realVal[k].value || rawData === realVal[k].value ) {
+
+                            rawData = realVal[k].label
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return rawData
+}
+
+export default Chart

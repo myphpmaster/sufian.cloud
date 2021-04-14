@@ -52,12 +52,12 @@ const Chart = () => {
 
                 const val = vals[k];
 
-                console.log('val =>' + JSON.stringify(val));
+                // console.log('val =>' + JSON.stringify(val));
 
                 for (var l in val) {            
 
                     bar[l] = countGroup(j, l, results)
-                    
+
                     datas[j][l] = bar[l]
                     datasAlt[j][x] = bar[l]
                     
@@ -233,11 +233,11 @@ const Chart = () => {
 
     return (
         <>
-        <div width="500" height="500">
-            <Radar
+        <div width="640" height="480">
+            <Line
                 data={data}
-                width={500}
-                height={500}
+                width={640}
+                height={480}
             />          
         </div>
         </>

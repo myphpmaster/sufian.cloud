@@ -1,8 +1,11 @@
 /*  ./pages/form.js     */
 import Head from 'next/head'
 import { Navbar } from '../components/NavbarForm';
+const { MONGODB_SERVER } = process.env
 
 export default function Form() {
+  
+  const formLink = (MONGODB_SERVER==='azure') ? "https://survey.app.sufian.cloud/ieq-poe" : "https://survey.alibaba.sufian.cloud/ieq-poe"
 
   return (
     <>
@@ -60,7 +63,7 @@ export default function Form() {
 				__html: `                
                 jQuery( document ).ready(function($) {
                     
-                    Formio.createForm(document.getElementById('myform'), "https://survey.app.sufian.cloud/ieq-poe", {
+                    Formio.createForm(document.getElementById('myform'), "${formLink}", {
                         readOnly: false
                         }).then(function(form) {
                 
@@ -75,15 +78,16 @@ export default function Form() {
                             setTimeout(function(){ 
                                 document.location.href="/result";
                             }, 1000);
-                        });                    
+                        });        
+
                     });    
                     setTimeout(function () {
-                        $('.pagination .page-item').addClass('lg:w-1/6 w-1/3')
+                        $('.pagination .page-item').addClass('lg:w-auto w-1/3')
                      }, 2000);
                 });
                 jQuery( '.page-link' ).click(function() {
                     setTimeout(function () {
-                        $('.pagination .page-item').addClass('lg:w-1/6 w-1/3')
+                        $('.pagination .page-item').addClass('lg:w-auto w-1/3')
                      }, 1000);
                     });
                 

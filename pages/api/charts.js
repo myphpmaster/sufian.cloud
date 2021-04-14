@@ -1,5 +1,7 @@
+import { ObjectID } from 'bson';
 import nextConnect from 'next-connect';
 import middleware from '../../middleware/db';
+const { MONGODB_SERVER } = process.env
 
 const handler = nextConnect();
 const col_name = 'submissions';
@@ -27,15 +29,19 @@ handler.get(async (req, res) => {
   
 export async function getDatas(db, keys) {
     const key = 'data.' + keys
+    // const form = new ObjectID("606e53e9642f2cd011d871b4")
+    
+    const form = MONGODB_SERVER=='azure' ? new ObjectID("605f377e249aa13843b38138") : new ObjectID("606e53e9642f2cd011d871b4")
+
     return db
       .collection(col_name)
-      .find(
-        { 'data.age': { '$exists': 1 } },
-        { 
-            skip: 0, 
-            projection: { [key]: 1, _id: 0}
-        }   
-      )
+      .find({
+        "form": form
+      })
+      .project({
+            [key]: 1, 
+            _id: 0
+      })
       .sort({ created: -1 })
       .toArray()
       .then(items => { return items })

@@ -5,9 +5,8 @@ import { Overview } from '../components/Overview';
 import { Azure } from '../components/Azure';
 import { Footer } from '../components/Footer';
 import React, { Component } from 'react'
-import { connectToDatabase } from '../util/mongodb'
 
-export default function Home({isConnected}) {
+export default function Home() {
 
   return (
     <>
@@ -21,14 +20,3 @@ export default function Home({isConnected}) {
     </>
   )
 }
-
-export async function getServerSideProps(context) {
-	const { client } = await connectToDatabase()
-  
-	const isConnected = await client.isConnected()
-  
-	return {
-	  props: { isConnected },
-	}
-  }
-  

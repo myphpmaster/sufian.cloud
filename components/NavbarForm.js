@@ -162,11 +162,8 @@ export const Navbar = () => {
           </div>
         </div>
 
-        {/*<!-- Mobile menu, show/hide based on menu state. -->*/}
         <div className="sm:hidden" id="mobile-menu">
-          <div className={`${ isOpen.mobile ? '' : 'hidden' } mobile-menu px-2 pt-2 pb-3 space-y-1`}>
-            {/*<!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->*/}
-            
+          <div className={`${ isOpen.mobile ? '' : 'hidden' } mobile-menu px-2 pt-2 pb-3 space-y-1`}>            
                   { menus.map( (menu, index) => ( 
                     <Link key={index} href={menu.url}>
                       <a id={menu.id}  target={menu.target ? menu.target : `_self`}

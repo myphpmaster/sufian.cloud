@@ -42,7 +42,7 @@ export const Table = () => {
                                             </div>
                                         ))}    
                                     </dl>
-                                </div>        
+                                </div>
                             ))}
                         </div>
                     </div>
@@ -57,56 +57,58 @@ function renderData(params, variable, schema, id) {
     let val = params.key            // parameters.key
     let rawData = realValue(key, val, schema)
 
-        if( typeof variable[params.key] !== 'object' ){
+    if(!validType(params.type)) return
 
-            return (
-                <div key={id} className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <dt className="text-sm font-medium text-gray-500">
-                        {params.label}
-                    </dt>
-                    <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        {rawData}
-                    </dd>
-                </div>
-            );
+    if( typeof variable[params.key] !== 'object' ){
 
-        } else {
+        return (
+            <div key={id} className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                    {params.label}
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    {rawData}
+                </dd>
+            </div>
+        );
 
-            const obj = variable[params.key];
-            const objNames = Object.keys(obj);
-            const objVal = Object.values(obj);
-            var newArr = []
+    } else {
 
-            for (let k in obj){
+        const obj = variable[params.key];
+        const objNames = Object.keys(obj);
+        const objVal = Object.values(obj);
+        var newArr = []
 
-                newArr[k] = obj[k]
+        for (let k in obj){
 
-            }
+            newArr[k] = obj[k]
+
+        }
 
 //          console.log('objNames => ' + JSON.stringify(objNames) )
 //          console.log('objVal => ' + JSON.stringify(objVal) )
 //          console.log('newArr => ' + JSON.stringify(newArr) )
 
-            return (
-                <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <dt className="text-sm font-medium text-gray-500">
-                        {params.label}
-                    </dt>
-                    <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        <ul className="border border-gray-200 rounded-md divide-y divide-gray-200">
+        return (
+            <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                    {params.label}
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    <ul className="border border-gray-200 rounded-md divide-y divide-gray-200">
+                        
+                        { objNames.map( (com, num)=> (    
+                                                
+                            renderSubdata(com, newArr, params.key, schema, num) 
                             
-                            { objNames.map( (com, num)=> (    
-                                                    
-                                renderSubdata(com, newArr, params.key, schema, num) 
-                                
-                            ))}
+                        ))}
 
-                        </ul>
-                    </dd>
-                </div>
-            );
+                    </ul>
+                </dd>
+            </div>
+        );
 
-        }
+    }
 }
 
 function renderSubdata(subparams, array, key, schema, id) {
@@ -176,4 +178,15 @@ function realValue(key, value, schema, title=false){
         }
     }
     return rawData
+}
+
+function validType(type){
+    const types = [
+        'number',
+        'radio',
+        'text',
+        'select',
+        'survey',
+    ]
+    return types.includes(type) ? true : false
 }

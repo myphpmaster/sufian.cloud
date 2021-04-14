@@ -172,7 +172,7 @@ function renderCharts(data, id, single=false){
     const type = data.properties.hasOwnProperty('chart') ? data.properties.chart : chartType[data.type] 
     const slug = (data.type == 'survey') ? ( data.values.length > data.questions.length ?  '?type=likert' : '' ) : ''
     const clss = single ? '' : 'md:w-1/2'
-    const height = single ? '650px' : '500px'
+    const height = single ? '100vh' : '550px'
 
     return (
         

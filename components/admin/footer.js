@@ -1,4 +1,4 @@
-/*  ./components/Footer.js     */
+/*  ./components/admin/footer.js     */
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -37,7 +37,6 @@ export const Footer = () => {
      ];
          
   return (
-    <>
 
 <footer className="bg-white border-t border-gray-400 shadow">
         <div className="container max-w-12xl mx-auto flex py-8">
@@ -74,6 +73,5 @@ export const Footer = () => {
             </div>
         </div>
     </footer>
-    </>
   );
 };

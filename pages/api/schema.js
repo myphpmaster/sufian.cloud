@@ -10,17 +10,20 @@ handler.get(async (req, res) => {
 
     let data = await req.db.collection(col_name)
         .find(
-            { 'path': 'ieq-poe',  }
-            )
+            { 
+                'path': 'ieq-poe',  
+            }
+        )
         .toArray()
         .then(items => { return items })
         .catch(err => console.error(`Failed to find documents: ${err}`))
 
-    if (data.length > 0) {
+    if (typeof req.query.nocache === 'undefined' && data.length > 0) {
         res.setHeader('cache-control', `public, max-age=${maxAge}`);
     }
     
     res.json(data[0]);
 });
+
 
 export default handler;

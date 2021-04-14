@@ -1,18 +1,15 @@
 /*  ./pages/admin/[...route].js     */
 import React, { Component, useState, useEffect } from 'react'
 import { signIn, signOut, useSession } from 'next-auth/client'
-import { useRouter } from "next/router";
 import useSWR, { useSWRInfinite } from "swr";
+import { useRouter } from "next/router";
 import Head from 'next/head'
 import Link from 'next/link';
 import Login from '../../components/admin/login';
-
 import { Navbar } from '../../components/admin/navbar';
 import { RespondData } from '../../components/admin/respondData';
 import { Table } from '../../components/admin/latestSubmission';
 import { Footer } from '../../components/admin/footer';
-
-const { MONGODB_SERVER } = process.env
 
 export default function Admin() {
 
@@ -21,10 +18,11 @@ export default function Admin() {
   
 	const router = useRouter();
 	const slug = router.query.slug
-
+	
     const fetcher = url => fetch(url).then(res => res.json());
     const { data: schem, error } = useSWR(() => '/api/label/', fetcher)
     const schems = schem ? [].concat(...schem) : [];
+    const charts = []	
 	const menus = [	
 		{
 			"id":"entry",
@@ -37,6 +35,7 @@ export default function Admin() {
 
     for (let i = 0; i < schems.length; i++) {
         if(schems[i].type == 'panel') {
+				
 			menus.push(
 				{
 					"id": schems[i].key,
@@ -44,9 +43,22 @@ export default function Admin() {
 					"url":"/admin/" + schems[i].key,
 				}
 			)
+
+			if(schems[i].key == slug) {
+				let obj = schems[i].components
+				for (let j = 0; j < obj.length; j++) {
+					if (validType(obj[j].type)) {
+						charts.push(obj[j])
+					}
+				}
+			}
         }
     }
+
+	const single = charts.length == 1 ? true : false
 	
+	console.log('menus =>' + JSON.stringify(menus))
+
 	// Fetch content from protected route
 	useEffect(()=>{
 	  	const fetchData = async () => {
@@ -80,11 +92,6 @@ export default function Admin() {
 
 				<hr className="border-b-2 border-gray-400 my-8 mx-4" />
 
-                <div className="text-center font-black text-2xl min-h-full py-12">
-                    Welcome to POE IEQ Dashboard
-                </div>
-					
-
 				<div className="container w-full pb-5 text-2xl font-bold text-center text-black">					
 					<nav className="relative z-0 rounded-md -space-x-px" aria-label="Pagination">
 
@@ -93,15 +100,45 @@ export default function Admin() {
 							<a id={menu.id}
 								className={`${ menu.id==slug ? ( menu.classActive ? menu.classActive : 'bg-blue-100') : 'bg-gray-50' }
 								 ${ menu.class ? menu.class : 'hover:bg-blue-50 w-1/3' } inline-block md:w-auto items-center px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700`}>
-								 
 								{menu.title}
 							</a>
 						</Link>
 					))}
 					
 					</nav>
-				</div>            
+				</div>    
+					
+					
+				{ (!schem) && <>
 				
+					<div className="flex flex-row flex-wrap flex-grow mt-2">
+						<div className="w-full p-3">
+							<div className="bg-white border rounded shadow">
+								<div className="border-b p-3 min-h-full">
+									<h5 className="font-bold uppercase text-gray-600 text-center">Loading...</h5>
+								</div>
+							</div>
+						</div>
+					</div>
+        		</>}
+
+				{ (slug==='entry') && <>
+
+					<div className="container w-full">
+						<Table />
+					</div>
+
+				</>}
+
+				{ (charts.length > 0) && <>
+
+					<div className="flex flex-row flex-wrap flex-grow mt-2">
+						{charts.map( (section, key) => (    
+							renderCharts(section, key, single)
+						))}    
+					</div>
+
+				</>}
 
 			</div>
     	</div>
@@ -110,4 +147,49 @@ export default function Admin() {
     </>
   )
 }
-  
+
+
+function validType(type){
+
+    const types = [
+        'number',
+        'radio',
+        'select',
+        'survey',
+    ]
+    return types.includes(type) ? true : false
+}
+
+function renderCharts(data, id, single=false){
+
+    var chartType = {
+      "number": "line",
+      "select": "bar",
+      "radio": "horizontal",
+      "survey": "multibar"
+    }
+
+    const type = data.properties.hasOwnProperty('chart') ? data.properties.chart : chartType[data.type] 
+    const slug = (data.type == 'survey') ? ( data.values.length > data.questions.length ?  '?type=likert' : '' ) : ''
+    const clss = single ? '' : 'md:w-1/2'
+    const height = single ? '100vh' : '550px'
+
+    return (
+        
+        <div key={id} className={`${clss} w-full p-3`}>
+                        
+            <div className="bg-white border rounded shadow">
+                <div className="border-b p-3">
+                    <h5 className="font-bold uppercase text-gray-600 text-center">{data.label}</h5>
+                </div>
+                <div className="p-5">
+                    <div className="" style={{width: '100%', height: height}}>
+                        <iframe className="inset-0 w-full h-full" src={`/chart/${type}/${data.key}/${slug}`} frameBorder="0" />
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+    )
+}

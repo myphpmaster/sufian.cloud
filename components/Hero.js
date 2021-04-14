@@ -1,4 +1,5 @@
 /*  ./components/Hero.js     */
+import Image from 'next/image'
 import { Navbar } from '../components/NavbarLeft';
 
 export const Hero = () => {
@@ -60,8 +61,15 @@ export const Hero = () => {
                     <source src="/home.mp4" type="video/mp4" /> 
                     <source src="/home.ogg" type="video/ogg" /> 
                     <source src="/home.webm" type="video/webm" />
-                </video>
-                <img className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full" src="/indoor-ieq.jpg" alt="" />
+                </video>                
+                <Image
+                    src="/indoor-ieq.jpg"
+                    className="block h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
+                    alt="Indoor architecture"
+                    layout="responsive"
+                    width={1024}
+                    height={683}
+                />
             </div>
         </div>
     </div>

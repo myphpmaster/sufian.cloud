@@ -29,7 +29,7 @@ export const Navbar = () => {
         {
           "id":"menu-admin",
           "title":"Dashboard",
-          "url":"/admin"
+          "url":"/admin/general"
         }
     ];
     const [isOpen, setIsOpen] = useState(false);
@@ -117,7 +117,7 @@ export const Navbar = () => {
                     ))}
 
                     </div>
-                    <Link href='#'>
+                    <Link href='/api/auth/signin/'>
                         <a className="block w-full px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100">
                             Log in
                         </a>

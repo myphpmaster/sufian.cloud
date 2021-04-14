@@ -1,14 +1,16 @@
-/*  ./pages/result.js     */
+/*  ./pages/form.js     */
 import Head from 'next/head'
-import React, {useEffect} from 'react';
-import { Navbar } from '../components/Navbar';
+import { Navbar } from '../components/NavbarForm';
+const { MONGODB_SERVER } = process.env
 
-export default function Home() {
+export default function Form() {
+  
+  const formLink = (MONGODB_SERVER==='azure') ? "https://survey.app.sufian.cloud/ieq-poe" : "https://survey.alibaba.sufian.cloud/ieq-poe"
 
   return (
     <>
 		<Head>
-			<title>IEQ POE Online System - Home</title>
+			<title>IEQ POE Online System - Questionnaire Form</title>
 			<link rel="icon" href="/favicon.ico" />		       
             <link rel="stylesheet" type="text/css" href="https://unpkg.com/formiojs@4.12.7/dist/formio.full.min.css" />
             <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
@@ -61,7 +63,7 @@ export default function Home() {
 				__html: `                
                 jQuery( document ).ready(function($) {
                     
-                    Formio.createForm(document.getElementById('myform'), "https://survey.app.sufian.cloud/ieq-poe", {
+                    Formio.createForm(document.getElementById('myform'), "${formLink}", {
                         readOnly: false
                         }).then(function(form) {
                 
@@ -76,15 +78,16 @@ export default function Home() {
                             setTimeout(function(){ 
                                 document.location.href="/result";
                             }, 1000);
-                        });                    
+                        });        
+
                     });    
                     setTimeout(function () {
-                        $('.pagination .page-item').addClass('lg:w-1/6 w-1/3')
+                        $('.pagination .page-item').addClass('lg:w-auto w-1/3')
                      }, 2000);
                 });
                 jQuery( '.page-link' ).click(function() {
                     setTimeout(function () {
-                        $('.pagination .page-item').addClass('lg:w-1/6 w-1/3')
+                        $('.pagination .page-item').addClass('lg:w-auto w-1/3')
                      }, 1000);
                     });
                 

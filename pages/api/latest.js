@@ -1,5 +1,7 @@
 import nextConnect from 'next-connect';
+import { ObjectId, ObjectID } from 'bson';
 import middleware from '../../middleware/db';
+const { MONGODB_SERVER } = process.env
 
 const handler = nextConnect();
 const col_name = 'submissions';
@@ -12,8 +14,7 @@ handler.get(async (req, res) => {
     today.setHours(0,0,0,0);
 
     const from = req.query.from ? new Date(req.query.from) : today
-
-    console.log(from)
+//    console.log(from)
     
     const data = await getDatas(      
         req.db,
@@ -30,12 +31,14 @@ handler.get(async (req, res) => {
 });
 
 export async function getDatas(db, from) {
+    // const form = new ObjectID("606e53e9642f2cd011d871b4")
+    const form = MONGODB_SERVER=='azure' ? new ObjectID("605f377e249aa13843b38138") : new ObjectID("606e53e9642f2cd011d871b4")
     
     return db
       .collection(col_name)
       .find({ 
-          'data.gender': { $exists: 1 }, 
-          'created': { $gte: from }         
+            'form': form,
+            'created': { $gte: from }         
       })
       .sort({ created: -1 })
       .limit(0)

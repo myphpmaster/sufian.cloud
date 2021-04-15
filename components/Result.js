@@ -51,11 +51,11 @@ export const Result = () => {
         results.push(value.data);
     }); 
         
-    const { data: schem } = useSWR(() => '/api/label', fetcher)
+    const { data: schem } = useSWR(() => '/api/label/?nocache=1', fetcher)
     const schems = schem ? [].concat(...schem) : [];
     
     // Total respondents
-    const { data: count } = useSWR(() => '/api/count/', fetcher)
+    const { data: count } = useSWR(() => '/api/count/?nocache=1', fetcher)
 
     const selects = [];
     for (let i=1; i<=count; i++){
@@ -168,9 +168,9 @@ function renderData(params, variable, schema, id) {
     let val = params.key            // parameters.key
     let rawData = realValue(key, val, schema)
 
-    if(!validType(params.type)) return
-
-    if( typeof variable[params.key] !== 'object' ){
+    if(!validType(params.type)) {
+        return 
+    } else if( typeof variable[params.key] !== 'object' ){
 
         return (
             <div key={id} className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -246,39 +246,58 @@ function realValue(key, value, schema, title=false){
     let rawKey = value
 
     for (let i = 0; i < schema.length; i++) {
-
         let obj = schema[i].components
 
         for (let j = 0; j < obj.length; j++) {
-
             // console.log('obj[j].key =>' + obj[j].key)
+            if (obj[j])
 
-            if (rawKey == obj[j].key) {
+            // create loop for columns type
+            if (obj[j].type == 'columns'){
+                let col = obj[j].columns
 
-                let values = obj[j]
+                for (let k = 0; k < col.length; k++) {
+                    let subcol = col[k].components
 
-                // For dropdown select input
-                if( values.hasOwnProperty('data') ){
-                    values = values.data
-                }
-
-                // radio input directly have this property
-                if( values.hasOwnProperty('values') ){
-
-                    let realVal = values.values
-
-                    if(title){
-                        realVal = values.questions
-                    }
-
-                    for (let k = 0; k < realVal.length; k++) {
-
-                        if(rawData == realVal[k].value || rawData === realVal[k].value ) {
-
-                            rawData = realVal[k].label
-                            break;
+                    for (let l = 0; l < subcol.length; l++) {
+                        if (rawKey == subcol[l].key) {
+                            rawData = realValLoop(key, subcol[l], title)
                         }
                     }
+                }
+            } else if (rawKey == obj[j].key) {
+                rawData = realValLoop(key, obj[j], title)
+            }
+        }
+    }
+    return rawData
+}
+
+function realValLoop(key, obj, title) {
+    let rawData = key
+    let values = obj
+
+    console.log('key->'+JSON.stringify(key))
+    console.log('obj->'+JSON.stringify(obj))
+    console.log('title->'+JSON.stringify(title))
+
+    // For dropdown select input
+    if( values.type === 'select' ){
+        values = values.data
+    }
+    // For number type input
+    if( values.type === 'number' ){
+        rawData = values.prefix + rawData + values.suffix
+    }
+    // radio input directly have this property
+    if( values.type === 'radio' || values.type === 'survey' ){
+        let realVal = title ? values.questions : values.values
+        console.log(JSON.stringify(realVal))
+        
+        if( typeof realVal === 'array' ) {
+            for (let k = 0; k < realVal.length; k++) {
+                if(rawData == realVal[k].value || rawData === realVal[k].value ) {
+                    rawData = realVal[k].label
                 }
             }
         }

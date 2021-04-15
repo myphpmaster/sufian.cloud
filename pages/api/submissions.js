@@ -3,7 +3,7 @@ import nextConnect from 'next-connect';
 import middleware from '../../middleware/db';
 const handler = nextConnect();
 const col_name = 'submissions';
-const { MONGODB_SERVER } = process.env
+const { MONGODB_FORM_ID } = process.env
 
 handler.use(middleware);
 const maxAge = 1 * 24 * 60 * 60;
@@ -46,7 +46,7 @@ handler.get(async (req, res) => {
   
 export async function getDatas(db, limits, skips) {
     // const form = new ObjectID("606e53e9642f2cd011d871b4")
-    const form = MONGODB_SERVER=='azure' ? new ObjectID("605f377e249aa13843b38138") : new ObjectID("606e53e9642f2cd011d871b4")
+    const form = new ObjectID(MONGODB_FORM_ID)
     
     return db
       .collection(col_name)

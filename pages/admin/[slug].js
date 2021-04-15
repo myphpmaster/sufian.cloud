@@ -67,7 +67,7 @@ export default function Admin() {
 
 	const single = charts.length == 1 ? true : false
 	
-	console.log('menus =>' + JSON.stringify(menus))
+	// console.log('menus =>' + JSON.stringify(menus))
 
 	// Fetch content from protected route
 	useEffect(()=>{
@@ -123,8 +123,8 @@ export default function Admin() {
 				
 					<div className="flex flex-row flex-wrap flex-grow mt-2">
 						<div className="w-full p-3">
-							<div className="bg-white border rounded shadow">
-								<div className="border-b p-3 min-h-full">
+							<div className="">
+								<div className="p-3 min-h-full">
 									<h5 className="font-bold uppercase text-gray-600 text-center">Loading...</h5>
 								</div>
 							</div>

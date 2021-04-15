@@ -1,5 +1,6 @@
 import nextConnect from 'next-connect';
 import middleware from '../../middleware/db';
+const { MONGODB_FORM_PATH } = process.env
 
 const handler = nextConnect();
 const col_name = 'forms';
@@ -39,7 +40,7 @@ export async function getDatas(db, keys) {
     return db
       .collection(col_name)
       .find({ 
-          'path': 'ieq-poe',
+          'path': MONGODB_FORM_PATH,
       })
       .project({
         components: 1, 

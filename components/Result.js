@@ -1,20 +1,15 @@
 /*  ./components/Result.js     */
 import React, { useState } from "react";
-import useSWR from "swr";
+// import useSWR from "swr";
+import { Table } from './admin/latestSubmission';
 
 export const Result = () => {
 
+    /*
     // Fetch submissions data
     const fetcher = url => fetch(url).then(res => res.json());
     const PAGE_SIZE = 1;
     
-/*
-    const { data, error, mutate, size, setSize, isValidating } = useSWRInfinite(
-        index =>
-          `/api/submissions?limit=${PAGE_SIZE}&page=${index + 1}`,
-        fetcher
-      );
-*/
     const [index, setState] = useState(1);
 
     const handleChange = (e) => {
@@ -23,7 +18,6 @@ export const Result = () => {
 
     const { data, error } = useSWR( `/api/submissions?limit=${PAGE_SIZE}&page=${index}&nocache=1`, fetcher)
 
-    /*
     if (error) return (
         <div className="py-24 bg-gradient-to-r from-indigo-700 to-pink-500 bg-opacity-50 min-h-screen">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">        
@@ -33,6 +27,7 @@ export const Result = () => {
             </div>
         </div>
         )
+        
     if (!data) return (
         <div className="py-24 bg-gradient-to-r from-indigo-700 to-pink-500 bg-opacity-50 min-h-screen">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">        
@@ -42,7 +37,6 @@ export const Result = () => {
             </div>
         </div>
         )    
-    */
 
     const datas = data ? [].concat(...data) : [];
 
@@ -61,7 +55,7 @@ export const Result = () => {
     for (let i=1; i<=count; i++){
         selects[i] = i;
     }
-/*
+
     const isLoadingInitialData = !data && !error;
     const isLoadingMore = isLoadingInitialData || (size > 0 && data && typeof data[size - 1] === "undefined");
     const isEmpty = data?.[0]?.length === 0;
@@ -88,7 +82,6 @@ export const Result = () => {
             </p>
             
 
-/*/}
             <p className="mt-5 mb-1 text-lg md:text-white text-black md:text-right">
                 <label htmlFor="page">Select record:</label>
 
@@ -97,10 +90,11 @@ export const Result = () => {
                         <option key={key} value={page}>{page}</option>
                     ))}
                 </select>
-            </p>
-            
+            </p>            
+/*/}
+
         </div>
-        
+        {/*}
         { results.map( (val, index) => (
             
             <div key={index} className="mb-10 border-gray-400 border mx-4">
@@ -112,8 +106,8 @@ export const Result = () => {
                                     {section.title}
                                 </dt>
                             </div>
-                            { section.components.map( (com, id)=> (    
-                                renderData(com, val, schems, index+key+id) 
+                            { section.components.map( (comp, id)=> (    
+                                renderData(comp, val, schems, id) 
                             ))}
                         </div>
                     ))}    
@@ -121,8 +115,10 @@ export const Result = () => {
             </div>        
               
         ))}
+        */}
     
         <div className="px-4 py-5 sm:px-6 text-center">
+            <Table />
 
 {/*
             <p className="mt-1 mb-5 text-lg md:text-white text-black md:text-center">
@@ -162,57 +158,75 @@ export const Result = () => {
   );
 };
 
-function renderData(params, variable, schema, id) {
+function renderData(params, objects, schema, id) {
 
-    let key = variable[params.key]  // variables[parameters.key]
-    let val = params.key            // parameters.key
-    let rawData = realValue(key, val, schema)
+    if(params.input){
 
-    if(!validType(params.type)) {
-        return 
-    } else if( typeof variable[params.key] !== 'object' ){
+        let key = objects[params.key]  // variables[parameters.key]
+        let val = params.key       // parameters.key
+        let rawData = realValue(key, val, schema)
 
-        return (
-            <div key={id} className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">
-                    {params.label}
-                </dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    {rawData}
-                </dd>
-            </div>
-        );
+        switch(params.type) {
+            case 'number':
+            case 'text':
+            case 'textarea':
+            case 'radio':
+            case 'select':
+            
+                return (
+                        <div key={id} className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt className="text-sm font-medium text-gray-500">
+                                {params.label}
+                            </dt>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                {key}
+                            </dd>
+                        </div>
+                );
+                break;
+            case 'survey':
 
+                const obj = variable[params.key];
+                const objNames = Object.keys(obj);
+                var newArr = []
+
+                for (let k in obj){
+
+                    newArr[k] = obj[k]
+
+                }
+/*
+                return (
+                    <div key={id} className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <dt className="text-sm font-medium text-gray-500">
+                            {params.label}
+                        </dt>
+                        <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                            <ul className="border border-gray-200 rounded-md divide-y divide-gray-200">
+                                
+                                { objNames.map( (com, num)=> (    
+
+                                    renderSubdata(com, newArr, params.key, schema, num) 
+                                    
+                                ))}
+
+                            </ul>
+                        </dd>
+                    </div>
+                );
+*/
+                break;
+        }
+            
     } else {
 
-        const obj = variable[params.key];
-        const objNames = Object.keys(obj);
-        var newArr = []
-
-        for (let k in obj){
-
-            newArr[k] = obj[k]
+        
+        switch(params.type) {
+            case 'columns':
+              // code block
+              break;
 
         }
-
-        return (
-            <div key={id} className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">
-                    {params.label}
-                </dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    <ul className="border border-gray-200 rounded-md divide-y divide-gray-200">
-                        
-                        { objNames.map( (com, num)=> (    
-
-                            renderSubdata(com, newArr, params.key, schema, num) 
-                            
-                        ))}
-
-                    </ul>
-                </dd>
-            </div>
-        );
 
     }
 }
@@ -261,12 +275,12 @@ function realValue(key, value, schema, title=false){
 
                     for (let l = 0; l < subcol.length; l++) {
                         if (rawKey == subcol[l].key) {
-                            rawData = realValLoop(key, subcol[l], title)
+                            return realValLoop(key, subcol[l], title)
                         }
                     }
                 }
             } else if (rawKey == obj[j].key) {
-                rawData = realValLoop(key, obj[j], title)
+                return realValLoop(key, obj[j], title)
             }
         }
     }
@@ -282,15 +296,15 @@ function realValLoop(key, obj, title) {
     console.log('title->'+JSON.stringify(title))
 
     // For dropdown select input
-    if( values.type === 'select' ){
+    if( values.type == 'select' ){
         values = values.data
     }
     // For number type input
-    if( values.type === 'number' ){
+    if( values.type == 'number' ){
         rawData = values.prefix + rawData + values.suffix
     }
-    // radio input directly have this property
-    if( values.type === 'radio' || values.type === 'survey' ){
+    // radio/survey input directly have this property
+    if( values.type == 'radio' || values.type == 'survey' ){
         let realVal = title ? values.questions : values.values
         console.log(JSON.stringify(realVal))
         
@@ -303,15 +317,4 @@ function realValLoop(key, obj, title) {
         }
     }
     return rawData
-}
-
-function validType(type){
-    const types = [
-        'number',
-        'radio',
-        'text',
-        'select',
-        'survey',
-    ]
-    return types.includes(type) ? true : false
 }

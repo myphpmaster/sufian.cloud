@@ -20,7 +20,7 @@ export default function Admin() {
 	const slug = router.query.slug
 	
     const fetcher = url => fetch(url).then(res => res.json());
-    const { data: schem, error } = useSWR(() => '/api/label/', fetcher)
+    const { data: schem, error } = useSWR(() => '/api/label/?nocache=1', fetcher)
     const schems = schem ? [].concat(...schem) : [];
     const charts = []	
 	const menus = [	
@@ -47,7 +47,17 @@ export default function Admin() {
 			if(schems[i].key == slug) {
 				let obj = schems[i].components
 				for (let j = 0; j < obj.length; j++) {
-					if (validType(obj[j].type)) {
+					if (obj[j].type == 'columns'){
+						let col = obj[j].columns
+						for (let k = 0; k < col.length; k++) {
+							let subcol = col[k].components
+							for (let l = 0; l < subcol.length; l++) {
+								if (validType(subcol[l].type)) {
+									charts.push(subcol[l])
+								}
+							}
+						}
+					}else if (validType(obj[j].type)) {
 						charts.push(obj[j])
 					}
 				}

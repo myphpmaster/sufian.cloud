@@ -21,7 +21,7 @@ handler.get(async (req, res) => {
         from,
     );
     
-    if (req.query.from && data.length > 0) {
+    if (typeof req.query.nocache === 'undefined' && req.query.from && data.length > 0) {
         // This is safe to cache because from defines
         //  a concrete range of data
         res.setHeader('cache-control', `public, max-age=${maxAge}`);

@@ -21,7 +21,7 @@ export const Result = () => {
         setState(e.target.value)
     };
 
-    const { data, error } = useSWR( `/api/submissions?limit=${PAGE_SIZE}&page=${index}`, fetcher)
+    const { data, error } = useSWR( `/api/submissions?limit=${PAGE_SIZE}&page=${index}&nocache=1`, fetcher)
 
     /*
     if (error) return (

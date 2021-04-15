@@ -32,10 +32,10 @@ handler.get(async (req, res) => {
     const data = await getDatas(
       req.db,
       req.query.limit ? parseInt(req.query.limit, 5) : 5,
-      req.query.skip ? parseInt(req.query.skip, 0) : req.query.limit*(req.query.page-1),
+      req.query.limit ? req.query.limit*(req.query.page-1) : 0,
     );
   
-    if (!req.query.nocache && data.length > 0) {
+    if (typeof req.query.nocache === 'undefined' && data.length > 0) {
       // This is safe to cache because from defines
       //  a concrete range of data
       res.setHeader('cache-control', `public, max-age=${maxAge}`);

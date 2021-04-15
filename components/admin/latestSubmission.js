@@ -5,7 +5,7 @@ import useSWR, { useSWRInfinite } from "swr";
 export const Table = () => {
     
     const fetcher = url => fetch(url).then(res => res.json());
-    const { data } = useSWR(() => '/api/submissions?limit=1&page=1', fetcher)
+    const { data } = useSWR(() => '/api/submissions/?limit=1&page=1&nocache=1', fetcher)
     const datas = data ? [].concat(...data) : [];
 
     const results = [];
@@ -13,10 +13,10 @@ export const Table = () => {
         results.push(value.data);
     }); 
         
-    const { data: schem } = useSWR(() => '/api/label/', fetcher)
+    const { data: schem } = useSWR(() => '/api/label/?nocache=1', fetcher)
     const schems = schem ? [].concat(...schem) : [];
 
-//    console.log(results)
+    console.log(results)
     
     return (
 
@@ -56,13 +56,15 @@ function renderData(params, variable, schema, id) {
     var key = variable[params.key]  // variables[parameters.key]
     var val = params.key            // parameters.key
     var rawData = realValue(key, val, schema)
+    var table = ["bg-gray-50", "bg-white"]
+    var tableClass = (id % 2 == 0) ? table[0] : table[1]
 
     if(params.input) {
 
-        if( typeof variable[params.key] !== 'object' ){
+        if( typeof key !== 'object' ){
 
             return (
-                <div key={id} className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <div key={id} className={`${tableClass} px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6`}>
                     <dt className="text-sm font-medium text-gray-500">
                         {params.label}
                     </dt>
@@ -90,7 +92,7 @@ function renderData(params, variable, schema, id) {
             // console.log('newArr => ' + JSON.stringify(newArr) )
 
             return (
-                <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <div className={`${tableClass} px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6`}>
                     <dt className="text-sm font-medium text-gray-500">
                         {params.label}
                     </dt>
@@ -117,6 +119,9 @@ function renderData(params, variable, schema, id) {
             for (let i = 0; i < column.length; i++) {
 
                 let comp = column[i].components
+                
+                console.log('comp[' + i + ']=>' + JSON.stringify(comp))
+
                 for (let j = 0; j < comp.length; j++) {
 
                     if( typeof variable[comp[j].key] !== 'object' ){
@@ -126,17 +131,18 @@ function renderData(params, variable, schema, id) {
                         console.log('key[' + j + ']=>' + JSON.stringify(key))
                         console.log('val[' + j + ']=>' + JSON.stringify(val))
 
-                        return (
-                            <div key={id} className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                <dt className="text-sm font-medium text-gray-500">
-                                    {comp[j].label}
-                                </dt>
-                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                    {rawData}
-                                </dd>
-                            </div>
-                        );
-            
+                        if(key == variable[comp[j].key]){
+                            return (
+                                <div key={id} className={`${tableClass} px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6`}>
+                                    <dt className="text-sm font-medium text-gray-500">
+                                        {comp[j].label}
+                                    </dt>
+                                    <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                        {rawData}
+                                    </dd>
+                                </div>
+                            );
+                        }
                     } 
                 }
             }

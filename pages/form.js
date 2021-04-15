@@ -4,7 +4,7 @@ import { Navbar } from '../components/NavbarForm';
 const { FORMIO_URL } = process.env
 
 export default function Form() {
-
+  let formio = FORMIO_URL
   return (
     <>
 		<Head>
@@ -61,7 +61,7 @@ export default function Form() {
 				__html: `                
                 jQuery( document ).ready(function($) {
                     
-                    Formio.createForm(document.getElementById('myform'), "${FORMIO_URL}", {
+                    Formio.createForm(document.getElementById('myform'), "${formio}", {
                         readOnly: false
                         }).then(function(form) {
                 

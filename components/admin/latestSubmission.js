@@ -130,8 +130,10 @@ function renderData(params, variable, schema, id) {
                         rawData = realValue(key, val, schema)
                         console.log('key[' + j + ']=>' + JSON.stringify(key))
                         console.log('val[' + j + ']=>' + JSON.stringify(val))
+                        console.log('var[' + j + ']=>' + JSON.stringify(variable))
 
-                        if(key == variable[comp[j].key]){
+                        renderSubdata(key, variable, key, schema, id)
+
                             return (
                                 <div key={id} className={`${tableClass} px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6`}>
                                     <dt className="text-sm font-medium text-gray-500">
@@ -142,7 +144,7 @@ function renderData(params, variable, schema, id) {
                                     </dd>
                                 </div>
                             );
-                        }
+                        
                     } 
                 }
             }
@@ -154,10 +156,12 @@ function renderSubdata(subparams, array, key, schema, id) {
    
     let rawTitle = realValue(subparams, key, schema, true)
     let rawData = realValue(array[subparams], key, schema) 
+    var table = ["bg-gray-50", "bg-white"]
+    var tableClass = (id % 2 == 0) ? table[0] : table[1]
     
     return (
         
-        <li key={id} className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+        <li key={id} className={`${tableClass}pl-3 pr-4 py-3 flex items-center justify-between text-sm`}>
             <div className="w-0 flex-1 flex items-center">
 
                 <span className="ml-2 flex-1 w-0 truncate">

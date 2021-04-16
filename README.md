@@ -69,7 +69,7 @@ Check out the [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 Similar steps as in Azure cloud
 
-#### Development and production websites on Azure:
+#### Development and production websites on Alibaba:
 
 * [staging-sufian-cloud.alibaba.sufian.cloud](https://staging-sufian-cloud.alibaba.sufian.cloud/)
 * [sufian-cloud.alibaba.sufian.cloud](https://sufian-cloud.alibaba.sufian.cloud/)

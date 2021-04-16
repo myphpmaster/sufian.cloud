@@ -34,6 +34,54 @@ const Chart = () => {
   const { data: schem } = useSWR(() => '/api/label', fetcher)
   const schems = schem ? [].concat(...schem) : [];
 
+  const renders = []
+  const filters = ['type','key','label','suffix','prefix','questions','values']
+  var x=0
+  var inputs={}
+  for (let i = 0; i < schems.length; i++) {
+      // direct input
+      if(schems[i].input) {
+          inputs={}
+          inputs=filterProps(schems[i],filters)
+          renders.push(inputs)
+          x++
+      // panel
+      }else if(schems[i].type=='panel'){
+          let obj = schems[i].components
+          var panel = {}
+          panel.id = i
+          panel.key = schems[i].key
+          panel.title = schems[i].title
+          // console.log('panel['+i+']=>'+JSON.stringify(panel))
+          for (let j = 0; j < obj.length; j++) {
+              if (obj[j].type == 'columns'){
+                  let col = obj[j].columns
+                  for (let k = 0; k < col.length; k++) {
+                      let subcol = [] = col[k].components
+                      for (let l = 0; l < subcol.length; l++) {
+                          if (subcol[l].input) {
+                              inputs={}
+                              inputs.panel = (schems[i].type=='panel') ? panel : false
+                              inputs=filterProps(subcol[l],filters,inputs)
+                              // console.log('inputs['+x+']=>'+JSON.stringify(inputs))
+                              renders.push(inputs)
+                              x++
+                          }
+                      }
+                  }
+              }else if (obj[j].input) {
+                  inputs={}
+                  inputs.panel = (schems[i].type=='panel') ? panel : false
+                  inputs=filterProps(obj[j],filters,inputs)
+                  renders.push(inputs)
+              }
+          }			
+      }
+  }
+  
+  //console.log('schems->'+JSON.stringify(schems))
+  //console.log('renders->'+JSON.stringify(renders))
+
   const vals = getGroupKeys(key, schems)
 
   const labels = [];
@@ -344,5 +392,15 @@ function countGroup (val='', datas = []) {
     }
     return counts;
 };
+
+function filterProps(objects={},props=[],inputs={}){
+    for (let i = 0; i < props.length; i++) {
+        inputs[props[i]] = objects.hasOwnProperty(props[i]) ? objects[props[i]] : false
+    }
+    if( inputs.type=='select' && props.includes('values') ){
+        inputs.values = objects.data.values
+    }
+    return inputs
+}
 
 export default Chart

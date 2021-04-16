@@ -13,7 +13,7 @@ export const Table = () => {
         results.push(value.data);
     }); 
         
-    const { data: schem } = useSWR(() => '/api/label/?nocache=1', fetcher)
+    const { data: schem } = useSWR(() => '/api/label/', fetcher)
     const schems = schem ? [].concat(...schem) : [];
 
     const renders = []
@@ -45,7 +45,7 @@ export const Table = () => {
                                 inputs={}
                                 inputs.panel = (schems[i].type=='panel') ? panel : false
                                 inputs=filterProps(subcol[l],filters,inputs)
-                                console.log('inputs['+x+']=>'+JSON.stringify(inputs))
+                                // console.log('inputs['+x+']=>'+JSON.stringify(inputs))
                                 renders.push(inputs)
                                 x++
 							}
@@ -61,40 +61,12 @@ export const Table = () => {
         }
     }
 
-    console.log('results->'+JSON.stringify(results))
-    console.log('schems->'+JSON.stringify(schems))
-    console.log('renders->'+JSON.stringify(renders))
+    //console.log('results->'+JSON.stringify(results))
+    //console.log('schems->'+JSON.stringify(schems))
+    //console.log('renders->'+JSON.stringify(renders))
     
     return (
             <>
-                <div className="w-full p-3">
-                    <div className="bg-white border rounded shadow">
-                        <div className="border-b p-3">
-                            <h5 className="font-bold uppercase text-gray-600 text-center">Latest Entry</h5>
-                        </div>
-                        <div className="p-5">
-                            { results.map( (val, index) => (
-                                <div key={index} className="pb-10 border-gray-400 border mx-4">
-                                    <dl>
-                                        { schems.map( (section, key) => (                                       
-                                            <div key={key} >
-                                                <div className="text-center bg-gray-200 px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
-                                                    <dt className="text-sm font-medium text-black">
-                                                    {section.title}
-                                                    </dt>
-                                                </div>
-                                                { section.components.map( (com,id)=> (  
-                                                    renderData(com, val, schems, id) 
-                                                ))}
-                                            </div>
-                                        ))}    
-                                    </dl>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-
                 <div className="w-full p-3">
                     <div className="bg-white border rounded shadow">
                         <div className="border-b p-3">
@@ -234,8 +206,8 @@ function renderNew(comp, val, id) {
     var tableClass = (id % 2 == 0) ? table[0] : table[1]
     var value = val[comp.key]
 
-    console.log('comp[' + id + ']=>' + JSON.stringify(comp))
-    console.log('val[' + id + ']=>' + JSON.stringify(val[comp.key]))
+    //console.log('comp[' + id + ']=>' + JSON.stringify(comp))
+    //console.log('val[' + id + ']=>' + JSON.stringify(val[comp.key]))
 
     switch (comp.type) {
         case 'select':
@@ -266,8 +238,7 @@ function renderNew(comp, val, id) {
         </div>
         )
     } else if( comp.type == 'survey' ) {
-        let surveys = Object.keys(comp.questions);
-
+        
         return (
             <div key={id} className={`${tableClass} px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6`}>
                 <dt className="text-sm font-medium text-gray-500">
@@ -276,11 +247,8 @@ function renderNew(comp, val, id) {
                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                     <ul className="border border-gray-200 rounded-md divide-y divide-gray-200">
                         
-                        { surveys.map( (com, num)=> (    
-                                                
-                            // renderSurvey(com, comp.values, value, num) 
-                            
-                            <div></div>
+                        { comp.questions.map( (com, num)=> (                                                    
+                            renderSurvey(com, comp.values, value[com.value], num)                             
                         ))}
 
                     </ul>
@@ -309,7 +277,7 @@ function renderSurvey(question, values, value, num) {
             <div className="w-0 flex-1 flex items-center">
 
                 <span className="ml-2 flex-1 w-0 truncate">
-                    {question}
+                    {question.label}
                 </span>
             </div>
             <div className="ml-4 flex-shrink-0">

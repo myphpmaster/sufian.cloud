@@ -44,8 +44,8 @@ export const Table = () => {
         }
     }
 
-    console.log(JSON.stringify(results))
-    console.log(JSON.stringify(renders))
+    console.log('results->'+JSON.stringify(results))
+    console.log('renders->'+JSON.stringify(renders))
     
     return (
 
@@ -121,7 +121,7 @@ function renderData(params, variable, schema, id) {
             // console.log('newArr => ' + JSON.stringify(newArr) )
 
             return (
-                <div className={`${tableClass} px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6`}>
+                <div key={id} className={`${tableClass} px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6`}>
                     <dt className="text-sm font-medium text-gray-500">
                         {params.label}
                     </dt>

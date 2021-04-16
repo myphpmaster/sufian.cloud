@@ -266,7 +266,8 @@ function renderNew(comp, val, id) {
         </div>
         )
     } else if( comp.type == 'survey' ) {
-        let surveys = Object.keys(comp.questions)
+        let surveys = []
+
         return (
             <div key={id} className={`${tableClass} px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6`}>
                 <dt className="text-sm font-medium text-gray-500">
@@ -277,9 +278,9 @@ function renderNew(comp, val, id) {
                         
                         { surveys.map( (com, num)=> (    
                                                 
-                            renderSurvey(com, comp.values, value, num) 
+                            // renderSurvey(com, comp.values, value, num) 
                             
-                            
+                            <div></div>
                         ))}
 
                     </ul>

@@ -16,7 +16,32 @@ export const Table = () => {
     const { data: schem } = useSWR(() => '/api/label/?nocache=1', fetcher)
     const schems = schem ? [].concat(...schem) : [];
 
-    console.log(results)
+    const renders = []
+    for (let i = 0; i < schems.length; i++) {
+        if(schems[i].type == 'panel') {
+			if(schems[i].key == slug) {
+				let obj = schems[i].components
+				for (let j = 0; j < obj.length; j++) {
+					if (obj[j].type == 'columns'){
+						let col = obj[j].columns
+						for (let k = 0; k < col.length; k++) {
+							let subcol = col[k].components
+							for (let l = 0; l < subcol.length; l++) {
+								if (validType(subcol[l].type)) {
+									renders.push(subcol[l])
+								}
+							}
+						}
+					}else if (validType(obj[j].type)) {
+						renders.push(obj[j])
+					}
+				}
+			}
+        }
+    }
+
+    console.log(JSON.stringify(results))
+    console.log(JSON.stringify(renders))
     
     return (
 

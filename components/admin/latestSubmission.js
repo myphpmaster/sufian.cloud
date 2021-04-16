@@ -18,25 +18,29 @@ export const Table = () => {
 
     const renders = []
     for (let i = 0; i < schems.length; i++) {
-        if(schems[i].type == 'panel') {
-			if(schems[i].key == slug) {
-				let obj = schems[i].components
-				for (let j = 0; j < obj.length; j++) {
-					if (obj[j].type == 'columns'){
-						let col = obj[j].columns
-						for (let k = 0; k < col.length; k++) {
-							let subcol = col[k].components
-							for (let l = 0; l < subcol.length; l++) {
-								if (validType(subcol[l].type)) {
-									renders.push(subcol[l])
-								}
+        // get input directly
+        if(schems[i].input) {
+            renders.push(schems[i])
+        // panel or columns
+        }else{
+			
+			let obj = schems[i].components
+			for (let j = 0; j < obj.length; j++) {
+				if (obj[j].type == 'columns'){
+					let col = obj[j].columns
+					for (let k = 0; k < col.length; k++) {
+						let subcol = col[k].components
+						for (let l = 0; l < subcol.length; l++) {
+							if (subcol[l].input) {
+								renders.push(subcol[l])
 							}
 						}
-					}else if (validType(obj[j].type)) {
-						renders.push(obj[j])
 					}
+				}else if (obj[j].input) {
+						renders.push(obj[j])
 				}
 			}
+			
         }
     }
 

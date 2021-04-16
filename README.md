@@ -72,4 +72,4 @@ Similar steps as in Azure cloud
 #### Development and production websites on Alibaba:
 
 * [staging-sufian-cloud.alibaba.sufian.cloud](https://staging-sufian-cloud.alibaba.sufian.cloud/)
-* [sufian-cloud.alibaba.sufian.cloud](https://sufian-cloud.alibaba.sufian.cloud/)
+* [alibaba.sufian.cloud](https://alibaba.sufian.cloud/)

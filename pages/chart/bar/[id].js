@@ -34,6 +34,62 @@ const Chart = () => {
   const { data: schem } = useSWR(() => '/api/label', fetcher)
   const schems = schem ? [].concat(...schem) : [];
 
+  const renders = []
+  const filters = ['type','key','label','suffix','prefix','questions','values']
+  var x=0
+  var inputs={}
+  for (let i = 0; i < schems.length; i++) {
+      // direct input
+      if(schems[i].input) {
+          inputs={}
+          inputs=filterProps(schems[i],filters)
+          renders.push(inputs)
+          x++
+      // panel
+      }else if(schems[i].type=='panel'){
+          let obj = schems[i].components
+          var panel = {}
+          panel.id = i
+          panel.key = schems[i].key
+          panel.title = schems[i].title
+          // console.log('panel['+i+']=>'+JSON.stringify(panel))
+          for (let j = 0; j < obj.length; j++) {
+              if (obj[j].type == 'columns'){
+                  let col = obj[j].columns
+                  for (let k = 0; k < col.length; k++) {
+                      let subcol = [] = col[k].components
+                      for (let l = 0; l < subcol.length; l++) {
+                          if (subcol[l].input) {
+                              inputs={}
+                              inputs.panel = (schems[i].type=='panel') ? panel : false
+                              inputs=filterProps(subcol[l],filters,inputs)
+                              // console.log('inputs['+x+']=>'+JSON.stringify(inputs))
+                              renders.push(inputs)
+                              x++
+                          }
+                      }
+                  }
+              }else if (obj[j].input) {
+                  inputs={}
+                  inputs.panel = (schems[i].type=='panel') ? panel : false
+                  inputs=filterProps(obj[j],filters,inputs)
+                  renders.push(inputs)
+              }
+          }			
+      }
+  }
+  
+  var thisLabels=[]
+  for (let x = 0; x < renders.length; x++) {
+    if(renders[x].key==key){
+        thisLabels = renders[x].values
+        break
+    }
+  }
+
+  //console.log('schems->'+JSON.stringify(schems))
+  console.log('thisLabel->'+JSON.stringify(thisLabels))
+
   const vals = getGroupKeys(key, schems)
 
   const labels = [];
@@ -41,9 +97,11 @@ const Chart = () => {
 
   for (const [i, v] of Object.entries(results)) {
 
-        let rawData = realValue(v.identity, key, schems)
+        let rawData = getLabel(v.identity, thisLabels) // realValue(v.identity, key, schems) // 
 
-        // console.log(rawData)
+        console.log('v=>'+JSON.stringify(v))
+        console.log('key=>'+JSON.stringify(key))
+        console.log('rawData=>'+JSON.stringify(rawData))
 
         labels.push(rawData);
         values.push(v.count);
@@ -100,7 +158,7 @@ const Chart = () => {
 
     };
 
-    const displayLabel =  (subkey == 'likert') ? labelsAlt : labels;
+    const displayLabel = (subkey == 'likert') ? labelsAlt : labels;
     const displayData =  (subkey == 'likert') ? valuesAlt : values;
 
     const sample_data = {
@@ -114,7 +172,12 @@ const Chart = () => {
                 'rgba(255, 206, 86, 0.2)',
                 'rgba(75, 192, 192, 0.2)',
                 'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(125, 74, 50, 0.2)',
+                'rgba(115, 119, 200, 0.2)',
+                'rgba(185, 40, 150, 0.2)',
+                'rgba(150, 150, 122, 0.2)',
+                'rgba(150, 159, 164, 0.2)'
             ],
             hoverBackgroundColor: [
                 'rgba(255, 99, 132, 0.8)',
@@ -122,7 +185,12 @@ const Chart = () => {
                 'rgba(255, 206, 86, 0.8)',
                 'rgba(75, 192, 192, 0.8)',
                 'rgba(153, 102, 255, 0.8)',
-                'rgba(255, 159, 64, 0.8)'
+                'rgba(255, 159, 64, 0.8)',
+                'rgba(125, 74, 50, 0.8)',
+                'rgba(115, 119, 200, 0.8)',
+                'rgba(185, 40, 150, 0.8)',
+                'rgba(150, 150, 122, 0.8)',
+                'rgba(150, 159, 164, 0.8)'
             ],
             borderColor: [
                 'rgba(255, 99, 132, 1)',
@@ -130,7 +198,12 @@ const Chart = () => {
                 'rgba(255, 206, 86, 1)',
                 'rgba(75, 192, 192, 1)',
                 'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
+                'rgba(255, 159, 64, 1)',
+                'rgba(125, 74, 50, 1)',
+                'rgba(115, 119, 200, 1)',
+                'rgba(185, 40, 150, 1)',
+                'rgba(150, 150, 122, 1)',
+                'rgba(150, 159, 164, 1)'
             ],
             borderWidth: 1,
             borderCapStyle: 'butt',
@@ -163,6 +236,16 @@ const Chart = () => {
     );
     
 };
+
+function getLabel(value, labels){
+    for (let k = 0; k < labels.length; k++) {
+        if(labels[k].value==value){
+            value=labels[k].label
+            break
+        }
+    }
+    return value
+}
 
 // function to group all data counts
 function groupArray (arr = []) {
@@ -344,5 +427,15 @@ function countGroup (val='', datas = []) {
     }
     return counts;
 };
+
+function filterProps(objects={},props=[],inputs={}){
+    for (let i = 0; i < props.length; i++) {
+        inputs[props[i]] = objects.hasOwnProperty(props[i]) ? objects[props[i]] : false
+    }
+    if( inputs.type=='select' && props.includes('values') ){
+        inputs.values = objects.data.values
+    }
+    return inputs
+}
 
 export default Chart

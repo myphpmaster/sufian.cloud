@@ -266,7 +266,7 @@ function renderNew(comp, val, id) {
         </div>
         )
     } else if( comp.type == 'survey' ) {
-        let surveys = []
+        let surveys = Object.keys(comp.questions);
 
         return (
             <div key={id} className={`${tableClass} px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6`}>

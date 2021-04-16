@@ -17,38 +17,56 @@ export const Table = () => {
     const schems = schem ? [].concat(...schem) : [];
 
     const renders = []
+    const filters = ['type','key','label','suffix','prefix','questions','values']
+    var x=0
+    var inputs={}
     for (let i = 0; i < schems.length; i++) {
-        // get input directly
+        // direct input
         if(schems[i].input) {
-            renders.push(schems[i])
-        // panel or columns
-        }else{
-			
+            inputs={}
+            inputs=filterProps(schems[i],filters)
+            renders.push(inputs)
+            x++
+        // panel
+        }else if(schems[i].type=='panel'){
 			let obj = schems[i].components
+            var panel = {}
+            panel.id = i
+            panel.key = schems[i].key
+            panel.title = schems[i].title
+            // console.log('panel['+i+']=>'+JSON.stringify(panel))
 			for (let j = 0; j < obj.length; j++) {
 				if (obj[j].type == 'columns'){
 					let col = obj[j].columns
 					for (let k = 0; k < col.length; k++) {
-						let subcol = col[k].components
+						let subcol = [] = col[k].components
 						for (let l = 0; l < subcol.length; l++) {
 							if (subcol[l].input) {
-								renders.push(subcol[l])
+                                inputs={}
+                                inputs.panel = (schems[i].type=='panel') ? panel : false
+                                inputs=filterProps(subcol[l],filters,inputs)
+                                console.log('inputs['+x+']=>'+JSON.stringify(inputs))
+                                renders.push(inputs)
+                                x++
 							}
 						}
 					}
 				}else if (obj[j].input) {
-						renders.push(obj[j])
+                    inputs={}
+                    inputs.panel = (schems[i].type=='panel') ? panel : false
+                    inputs=filterProps(obj[j],filters,inputs)
+                    renders.push(inputs)
 				}
-			}
-			
+			}			
         }
     }
 
     console.log('results->'+JSON.stringify(results))
+    console.log('schems->'+JSON.stringify(schems))
     console.log('renders->'+JSON.stringify(renders))
     
     return (
-
+            <>
                 <div className="w-full p-3">
                     <div className="bg-white border rounded shadow">
                         <div className="border-b p-3">
@@ -77,6 +95,34 @@ export const Table = () => {
                     </div>
                 </div>
 
+                <div className="w-full p-3">
+                    <div className="bg-white border rounded shadow">
+                        <div className="border-b p-3">
+                            <h5 className="font-bold uppercase text-gray-600 text-center">Latest Entry</h5>
+                        </div>
+                        <div className="p-5">
+                            { results.map( (val, index) => (
+                                <div key={index} className="pb-10 border-gray-400 border mx-4">
+                                    <dl>
+                                        { schems.map( (section, key) => (                                       
+                                            <div key={key} >
+                                                <div className="text-center bg-gray-200 px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
+                                                    <dt className="text-sm font-medium text-black">
+                                                    {section.title}
+                                                    </dt>
+                                                </div>
+                                                {renders.filter(el => el.panel.id == key).map( (comp, num) => ( 
+                                                    renderNew(comp, val, num)
+                                                ))} 
+                                            </div>
+                                        ))}    
+                                    </dl>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </>
     );
 };
 
@@ -149,19 +195,20 @@ function renderData(params, variable, schema, id) {
 
                 let comp = column[i].components
                 
-                console.log('comp[' + i + ']=>' + JSON.stringify(comp))
+                //console.log('comp[' + i + ']=>' + JSON.stringify(comp))
 
                 for (let j = 0; j < comp.length; j++) {
 
                     if( typeof variable[comp[j].key] !== 'object' ){
 
                         key = variable[comp[j].key]
+                        val = comp[j].key
                         rawData = realValue(key, val, schema)
-                        console.log('key[' + j + ']=>' + JSON.stringify(key))
-                        console.log('val[' + j + ']=>' + JSON.stringify(val))
-                        console.log('var[' + j + ']=>' + JSON.stringify(variable))
+                        //console.log('key[' + j + ']=>' + JSON.stringify(key))
+                        //console.log('val[' + j + ']=>' + JSON.stringify(val))
+                        //console.log('var[' + j + ']=>' + JSON.stringify(variable))
 
-                        renderSubdata(key, variable, key, schema, id)
+                        renderSubdata(key, variable, val, schema, id)
 
                             return (
                                 <div key={id} className={`${tableClass} px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6`}>
@@ -179,6 +226,97 @@ function renderData(params, variable, schema, id) {
             }
         }
     }
+}
+
+function renderNew(comp, val, id) {
+
+    var table = ["bg-gray-50", "bg-white"]
+    var tableClass = (id % 2 == 0) ? table[0] : table[1]
+    var value = val[comp.key]
+
+    console.log('comp[' + id + ']=>' + JSON.stringify(comp))
+    console.log('val[' + id + ']=>' + JSON.stringify(val[comp.key]))
+
+    switch (comp.type) {
+        case 'select':
+        case 'radio':
+
+            let choices = comp.values
+            for (let j = 0; j < choices.length; j++) {
+                if(choices[j].value==value){
+                    value = choices[j].label
+                }
+            }            
+
+            break;
+    
+        default:
+            break;
+    }
+
+    if( typeof val[comp.key] !== 'object' ){
+        return (
+        <div key={id} className={`${tableClass} px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6`}>
+            <dt className="text-sm font-medium text-gray-500">
+                {comp.label}
+            </dt>
+            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                {value}
+            </dd>
+        </div>
+        )
+    } else if( comp.type == 'survey' ) {
+
+        return (
+            <div key={id} className={`${tableClass} px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6`}>
+                <dt className="text-sm font-medium text-gray-500">
+                    {comp.label}
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    <ul className="border border-gray-200 rounded-md divide-y divide-gray-200">
+                        
+                        { comp.questions.map( (com, num)=> (    
+                                                
+                            renderSurvey(com, comp.values, value, num) 
+                            
+                        ))}
+
+                    </ul>
+                </dd>
+            </div>
+        );
+
+    }
+
+}
+
+function renderSurvey(question, values, value, num) {
+   
+    var table = ["bg-gray-50", "bg-white"]
+    var tableClass = (num % 2 == 0) ? table[0] : table[1]
+        
+    for (let j = 0; j < values.length; j++) {
+        if(values[j].value==value){
+            value = values[j].label
+        }
+    }
+
+    return (
+        
+        <li key={num} className={`${tableClass}pl-3 pr-4 py-3 flex items-center justify-between text-sm`}>
+            <div className="w-0 flex-1 flex items-center">
+
+                <span className="ml-2 flex-1 w-0 truncate">
+                    {question.label}
+                </span>
+            </div>
+            <div className="ml-4 flex-shrink-0">
+                    {value}
+            </div>
+        </li>
+
+    )
+
 }
 
 function renderSubdata(subparams, array, key, schema, id) {
@@ -230,7 +368,10 @@ function realValue(key, value, schema, title=false){
                     // console.log('key[' + k + ']=>' + JSON.stringify(key))
 
                     for (let l = 0; l < objCol.length; l++) {
-                        values = objCol[l].key
+                        if( objCol[l].key==rawKey){
+                            values = objCol[l]
+                            break
+                        }
                     }
 
                 }
@@ -257,12 +398,13 @@ function realValue(key, value, schema, title=false){
                         realVal = values.questions
                     }
 
-                    for (let k = 0; k < realVal.length; k++) {
+                    if(typeof realVal === 'object'){
+                        for (let k = 0; k < realVal.length; k++) {
 
-                        if(rawData == realVal[k].value || rawData === realVal[k].value ) {
-
-                            rawData = realVal[k].label
-                            break;
+                            if(rawData == realVal[k].value || rawData === realVal[k].value ) {
+                                rawData = realVal[k].label
+                                break;
+                            }
                         }
                     }
                 }
@@ -270,4 +412,14 @@ function realValue(key, value, schema, title=false){
         }
     }
     return rawData
+}
+
+function filterProps(objects={},props=[],inputs={}){
+    for (let i = 0; i < props.length; i++) {
+        inputs[props[i]] = objects.hasOwnProperty(props[i]) ? objects[props[i]] : false
+    }
+    if( inputs.type=='select' && props.includes('values') ){
+        inputs.values = objects.data.values
+    }
+    return inputs
 }

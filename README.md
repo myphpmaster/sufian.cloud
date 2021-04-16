@@ -51,8 +51,8 @@ The following tasks will be part of future development
 
 #### Development and production websites on Azure:
 
-* [staging.sufian.cloud](https://staging.sufian.cloud)
-* [sufian.cloud](https://sufian.cloud)
+* [staging.sufian.cloud](https://staging.sufian.cloud) - azure branch
+* [sufian.cloud](https://sufian.cloud) - master branch
 
 ## Deploy on Vercel
 
@@ -62,8 +62,8 @@ Check out the [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 #### Development and production websites on Vercel:
 
-* [nextjs-git-azure-myphpmaster.vercel.app](https://nextjs-git-azure-myphpmaster.vercel.app)
-* [vercel.sufian.cloud](https://vercel.sufian.cloud)
+* [nextjs-git-azure-myphpmaster.vercel.app](https://nextjs-git-azure-myphpmaster.vercel.app) - vercel branch
+* [vercel.sufian.cloud](https://vercel.sufian.cloud) - master branch
 
 ## Deploy on Alibaba
 
@@ -71,5 +71,5 @@ Similar steps as in Azure cloud
 
 #### Development and production websites on Alibaba:
 
-* [staging-sufian-cloud.alibaba.sufian.cloud](https://staging-sufian-cloud.alibaba.sufian.cloud/)
-* [alibaba.sufian.cloud](https://alibaba.sufian.cloud/)
+* [staging-sufian-cloud.alibaba.sufian.cloud](https://staging-sufian-cloud.alibaba.sufian.cloud/) - alibaba branch
+* [alibaba.sufian.cloud](https://alibaba.sufian.cloud/) - master branch

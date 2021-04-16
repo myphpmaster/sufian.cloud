@@ -5,7 +5,7 @@ import useSWR, { useSWRInfinite } from "swr";
 export const Table = () => {
     
     const fetcher = url => fetch(url).then(res => res.json());
-    const { data } = useSWR(() => '/api/submissions?limit=1&page=1', fetcher)
+    const { data } = useSWR(() => '/api/submissions/?limit=1&page=1&nocache=1', fetcher)
     const datas = data ? [].concat(...data) : [];
 
     const results = [];
@@ -13,10 +13,35 @@ export const Table = () => {
         results.push(value.data);
     }); 
         
-    const { data: schem } = useSWR(() => '/api/label', fetcher)
+    const { data: schem } = useSWR(() => '/api/label/?nocache=1', fetcher)
     const schems = schem ? [].concat(...schem) : [];
 
-//    console.log(results)
+    const renders = []
+    for (let i = 0; i < schems.length; i++) {
+        if(schems[i].type == 'panel') {
+			if(schems[i].key == slug) {
+				let obj = schems[i].components
+				for (let j = 0; j < obj.length; j++) {
+					if (obj[j].type == 'columns'){
+						let col = obj[j].columns
+						for (let k = 0; k < col.length; k++) {
+							let subcol = col[k].components
+							for (let l = 0; l < subcol.length; l++) {
+								if (validType(subcol[l].type)) {
+									renders.push(subcol[l])
+								}
+							}
+						}
+					}else if (validType(obj[j].type)) {
+						renders.push(obj[j])
+					}
+				}
+			}
+        }
+    }
+
+    console.log(JSON.stringify(results))
+    console.log(JSON.stringify(renders))
     
     return (
 
@@ -53,61 +78,102 @@ export const Table = () => {
 
 function renderData(params, variable, schema, id) {
 
-    let key = variable[params.key]  // variables[parameters.key]
-    let val = params.key            // parameters.key
-    let rawData = realValue(key, val, schema)
+    var key = variable[params.key]  // variables[parameters.key]
+    var val = params.key            // parameters.key
+    var rawData = realValue(key, val, schema)
+    var table = ["bg-gray-50", "bg-white"]
+    var tableClass = (id % 2 == 0) ? table[0] : table[1]
 
-    if(!validType(params.type)) return
+    if(params.input) {
 
-    if( typeof variable[params.key] !== 'object' ){
+        if( typeof key !== 'object' ){
 
-        return (
-            <div key={id} className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">
-                    {params.label}
-                </dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    {rawData}
-                </dd>
-            </div>
-        );
+            return (
+                <div key={id} className={`${tableClass} px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6`}>
+                    <dt className="text-sm font-medium text-gray-500">
+                        {params.label}
+                    </dt>
+                    <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                        {rawData}
+                    </dd>
+                </div>
+            );
 
-    } else {
+        } else {
 
-        const obj = variable[params.key];
-        const objNames = Object.keys(obj);
-        const objVal = Object.values(obj);
-        var newArr = []
+            const obj = variable[params.key];
+            const objNames = Object.keys(obj);
+            const objVal = Object.values(obj);
+            var newArr = []
 
-        for (let k in obj){
+            for (let k in obj){
 
-            newArr[k] = obj[k]
+                newArr[k] = obj[k]
+
+            }
+
+            // console.log('objNames => ' + JSON.stringify(objNames) )
+            // console.log('objVal => ' + JSON.stringify(objVal) )
+            // console.log('newArr => ' + JSON.stringify(newArr) )
+
+            return (
+                <div className={`${tableClass} px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6`}>
+                    <dt className="text-sm font-medium text-gray-500">
+                        {params.label}
+                    </dt>
+                    <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                        <ul className="border border-gray-200 rounded-md divide-y divide-gray-200">
+                            
+                            { objNames.map( (com, num)=> (    
+                                                    
+                                renderSubdata(com, newArr, params.key, schema, num) 
+                                
+                            ))}
+
+                        </ul>
+                    </dd>
+                </div>
+            );
 
         }
+    } else {
 
-//          console.log('objNames => ' + JSON.stringify(objNames) )
-//          console.log('objVal => ' + JSON.stringify(objVal) )
-//          console.log('newArr => ' + JSON.stringify(newArr) )
+        if(params.type == 'columns') {
 
-        return (
-            <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">
-                    {params.label}
-                </dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    <ul className="border border-gray-200 rounded-md divide-y divide-gray-200">
+            let column = params.columns
+            for (let i = 0; i < column.length; i++) {
+
+                let comp = column[i].components
+                
+                console.log('comp[' + i + ']=>' + JSON.stringify(comp))
+
+                for (let j = 0; j < comp.length; j++) {
+
+                    if( typeof variable[comp[j].key] !== 'object' ){
+
+                        key = variable[comp[j].key]
+                        rawData = realValue(key, val, schema)
+                        console.log('key[' + j + ']=>' + JSON.stringify(key))
+                        console.log('val[' + j + ']=>' + JSON.stringify(val))
+                        console.log('var[' + j + ']=>' + JSON.stringify(variable))
+
+                        renderSubdata(key, variable, key, schema, id)
+
+                            return (
+                                <div key={id} className={`${tableClass} px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6`}>
+                                    <dt className="text-sm font-medium text-gray-500">
+                                        {comp[j].label}
+                                    </dt>
+                                    <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                        {rawData}
+                                    </dd>
+                                </div>
+                            );
                         
-                        { objNames.map( (com, num)=> (    
-                                                
-                            renderSubdata(com, newArr, params.key, schema, num) 
-                            
-                        ))}
-
-                    </ul>
-                </dd>
-            </div>
-        );
-
+                    } 
+                }
+            }
+        }
     }
 }
 
@@ -115,10 +181,12 @@ function renderSubdata(subparams, array, key, schema, id) {
    
     let rawTitle = realValue(subparams, key, schema, true)
     let rawData = realValue(array[subparams], key, schema) 
+    var table = ["bg-gray-50", "bg-white"]
+    var tableClass = (id % 2 == 0) ? table[0] : table[1]
     
     return (
         
-        <li key={id} className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+        <li key={id} className={`${tableClass}pl-3 pr-4 py-3 flex items-center justify-between text-sm`}>
             <div className="w-0 flex-1 flex items-center">
 
                 <span className="ml-2 flex-1 w-0 truncate">
@@ -145,11 +213,31 @@ function realValue(key, value, schema, title=false){
 
         for (let j = 0; j < obj.length; j++) {
 
-            console.log('obj[j].key =>' + obj[j].key)
+            // console.log('obj[j].key =>' + obj[j].key)
 
-            if (rawKey == obj[j].key) {
+            var values
 
-                let values = obj[j]
+            if (obj[j].type == 'columns') {
+                let col = obj[j].columns
+                for (let k = 0; k < col.length; k++) {
+
+                    let objCol = col[k].components
+                    // console.log('objCol[' + k + ']=>' + JSON.stringify(objCol))
+                    // console.log('key[' + k + ']=>' + JSON.stringify(key))
+
+                    for (let l = 0; l < objCol.length; l++) {
+                        values = objCol[l].key
+                    }
+
+                }
+
+            } else {
+                
+                values = obj[j]
+            }
+            
+            if (rawKey == values.key) {
+
 
                 // For dropdown select input
                 if( values.hasOwnProperty('data') ){
@@ -178,15 +266,4 @@ function realValue(key, value, schema, title=false){
         }
     }
     return rawData
-}
-
-function validType(type){
-    const types = [
-        'number',
-        'radio',
-        'text',
-        'select',
-        'survey',
-    ]
-    return types.includes(type) ? true : false
 }

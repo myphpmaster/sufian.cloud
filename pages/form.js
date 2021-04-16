@@ -1,12 +1,10 @@
 /*  ./pages/form.js     */
 import Head from 'next/head'
 import { Navbar } from '../components/NavbarForm';
-const { MONGODB_SERVER } = process.env
+const { FORMIO_URL } = process.env
 
 export default function Form() {
-  
-  const formLink = (MONGODB_SERVER==='azure') ? "https://survey.app.sufian.cloud/ieq-poe" : "https://survey.alibaba.sufian.cloud/ieq-poe"
-
+  let formio = FORMIO_URL
   return (
     <>
 		<Head>
@@ -63,7 +61,7 @@ export default function Form() {
 				__html: `                
                 jQuery( document ).ready(function($) {
                     
-                    Formio.createForm(document.getElementById('myform'), "${formLink}", {
+                    Formio.createForm(document.getElementById('myform'), "${formio}", {
                         readOnly: false
                         }).then(function(form) {
                 

@@ -275,9 +275,10 @@ function renderNew(comp, val, id) {
                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                     <ul className="border border-gray-200 rounded-md divide-y divide-gray-200">
                         
-                        { comp.questions.map( (com, num)=> (    
+                        { Object.keys(comp.questions).map( (com, num)=> (    
                                                 
                             renderSurvey(com, comp.values, value, num) 
+                            
                             
                         ))}
 
@@ -307,7 +308,7 @@ function renderSurvey(question, values, value, num) {
             <div className="w-0 flex-1 flex items-center">
 
                 <span className="ml-2 flex-1 w-0 truncate">
-                    {question.label}
+                    {question}
                 </span>
             </div>
             <div className="ml-4 flex-shrink-0">

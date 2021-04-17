@@ -233,7 +233,9 @@ function generateChart(chart, data, options, width=640, height=480){
             );
 
         case 'horizontal':
-
+            options.scales.yAxes = [{
+                display: false
+            }]
             return (
                 <div className="chartjs" width={width} height={height}>
                     <HorizontalBar

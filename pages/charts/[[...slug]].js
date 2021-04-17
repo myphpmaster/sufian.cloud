@@ -246,6 +246,7 @@ function generateChart(chart, data, options, width="640", height="480"){
         case 'doughnut':
         case 'polar':
             
+            // remove y axes line 
             options.scales.yAxes = [{
                 display: false,
                 ticks: {

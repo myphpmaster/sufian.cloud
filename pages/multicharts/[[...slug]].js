@@ -235,6 +235,14 @@ function generateChart(chart, data, options, width="640", height="480"){
             
         case 'radar':
 
+            // remove y axes line 
+            options.scales.yAxes = [{
+                display: false,
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+            
             return (
                 <div width={width} height={height}>
                     <Radar

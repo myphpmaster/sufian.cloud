@@ -6,6 +6,9 @@ import { useRouter } from "next/router";
 
 const Chart = () => {
 
+	//remove class from body element
+	useEffect( () => { document.querySelector("body").classList.remove("bg-gray-100") } );
+    
     // setup dynamic routes - /{chart type}/{key input}/
     const router = useRouter();
     const slug = router.query.slug || []

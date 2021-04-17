@@ -97,7 +97,6 @@ const Chart = () => {
     // console.log('thisLabel->'+JSON.stringify(thisLabels))
 
     const vals = getGroupKeys(key, schems)
-    const cats = getGroupKeys(key, schems, true)
 
     const labels = []
     const values = []
@@ -105,10 +104,9 @@ const Chart = () => {
     for (const [i, v] of Object.entries(results)) {
 
             let rawData = getLabel(v.identity, thisLabels) // realValue(v.identity, key, schems) // 
-
-            console.log('v=>'+JSON.stringify(v))
-            console.log('key=>'+JSON.stringify(key))
-            console.log('rawData=>'+JSON.stringify(rawData))
+            // console.log('v=>'+JSON.stringify(v))
+            // console.log('key=>'+JSON.stringify(key))
+            // console.log('rawData=>'+JSON.stringify(rawData))
 
             labels.push(rawData);
             values.push(v.count);

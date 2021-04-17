@@ -1,4 +1,4 @@
-// This is an example of how to access a session from an API route
+/*  ./pages/api/account/session.js     */
 import { getSession } from 'next-auth/client'
 
 export default async (req, res) => {

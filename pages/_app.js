@@ -1,4 +1,4 @@
-/*   ./styles/_app.js              */
+/*   ./pages/_app.js              */
 import { Provider } from 'next-auth/client'
 import '../styles/globals.scss'
 import '../styles/custom.scss';

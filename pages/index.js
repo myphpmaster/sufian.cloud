@@ -1,4 +1,4 @@
-/*  ./pages/result.js     */
+/*  ./pages/index.js     */
 import Head from 'next/head'
 import { Hero } from '../components/Hero';
 import { Overview } from '../components/Overview';

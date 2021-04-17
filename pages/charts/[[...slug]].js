@@ -211,7 +211,7 @@ const Chart = () => {
 
 export default Chart
 
-function generateChart(chart, data, options, width="auto", height="auto"){
+function generateChart(chart, data, options, width="640", height="480"){
     // Radar, Doughnut, Pie, Polar,
     switch (chart) {
         default:
@@ -222,6 +222,8 @@ function generateChart(chart, data, options, width="auto", height="auto"){
                 <div >
                     <Bar
                         data={data}
+                        width={width}
+                        height={height}
                         options={options}
                     />          
                 </div>

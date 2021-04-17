@@ -194,17 +194,17 @@ const Chart = () => {
 
     };
 
-    const width = 750
-    const height = 500
+//    const width = 750
+//    const height = 500
   
     return (
-        generateChart(chart, data, width, height, options)
+        generateChart(chart, data, options)
     );
     
     
 };
 
-function generateChart(chart, data, width, height, options){
+function generateChart(chart, data, options, width="640", height="480"){
     // Line, Bar, Random, Radar
     switch (chart) {
         default:

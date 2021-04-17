@@ -1,4 +1,4 @@
-// This is an example of how to read a JSON Web Token from an API route
+/*  ./pages/api/account/jwt.js     */
 import jwt from 'next-auth/jwt'
 
 const secret = process.env.SECRET

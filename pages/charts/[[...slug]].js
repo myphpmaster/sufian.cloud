@@ -169,7 +169,7 @@ const Chart = () => {
     // define the typical options properties
     var options = {
         responsive: true,
-        maintainAspectRatio: true,
+        maintainAspectRatio: false,
         scales: {
             yAxes: [{
                 display: true,

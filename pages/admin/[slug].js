@@ -1,4 +1,4 @@
-/*  ./pages/admin/[...route].js     */
+/*  ./pages/admin/[slug].js     */
 import React, { Component, useState, useEffect } from 'react'
 import { signIn, signOut, useSession } from 'next-auth/client'
 import useSWR, { useSWRInfinite } from "swr";

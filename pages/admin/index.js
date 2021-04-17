@@ -1,4 +1,4 @@
-/*  ./pages/admin/[...route].js     */
+/*  ./pages/admin/index.js     */
 import React, { Component, useState, useEffect } from 'react'
 import { signIn, signOut, useSession } from 'next-auth/client'
 import { useRouter } from "next/router";
@@ -9,7 +9,6 @@ import Login from '../../components/admin/login';
 
 import { Navbar } from '../../components/admin/navbar';
 import { RespondData } from '../../components/admin/respondData';
-import { Table } from '../../components/admin/latestSubmission';
 import { Footer } from '../../components/admin/footer';
 
 const { MONGODB_SERVER } = process.env

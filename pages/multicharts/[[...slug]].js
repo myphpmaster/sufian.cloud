@@ -1,5 +1,5 @@
-/*  ./chart/radar/[id].js     */
-import React, { useState } from "react";
+/*  ./pages/multicharts/[[...slug]].js     */
+import React, { useEffect } from "react";
 import useSWR, { useSWRInfinite } from "swr";
 import { Radar, Line, Bar } from 'react-chartjs-2';
 import { useRouter } from "next/router";
@@ -204,7 +204,7 @@ const Chart = () => {
     
 };
 
-function generateChart(chart, data, options, width="640", height="480"){
+function generateChart(chart, data, options, width=640, height=480){
     // Line, Bar, Random, Radar
     switch (chart) {
         default:
@@ -223,7 +223,7 @@ function generateChart(chart, data, options, width="640", height="480"){
 
         case 'bar':
             return (
-                <div width={width} height={height}>
+                <div className="chartjs" width={width} height={height}>
                     <Bar
                         data={data}
                         width={width}
@@ -242,9 +242,9 @@ function generateChart(chart, data, options, width="640", height="480"){
                     beginAtZero: true
                 }
             }]
-            
+
             return (
-                <div width={width} height={height}>
+                <div className="chartjs" width={width} height={height}>
                     <Radar
                         data={data}
                         width={width}
@@ -274,29 +274,24 @@ function countGroup (key='', val='', datas = []) {
 
 // function to group all data counts
 function groupArray (arr = []) {
-
     let map = new Map();
 
     for (let i = 0; i < arr.length; i++) {
-
         let obj = arr[i]
 
-            if( obj instanceof Object ){    
-                                        
+            if( obj instanceof Object ){                                            
                 for (let j in obj){
                         
                         if ( typeof obj === 'object' && objectSize(obj[j]) > 0 ){
                             //recursive call to scan property
                             let recur = obj[j]
 
-                            for (let k in recur){
-                                
+                            for (let k in recur){                                
                                 if ( typeof recur === 'object' && objectSize(recur[k]) > 0 ){
                                     //recursive call to scan property
                                     let child = recur[k]
 
-                                    for (let l in child){
-                                        
+                                    for (let l in child){                                        
                                         const w = JSON.stringify(l+'~'+child[l]);
                                         if(!map.has(w)){
 
@@ -309,8 +304,7 @@ function groupArray (arr = []) {
                                             map.get(w).count++;
                                         }
                                     }
-                                }else if ( typeof recur === 'string' ) {
-        
+                                }else if ( typeof recur === 'string' ) {        
                                     const x = JSON.stringify(k+recur[k]);
                                     if(!map.has(x)){
 
@@ -324,8 +318,7 @@ function groupArray (arr = []) {
                                     }
                                 }
                             }
-                        }else if ( typeof obj === 'string' ) {
- 
+                        }else if ( typeof obj === 'string' ) { 
                             const y = JSON.stringify(j+obj[j]);
                             if(!map.has(y)){
 
@@ -356,20 +349,16 @@ const objectSize = (obj = {}) => {
 };
 
 function realValue(key, value, schema, title=false){
-
     let rawData = key
     let rawKey = value
 
     for (let i = 0; i < schema.length; i++) {
-
         let obj = schema[i].components
 
         for (let j = 0; j < obj.length; j++) {
-
  //           console.log('obj[j].key =>' + obj[j].key)
 
             if (rawKey == obj[j].key) {
-
                 let values = obj[j]
 
                 // For dropdown select input
@@ -379,7 +368,6 @@ function realValue(key, value, schema, title=false){
 
                 // radio input directly have this property
                 if( values.hasOwnProperty('values') ){
-
                     let realVal = values.values
 
                     if(title){
@@ -387,7 +375,6 @@ function realValue(key, value, schema, title=false){
                     }
 
                     for (let k = 0; k < realVal.length; k++) {
-
                         if(rawData == realVal[k].value || rawData === realVal[k].value ) {
 
                             rawData = realVal[k].label
@@ -402,19 +389,15 @@ function realValue(key, value, schema, title=false){
 }
 
 function getGroupKeys(key, schema, title=false){
-
     let groupKeys=[]
 
     for (let i = 0; i < schema.length; i++) {
-
         let obj = schema[i].components
 
         for (let j = 0; j < obj.length; j++) {
-
             // console.log('obj[j].key =>' + obj[j].key)
 
             if (key == obj[j].key) {
-
                 let values = obj[j]
 
                 // For dropdown select input
@@ -424,23 +407,18 @@ function getGroupKeys(key, schema, title=false){
 
                 // radio input directly have this property
                 if( values.hasOwnProperty('values') ){
-
                     let realVal = values.values
 
                     if(title){
                         realVal = values.questions
                     }
-
 //                    console.log('realVal =>' + JSON.stringify(realVal))
 
                     for (let k = 0; k < realVal.length; k++) {
-
                         var foo = {};
                         foo[realVal[k].value.toString()] = realVal[k].label
-                        groupKeys.push(foo);
-                        
+                        groupKeys.push(foo);                        
 //                        console.log('realVal[k] =>' + k + JSON.stringify(realVal[k]))
-
                     }
                 }
             }

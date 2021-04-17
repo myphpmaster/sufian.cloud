@@ -1,10 +1,13 @@
-/*  ./charts/[[...id]].js     */
-import React, { useState } from "react";
+/*  ./pages/charts/[[...slug]].js     */
+import React, { useEffect } from "react";
 import useSWR, { useSWRInfinite } from "swr";
 import { Bar, Radar, Doughnut, Pie, Polar, HorizontalBar } from 'react-chartjs-2';
 import { useRouter } from "next/router";
 
 const Chart = () => {
+
+	//remove class from body element
+	useEffect( () => { document.querySelector("body").classList.remove("bg-gray-100") } );
 
     // setup dynamic routes - /charts/{chart type}/{key input}/
     const router = useRouter();
@@ -211,7 +214,7 @@ const Chart = () => {
 
 export default Chart
 
-function generateChart(chart, data, options, width="640", height="480"){
+function generateChart(chart, data, options, width=640, height=480){
     // Radar, Doughnut, Pie, Polar,
     switch (chart) {
         default:
@@ -219,7 +222,7 @@ function generateChart(chart, data, options, width="640", height="480"){
             data.datasets[0].type = chart
         case 'bar':
             return (
-                <div >
+                <div className="chartjs" width={width} height={height}>
                     <Bar
                         data={data}
                         width={width}
@@ -232,7 +235,7 @@ function generateChart(chart, data, options, width="640", height="480"){
         case 'horizontal':
 
             return (
-                <div width={width} height={height}>
+                <div className="chartjs" width={width} height={height}>
                     <HorizontalBar
                         data={data}
                         width={width}
@@ -277,7 +280,7 @@ function generateChart(chart, data, options, width="640", height="480"){
         case 'pie':
 
             return (
-                <div width={width} height={height}>
+                <div className="chartjs" width={width} height={height}>
                     <Pie
                         data={data}
                         width={width}
@@ -290,7 +293,7 @@ function generateChart(chart, data, options, width="640", height="480"){
         case 'doughnut':
 
             return (
-                <div width={width} height={height}>
+                <div className="chartjs" width={width} height={height}>
                     <Doughnut
                         data={data}
                         width={width}
@@ -303,7 +306,7 @@ function generateChart(chart, data, options, width="640", height="480"){
         case 'polar':
 
             return (
-                <div width={width} height={height}>
+                <div className="chartjs" width={width} height={height}>
                     <Polar
                         data={data}
                         width={width}
@@ -316,7 +319,7 @@ function generateChart(chart, data, options, width="640", height="480"){
         case 'radar':
 
             return (
-                <div width={width} height={height}>
+                <div className="chartjs" width={width} height={height}>
                     <Radar
                         data={data}
                         width={width}

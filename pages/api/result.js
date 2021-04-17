@@ -1,3 +1,4 @@
+/*  ./pages/api/result.js     */
 import { ObjectId } from 'bson';
 import nextConnect from 'next-connect';
 import middleware from '../../middleware/db';

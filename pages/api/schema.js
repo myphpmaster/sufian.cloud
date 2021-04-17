@@ -1,3 +1,4 @@
+/*  ./pages/api/schema.js     */
 import nextConnect from 'next-connect';
 import middleware from '../../middleware/db';
 const { MONGODB_FORM_PATH } = process.env

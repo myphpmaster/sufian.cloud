@@ -1,3 +1,4 @@
+/*  ./middleware/db.js     */
 import { MongoClient } from 'mongodb';
 import nextConnect from 'next-connect';
 

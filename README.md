@@ -78,9 +78,10 @@ Similar steps as in Azure cloud
 
 Development and production website use different form API and datasets:
 
-* [Development form API](https://survey.sufian.cloud/ieq-poe)
-* [Production form API](https://survey.sufian.cloud/poe-ieq)
+Form APIs:
+* [Development form API](https://survey.sufian.cloud/poe-ieq)
+* [Production form API](https://survey.sufian.cloud/ieq-poe)
 
-* [Development dataset](https://survey.sufian.cloud/ieq-poe/submission)
-* [Production dataset](https://survey.sufian.cloud/poe-ieq/submission)
-
+Submissions Datasets:
+* [Development dataset](https://survey.sufian.cloud/poe-ieq/submission)
+* [Production dataset](https://survey.sufian.cloud/ieq-poe/submission)

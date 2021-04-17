@@ -1,11 +1,9 @@
 import { MongoClient } from 'mongodb';
 import nextConnect from 'next-connect';
 
-const { MONGODB_URI_AZURE, MONGODB_URI_ALIBABA, MONGODB_DB, MONGODB_SERVER } = process.env
+const { MONGODB_URI, MONGODB_DB } = process.env
 
-const mongoURI = MONGODB_SERVER == 'azure' ? MONGODB_URI_AZURE : MONGODB_URI_ALIBABA
-
-const client = new MongoClient(mongoURI, {
+const client = new MongoClient(MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });

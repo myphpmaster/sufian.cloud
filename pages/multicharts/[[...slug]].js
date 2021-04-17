@@ -6,16 +6,19 @@ import { useRouter } from "next/router";
 
 const Chart = () => {
 
+    // setup dynamic routes - /{chart type}/{key input}/
     const router = useRouter();
-    const key = router.query.id
-    const subkey = router.query.type ? router.query.type : false;
+    const slug = router.query.slug || []
+
+    const chart = slug[0] ? slug[0] : false
+    const key = slug[1] ? slug[1] : false
+    const subkey = slug[2] ? slug[2] : false;
         
     const fetcher = url => fetch(url).then(res => res.json());
     const { data: survey } = useSWR(() => '/api/charts/?key=' + key, fetcher)
 
     const arr = survey ? [].concat(...survey) : [];
     const results = groupArray(arr);
-
     // console.log('results =>' + JSON.stringify(results));
 
     const { data: schem } = useSWR(() => '/api/label', fetcher)
@@ -23,7 +26,6 @@ const Chart = () => {
 
     const cats = getGroupKeys(key, schems, true)
     const vals = getGroupKeys(key, schems)
-
     // console.log('cats =>' + JSON.stringify(cats));
     // console.log('vals =>' + JSON.stringify(vals));
 
@@ -51,13 +53,12 @@ const Chart = () => {
             for (let k = 0; k < vals.length; k++) {
 
                 const val = vals[k];
-
-                //console.log('val =>' + JSON.stringify(val));
+                // console.log('val =>' + JSON.stringify(val));
 
                 for (var l in val) {            
 
                     bar[l] = countGroup(j, l, results)
-                    
+
                     datas[j][l] = bar[l]
                     datasAlt[j][x] = bar[l]
                     
@@ -70,7 +71,6 @@ const Chart = () => {
                     x++;
                 }
                 foo[j] = bar
-
             }
             
             if(!labels.includes(cat[j])) {
@@ -83,93 +83,31 @@ const Chart = () => {
         groups.push(foo)
     }
 
-    var options = {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                yAxes: [{
-                    display: true,
-                    ticks: {
-                        beginAtZero: true,
-                        stepSize: 1
-                    }
-                }]
-            },
-            title: {
-                display: true
-            },
-            tooltips: {
-                mode: 'index',
-                intersect: false,
-            },
-            hover: {
-                mode: 'nearest',
-                intersect: true
-            },
-
-    };
-
-    const identity = [
-        {
-            backgroundColor: 'rgba(179,181,198,0.2)',
-            borderColor: 'rgba(179,181,198,1)',
-            pointBackgroundColor: 'rgba(179,181,198,1)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(179,181,198,1)',
-        },
-        {
-            backgroundColor: 'rgba(255,99,132,0.2)',
-            borderColor: 'rgba(255,99,132,1)',
-            pointBackgroundColor: 'rgba(255,99,132,1)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(255,99,132,1)',
-        },
-        {
-            backgroundColor: 'rgba(255, 206, 86, 0.2)',
-            borderColor: 'rgba(255, 206, 86, 1)',
-            pointBackgroundColor: 'rgba(179,181,198,1)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(179,181,198,1)',
-        },
-        {
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192,1)',
-            pointBackgroundColor: 'rgba(179,181,198,1)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(179,181,198,1)',
-        },
-        {
-            backgroundColor: 'rgba(114,131,156,0.2)',
-            borderColor: 'rgba(114,131,156,1)',
-            pointBackgroundColor: 'rgba(179,181,198,1)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(179,181,198,1)',
-        },
-        {
-            backgroundColor: 'rgba(153, 102, 255, 0.2)',
-            borderColor: 'rgba(153, 102, 255, 1)',
-            pointBackgroundColor: 'rgba(179,181,198,1)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(179,181,198,1)',
-        },
-        {
-            backgroundColor: 'rgba(255, 159, 64, 0.2)',
-            borderColor: 'rgba(255, 159, 64, 1)',
-            pointBackgroundColor: 'rgba(179,181,198,1)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(179,181,198,1)',
-        },
-        ]
-
     var route = (subkey == 'likert') ? cats : vals
     var varies = (subkey == 'likert') ? datasAlt : datas
+        
+    // generate random colors for background, hover, border
+    var r = () => Math.random() * 256 >> 0;
+    const rgbcode=[], bgColor=[], hoverColor=[], borderColor=[];
+    const identity = []
+
+    for (let k = 0; k < route.length; k++) {
+        rgbcode[k] = `${r()}, ${r()}, ${r()}`;
+        bgColor[k] = `rgba(${rgbcode[k]}, 0.3)`;
+        hoverColor[k] = `rgba(${rgbcode[k]}, 0.75)`;
+        borderColor[k] = `rgba(${rgbcode[k]}, 1)`;
+
+        let iden={
+                backgroundColor: bgColor[k],
+                borderColor: borderColor[k],
+                pointBackgroundColor: borderColor[k],
+                pointHoverBorderColor: borderColor[k],
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+            }
+
+        identity.push(iden)
+    }
 
     const dataset = []
     var foo = {}
@@ -221,30 +159,94 @@ const Chart = () => {
         dataset.push(foo)
     }
 
+    
     const useLabel = (subkey == 'likert') ? labelsAlt : labels
 
     const data = {
         labels: useLabel,
-        datasets: dataset,
-        options: options
+        datasets: dataset
     };
 
-    // console.log('vals =>' + JSON.stringify(vals));
-    // console.log('data =>' + JSON.stringify(data));
+    // define the typical options properties
+    var options = {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            yAxes: [{
+                display: true,
+                ticks: {
+                    beginAtZero: true,
+                    stepSize: 1
+                }
+            }]
+        },
+        title: {
+            display: true
+        },
+        tooltips: {
+            mode: 'index',
+            intersect: false,
+        },
+        hover: {
+            mode: 'nearest',
+            intersect: true
+        },
 
+    };
+
+    const width = 750
+    const height = 500
+  
     return (
-        <>
-        <div width="600" height="400">
-            <Bar
-                data={data}
-                width={600}
-                height={400}
-            />          
-        </div>
-        </>
+        generateChart(chart, data, width, height, options)
     );
     
+    
 };
+
+function generateChart(chart, data, width, height, options){
+    // Line, Bar, Random, Radar
+    switch (chart) {
+        default:
+        case 'line':
+            for(let j=0; j<data.datasets.length; j++){
+                data.datasets[j].type = chart
+            }
+
+        case 'mix':
+
+            const types = ["bar", "line"];
+            for(let j=0; j<data.datasets.length; j++){
+                let random = Math.floor(Math.random() * types.length);
+                data.datasets[j].type = types[random]
+            }
+
+        case 'bar':
+            return (
+                <div width={width} height={height}>
+                    <Bar
+                        data={data}
+                        width={width}
+                        height={height}
+                        options={options}
+                    />          
+                </div>
+            );
+            
+        case 'radar':
+
+            return (
+                <div width={width} height={height}>
+                    <Radar
+                        data={data}
+                        width={width}
+                        height={height}
+                        options={options}
+                    />          
+                </div>
+            );
+    }
+}
 
 // function to group all data counts
 function countGroup (key='', val='', datas = []) {

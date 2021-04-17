@@ -1,0 +1,273 @@
+/*  ./styles/main.css     */
+$url-color: #0056b3;
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.top-menu {
+	a {
+		&:hover {
+			color: #0056b3;
+			text-decoration: none;
+		}
+	}
+}
+
+* {
+  box-sizing: border-box;
+}
+.bgvideo {
+    position: absolute;
+    top: 50%;
+    left: 75%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: 2;
+    transform: translateX(-50%) translateY(-50%);
+    background-size: cover; 
+    max-width: inherit !important;
+}
+.bgoverlay {
+  font-family:monospace;
+  background-color:black;
+  position:fixed;
+  width:100%;
+  height:100%;
+  top:0;
+  left:0;
+  opacity:0.6;
+  z-index: -100;
+}
+#navbar {
+	width: 100%;
+	position: absolute;
+    top: 0;
+	@media screen and (max-height: 680px) {
+		position: relative;
+	}
+	a {
+		&:hover {
+			text-decoration: none;
+		}
+	}
+}
+
+.container {
+  min-height: 100vh;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  color: #ffffff;
+}
+
+.main {
+  padding: 5rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+a {
+  color: $url-color;
+  text-decoration: none;
+}
+
+a:hover,
+a:focus,
+a:active {
+  text-decoration: none;
+  .title & {
+    text-decoration: underline;
+  }
+}
+
+.title {
+  margin: 0;
+  line-height: 1.15;
+  font-size: 4rem;
+  @media (max-width: 575.98px) {
+	  font-size: 2.5rem;
+  }
+}
+
+.subtitle {
+  margin: 0;
+  line-height: 1.15;
+  font-size: 3rem;
+  margin-top: 1rem;
+  @media (max-width: 575.98px) {
+	  font-size: 2rem;
+  }
+}
+
+.subtitle,
+.title,
+.description {
+  text-align: center;
+}
+
+.predescription,
+.description {
+  line-height: 1.5;
+  font-size: 1.5rem;
+}
+
+.predescription {
+	margin-bottom: 0.5rem;
+  font-style: italic;
+}
+.description {
+  line-height: 1.25;
+  font-size: 1em;
+  position: relative;
+  top: 3em;
+  padding: 0 1em;
+}
+.code {
+  background: #fafafa;
+  border-radius: 5px;
+  padding: 0.75rem;
+  font-size: 1.1rem;
+  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
+    Bitstream Vera Sans Mono, Courier New, monospace;
+}
+
+.grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 800px;
+  margin-top: 3rem;
+}
+
+.card {
+  margin: 1rem;
+  flex-basis: 45%;
+  padding: 1.5rem;
+  text-align: left;
+  color: inherit;
+  text-decoration: none;
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.card:hover,
+.card:focus,
+.card:active {
+  color: $url-color;
+  border-color: $url-color;
+}
+
+.card h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.5rem;
+}
+
+.card p {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.5;
+}
+
+.logo {
+  height: 1em;
+}
+
+.grid {
+	@media (max-width: 600px) {
+		width: 100%;
+		flex-direction: column;
+	}
+}
+
+
+$url-color: #007bff;
+$bg-color: rgba(250,250,250,0.6);
+$card-color: #000000;
+
+.table {
+	thead {
+		th {
+			vertical-align: middle;
+			@media screen and (max-width: 500px) {
+				vertical-align: bottom;
+				max-width: 15px;
+				transform: translate(-77px, 80px) rotate(-90deg);
+				white-space: nowrap;
+				height: 200px;
+			}
+		}	
+	}
+	td {
+		vertical-align: middle;
+		
+	}
+}
+
+.chartjs-render-monitor {
+	margin: 0 auto;
+}
+
+.carousel-control-next, 
+.carousel-control-prev {
+	width: 20px;
+}
+
+.react-multi-carousel-track {
+  li {
+    text-align: center;
+    img {
+      padding: 0 1em;
+      margin: auto;
+    }
+  }
+}
+.footer {
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	margin-bottom: 1rem;
+	a {
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
+		padding: 0 0.5rem;
+		border-right: 1px solid #fff;
+		line-height: 1;
+		&:last-child {
+			border-right: none;
+		}
+		&.active {
+			color: $url-color;
+		}
+		&:hover,
+		&:focus,
+		&:active {
+			text-decoration: none;
+		}
+		&:hover {
+			text-decoration: none;
+			color: $url-color;
+		}
+	}
+}

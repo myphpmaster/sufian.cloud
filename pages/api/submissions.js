@@ -30,10 +30,13 @@ handler.get(async (req, res) => {
 */
 
 handler.get(async (req, res) => {
+  const formID = req.query.form ? req.query.form : MONGODB_FORM_ID;
+  const form = new ObjectID(formID)
     const data = await getDatas(
       req.db,
       req.query.limit ? parseInt(req.query.limit, 5) : 5,
-      req.query.limit ? req.query.limit*(req.query.page-1) : 0,
+      req.query.page && req.query.limit ? req.query.limit*(req.query.page-1) : 0,
+      form
     );
   
     if (typeof req.query.nocache === 'undefined' && data.length > 0) {
@@ -45,14 +48,13 @@ handler.get(async (req, res) => {
     res.json(data);
   });
   
-export async function getDatas(db, limits, skips) {
-    // const form = new ObjectID("606e53e9642f2cd011d871b4")
-    const form = new ObjectID(MONGODB_FORM_ID)
+export async function getDatas(db, limits, skips,form) {
     
     return db
       .collection(col_name)
       .find({
-        "form": form
+        "form": form,
+        "deleted": {$eq : null}
       })
       .project({
             data: 1, 

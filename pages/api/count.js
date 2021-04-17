@@ -8,12 +8,15 @@ const handler = nextConnect();
 const col_name = 'submissions';
 handler.use(middleware);
 const maxAge = 1 * 24 * 60 * 60;
-const form =  new ObjectID(MONGODB_FORM_ID)
 
 handler.get(async (req, res) => {
+    const formID = req.query.form ? req.query.form : MONGODB_FORM_ID;
+    const form = new ObjectID(formID)
+
     let data = await req.db.collection(col_name)
         .find({
-            "form": form
+            "form": form,
+            "deleted": {$eq : null}
         })
         .toArray()
         .then(items => { return items.length })

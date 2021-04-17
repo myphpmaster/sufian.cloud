@@ -12,11 +12,13 @@ handler.use(middleware);
 const maxAge = 1 * 24 * 60 * 60;
 
 handler.get(async (req, res) => {
-    const key = req.query.key
-
+    const key = req.query.key ? req.query.key : '';
+    const formID = req.query.form ? req.query.form : MONGODB_FORM_ID;
+    const form = new ObjectID(formID)
     const data = await getDatas(      
       req.db,
-      key ? key : '',
+      key,
+      form
     );
   
     if (typeof req.query.nocache === 'undefined' && req.query.key && data.length > 0) {
@@ -28,14 +30,14 @@ handler.get(async (req, res) => {
     res.json(data);
   });
   
-export async function getDatas(db, keys) {
+export async function getDatas(db, keys, form) {
     const key = 'data.' + keys
-    const form = new ObjectID(MONGODB_FORM_ID)
 
     return db
       .collection(col_name)
       .find({
-        "form": form
+        "form": form,
+        "deleted": {$eq : null}
       })
       .project({
             [key]: 1, 

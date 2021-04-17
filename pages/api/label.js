@@ -11,10 +11,12 @@ const maxAge = 1 * 24 * 60 * 60;
 handler.get(async (req, res) => {
 
     const key = req.query.key ? req.query.key : false;
+    const path = req.query.form ? req.query.form : MONGODB_FORM_PATH;
 
     const data = await getDatas(      
       req.db,
-      key ? key : '',
+      key,
+      path
     );
 
     if (typeof req.query.nocache === 'undefined' && data.length > 0) {
@@ -36,12 +38,12 @@ handler.get(async (req, res) => {
 
   });
   
-export async function getDatas(db, keys) {
+export async function getDatas(db, keys, path) {
 
     return db
       .collection(col_name)
       .find({ 
-          'path': MONGODB_FORM_PATH,
+          'path': path,
       })
       .project({
         components: 1, 

@@ -79,7 +79,7 @@ export const Table = () => {
                                         { schems.map( (section, key) => (                                       
                                             <div key={key} >
                                                 <div className="text-center bg-gray-200 px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
-                                                    <dt className="text-sm font-medium text-black">
+                                                    <dt className="text-sm font-medium text-black" data-id={section.key}>
                                                     {section.title}
                                                     </dt>
                                                 </div>
@@ -103,6 +103,7 @@ function renderData(comp, val, id) {
     var table = ["bg-gray-50", "bg-white"]
     var tableClass = (id % 2 == 0) ? table[0] : table[1]
     var value = val[comp.key]
+    const oriVal = value
 
     //console.log('comp[' + id + ']=>' + JSON.stringify(comp))
     //console.log('val[' + id + ']=>' + JSON.stringify(val[comp.key]))
@@ -127,10 +128,10 @@ function renderData(comp, val, id) {
     if( typeof val[comp.key] !== 'object' ){
         return (
         <div key={id} className={`${tableClass} px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6`}>
-            <dt className="text-sm font-medium text-gray-500">
+            <dt className="text-sm font-medium text-gray-500" data-id={comp.key}>
                 {comp.label}
             </dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" data-id={oriVal}>
                 {value}
             </dd>
         </div>
@@ -139,7 +140,7 @@ function renderData(comp, val, id) {
         
         return (
             <div key={id} className={`${tableClass} px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6`}>
-                <dt className="text-sm font-medium text-gray-500">
+                <dt className="text-sm font-medium text-gray-500" data-id={comp.value}>
                     {comp.label}
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
@@ -160,6 +161,7 @@ function renderData(comp, val, id) {
 
 function renderSurvey(question, values, value, num) {
    
+    var oriVal = value
     var table = ["bg-gray-50", "bg-white"]
     var tableClass = (num % 2 == 0) ? table[0] : table[1]
         
@@ -174,11 +176,11 @@ function renderSurvey(question, values, value, num) {
         <li key={num} className={`${tableClass}pl-3 pr-4 py-3 flex items-center justify-between text-sm`}>
             <div className="w-0 flex-1 flex items-center">
 
-                <span className="ml-2 flex-1 w-0 truncate">
+                <span className="ml-2 flex-1 w-0 truncate" data-id={question.value}>
                     {question.label}
                 </span>
             </div>
-            <div className="ml-4 flex-shrink-0">
+            <div className="ml-4 flex-shrink-0" data-id={oriVal}>
                     {value}
             </div>
         </li>

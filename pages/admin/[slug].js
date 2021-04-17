@@ -1,4 +1,4 @@
-/*  ./pages/admin/[...route].js     */
+/*  ./pages/admin/[slug].js     */
 import React, { Component, useState, useEffect } from 'react'
 import { signIn, signOut, useSession } from 'next-auth/client'
 import useSWR, { useSWRInfinite } from "swr";
@@ -158,7 +158,6 @@ export default function Admin() {
   )
 }
 
-
 function validType(type){
 
     const types = [
@@ -176,7 +175,7 @@ function renderCharts(data, id, single=false){
       "number": "line",
       "select": "bar",
       "radio": "horizontal",
-      "survey": "multibar"
+      "survey": "bar"
     }
 
     const type = data.properties.hasOwnProperty('chart') ? data.properties.chart : chartType[data.type] 
@@ -184,22 +183,47 @@ function renderCharts(data, id, single=false){
     const clss = single ? '' : 'md:w-1/2'
     const height = single ? '100vh' : '550px'
 
-    return (
-        
-        <div key={id} className={`${clss} w-full p-3`}>
-                        
-            <div className="bg-white border rounded shadow">
-                <div className="border-b p-3">
-                    <h5 className="font-bold uppercase text-gray-600 text-center">{data.label}</h5>
-                </div>
-                <div className="p-5">
-                    <div className="" style={{width: '100%', height: height}}>
-                        <iframe className="inset-0 w-full h-full" src={`/chart/${type}/${data.key}/${slug}`} frameBorder="0" />
-                    </div>
-                </div>
-            </div>
-            
-        </div>
+	switch (data.type){
+		case 'survey':
 
-    )
+			return (
+			
+				<div key={id} className={`${clss} w-full p-3`}>
+								
+					<div className="bg-white border rounded shadow">
+						<div className="border-b p-3">
+							<h5 className="font-bold uppercase text-gray-600 text-center">{data.label}</h5>
+						</div>
+						<div className="p-5">
+							<div className="" style={{width: '100%', height: height}}>
+								<iframe className="inset-0 w-full h-full" src={`/multicharts/${type}/${data.key}/${slug}`} frameBorder="0" />
+							</div>
+						</div>
+					</div>
+					
+				</div>
+	
+			)
+
+		default:
+
+		return (
+			
+			<div key={id} className={`${clss} w-full p-3`}>
+							
+				<div className="bg-white border rounded shadow">
+					<div className="border-b p-3">
+						<h5 className="font-bold uppercase text-gray-600 text-center">{data.label}</h5>
+					</div>
+					<div className="p-5">
+						<div className="" style={{width: '100%', height: height}}>
+							<iframe className="inset-0 w-full h-full" src={`/charts/${type}/${data.key}/${slug}`} frameBorder="0" />
+						</div>
+					</div>
+				</div>
+				
+			</div>
+
+		)
+	}
 }

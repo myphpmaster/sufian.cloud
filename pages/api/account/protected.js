@@ -1,4 +1,4 @@
-// This is an example of to protect an API route
+/*  ./pages/api/account/protected.js     */
 import { getSession } from 'next-auth/client'
 
 export default async (req, res) => {

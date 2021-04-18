@@ -4,172 +4,176 @@ import useSWR, { useSWRInfinite } from "swr";
 
 export const Table = () => {
     
-    const fetcher = url => fetch(url).then(res => res.json());
-    const { data } = useSWR(() => '/api/submissions/?limit=10&page=1&nocache=1', fetcher)
-    const datas = data ? [].concat(...data) : [];
+  var [isPage, setPage] = useState(1);
+  console.log(JSON.stringify(isPage))
 
-    const results = [];
-    datas.forEach(function(value, index, array) {
-        results.push(value.data);
-    }); 
-        
-    const { data: schem } = useSWR(() => '/api/label/', fetcher)
-    const schems = schem ? [].concat(...schem) : [];
+  const fetcher = url => fetch(url).then(res => res.json());
+  const { data } = useSWR(() => `/api/submissions/?limit=10&page=${isPage}`, fetcher)
+  const datas = data ? [].concat(...data) : [];
 
-    const renders = []
-    const filters = ['type','key','label','suffix','prefix','questions','values']
-    var x=0
-    var inputs={}
-    for (let i = 0; i < schems.length; i++) {
-        // direct input
-        if(schems[i].input) {
-            inputs={}
-            inputs=filterProps(schems[i],filters)
-            renders.push(inputs)
-            x++
-        // panel
-        }else if(schems[i].type=='panel'){
-			let obj = schems[i].components
-            var panel = {}
-            panel.id = i
-            panel.key = schems[i].key
-            panel.title = schems[i].title
-            // console.log('panel['+i+']=>'+JSON.stringify(panel))
-			for (let j = 0; j < obj.length; j++) {
-				if (obj[j].type == 'columns'){
-					let col = obj[j].columns
-					for (let k = 0; k < col.length; k++) {
-						let subcol = [] = col[k].components
-						for (let l = 0; l < subcol.length; l++) {
-							if (subcol[l].input) {
-                                inputs={}
-                                inputs.panel = (schems[i].type=='panel') ? panel : false
-                                inputs=filterProps(subcol[l],filters,inputs)
-                                // console.log('inputs['+x+']=>'+JSON.stringify(inputs))
-                                renders.push(inputs)
-                                x++
-							}
-						}
-					}
-				}else if (obj[j].input) {
-                    inputs={}
-                    inputs.panel = (schems[i].type=='panel') ? panel : false
-                    inputs=filterProps(obj[j],filters,inputs)
-                    renders.push(inputs)
-				}
-			}			
+  // Get total no. of respondents
+  const { data: count } = useSWR(() => '/api/count/', fetcher)
+
+  const results = [];
+  datas.forEach(function(value, index, array) {
+      results.push(value.data);
+  }); 
+      
+  const { data: schem } = useSWR(() => '/api/label/', fetcher)
+  const schems = schem ? [].concat(...schem) : [];
+
+  const renders = []
+  const filters = ['type','key','label','suffix','prefix','questions','values']
+  var x=0
+  var inputs={}
+
+  for (let i = 0; i < schems.length; i++) {
+    // direct input
+    if(schems[i].input) {
+        inputs={}
+        inputs=filterProps(schems[i],filters)
+        renders.push(inputs)
+        x++
+    // panel
+    } else if(schems[i].type=='panel'){
+      let obj = schems[i].components
+          var panel = {}
+          panel.id = i
+          panel.key = schems[i].key
+          panel.title = schems[i].title
+          // console.log('panel['+i+']=>'+JSON.stringify(panel))
+    for (let j = 0; j < obj.length; j++) {
+      if (obj[j].type == 'columns'){
+        let col = obj[j].columns
+        for (let k = 0; k < col.length; k++) {
+          let subcol = [] = col[k].components
+          for (let l = 0; l < subcol.length; l++) {
+            if (subcol[l].input) {
+                              inputs={}
+                              inputs.panel = (schems[i].type=='panel') ? panel : false
+                              inputs=filterProps(subcol[l],filters,inputs)
+                              // console.log('inputs['+x+']=>'+JSON.stringify(inputs))
+                              renders.push(inputs)
+                              x++
+            }
+          }
         }
+      } else if (obj[j].input) {
+                  inputs={}
+                  inputs.panel = (schems[i].type=='panel') ? panel : false
+                  inputs=filterProps(obj[j],filters,inputs)
+                  renders.push(inputs)
+        }
+      }			
     }
+  }
 
     //console.log('results->'+JSON.stringify(results))
     //console.log('schems->'+JSON.stringify(schems))
     //console.log('renders->'+JSON.stringify(renders))
     
     return (
-<div className="w-full p-3">
 
-
-                    <div className="bg-white border rounded shadow">
-                        <div className="border-b p-3">
-                            <h5 className="font-bold uppercase text-gray-600 text-center">Latest Entry</h5>
-                        </div>
-                        <div className="p-5">
-                            { results.map( (val, index) => (
-                                <div key={index} className="pb-10 border-gray-400 border mx-4">
-                                    <dl>
-                                        { schems.map( (section, key) => (                                       
-                                            <div key={key} >
-                                                <div className="text-center bg-gray-200 px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
-                                                    <dt className="text-sm font-medium text-black" data-id={section.key}>
-                                                    {section.title}
-                                                    </dt>
-                                                </div>
-                                                {renders.filter(el => el.panel.id == key).map( (comp, num) => ( 
-                                                    renderData(comp, val, num)
-                                                ))} 
-                                            </div>
-                                        ))}    
-                                    </dl>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-    <div className="flex flex-col">
-      <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-        <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-          <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    Name
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    Title
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    Status
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    Role
-                  </th>
-                  <th scope="col" className="relative px-6 py-3">
-                    <span className="sr-only">Edit</span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {results.map((person) => (
-                  <tr key={person.email}>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center">
-                        <div className="flex-shrink-0 h-10 w-10">
-                          <img className="h-10 w-10 rounded-full" src={person.image} alt="" />
-                        </div>
-                        <div className="ml-4">
-                          <div className="text-sm font-medium text-gray-900">{person.name}</div>
-                          <div className="text-sm text-gray-500">{person.email}</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{person.title}</div>
-                      <div className="text-sm text-gray-500">{person.department}</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                        Active
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{person.role}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <a href="#" className="text-indigo-600 hover:text-indigo-900">
-                        Edit
-                      </a>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+        <div className="w-full">
+          <div className="bg-white border rounded shadow">
+            <div className="p-4">
+              <div className="flex">
+                  <div className="flex-none w-1/8">
+                      { (isPage > 1) && 
+                      <a className="bg-gray-50 hover:bg-blue-50 w-1/3 inline-block md:w-auto items-center px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700" 
+                          onClick={() => setPage(isPage => isPage - 1)}
+                          href="#">Previous</a>
+                      }
+                  </div>
+                  <div className="flex-grow self-center">
+                      <h2 className="font-bold uppercase text-gray-600 text-center">Page {isPage} of </h2>
+                  </div>
+                  <div className="flex-none w-1/8">
+                      { (isPage < count ) &&
+                      <a className="bg-gray-50 hover:bg-blue-50 w-1/3 inline-block md:w-auto items-center px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700" 
+                          onClick={() => setPage(isPage => isPage + 1)}
+                          href="#">Next</a>
+                      }
+                  </div>
+              </div>
           </div>
-        </div>
-      </div>
-    </div>
-  
+          <div className="p-4">
+            <div className="flex flex-col">
+              <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                  <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                    <table className="min-w-full divide-y divide-gray-200">
+                      <thead className="bg-gray-50">
+                        <tr>
+                          <th
+                            scope="col"
+                            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                          >
+                            Entry Date
+                          </th>
+                          <th
+                            scope="col"
+                            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                          >
+                            Gender
+                          </th>
+                          <th
+                            scope="col"
+                            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                          >
+                            Status
+                          </th>
+                          <th
+                            scope="col"
+                            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                          >
+                            Role
+                          </th>
+                          <th scope="col" className="relative px-6 py-3">
+                            <span className="sr-only">Link</span>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white divide-y divide-gray-200">
+                        {results.map((respond) => (
+                          <tr key={respond.created}>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              <div className="flex items-center">
+                                <div className="flex-shrink-0 h-10 w-10">
+                                  {respond.created}
+                                </div>
+                                <div className="ml-4">
+                                  <div className="text-sm font-medium text-gray-900">{person.name}</div>
+                                  <div className="text-sm text-gray-500">{person.email}</div>
+                                </div>
+                              </div>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              <div className="text-sm text-gray-900">{person.title}</div>
+                              <div className="text-sm text-gray-500">{person.department}</div>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                Active
+                              </span>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{person.role}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                              <a href="#" className="text-indigo-600 hover:text-indigo-900">
+                                Edit
+                              </a>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
+              </div>
+            </div>    
+          </div>    
+        </div>  
+      </div>
     );
 };
 

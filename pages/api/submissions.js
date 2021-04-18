@@ -34,7 +34,7 @@ handler.get(async (req, res) => {
   const form = new ObjectID(formID)
     const data = await getDatas(
       req.db,
-      req.query.limit ? parseInt(req.query.limit) : 5,
+      req.query.limit ? parseInt(req.query.limit) : 10,
       (req.query.page && req.query.limit) ? parseInt(req.query.limit)*(parseInt(req.query.page)-1) : 0,
       form
     );

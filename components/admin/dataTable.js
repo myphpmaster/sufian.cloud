@@ -8,14 +8,16 @@ export const Table = () => {
   // Get entry page url path
 	const router = useRouter();
   const path = router.route ? router.route.replace('[[...slug]]','entry') + '/' : '/result/'
-  const page = (router.query.length > 1 && typeof router.query.slug[1] !== 'undefined') ? parseInt(router.query.slug[1]) : 1
+  const page = (router.query.page) ? parseInt(router.query.page) : 1
+  //console.log('router.query->'+JSON.stringify(router.query))
 
-  var [isPage, setPage] = useState(1);
+  var [isPage, setPage] = useState(page);
+  console.log('isPage->'+JSON.stringify(isPage))
   
   const fetcher = url => fetch(url).then(res => res.json());
   // Get submissions data as datas
   const limit = 10;
-  const { data } = useSWR(() => `/api/submissions/?limit==${limit}&page=${isPage}`, fetcher)
+  const { data } = useSWR(() => `/api/submissions/?limit=${limit}&page=${isPage}`, fetcher)
   const datas = data ? [].concat(...data) : [];
 
   // Filter datas to get all data properties in results array
@@ -152,7 +154,7 @@ export const Table = () => {
 
                             { schems.filter( (el,no) => no < numColumn ).map( (panel, key) => (
                               
-                              <td className="px-6 py-4 whitespace-nowrap">
+                              <td key={key} className="px-6 py-4 whitespace-nowrap">
 
                                 {renders.filter(el => el.panel.id == key).map( (comp, num) => ( 
 
@@ -165,7 +167,7 @@ export const Table = () => {
                             ))} 
 
                             <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                              <a href={`${path+(id+1)}`} className="text-indigo-600 hover:text-indigo-900">
+                              <a href={`${path}?page=${id+1}`} className="text-indigo-600 hover:text-indigo-900">
                                 More
                               </a>
                             </td>

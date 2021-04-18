@@ -1,18 +1,33 @@
-/*  ./components/admin/generalData.js     */
+/*  ./components/admin/latestData.js     */
 import React, { useState } from "react";
 import useSWR, { useSWRInfinite } from "swr";
+import { useRouter } from "next/router";
 
 export const Table = () => {
+        
     
+    // Get page url path
+	const router = useRouter();
+    console.log(JSON.stringify(router))
+    const path = router.route ? router.route.replace('[[...slug]]','entry') + '/' : '/result/'
+    const page = router.query.slug[1] ? parseInt(router.query.slug[1]) : 1
+
+    var [isPage, setPage] = useState(page);
+    console.log(JSON.stringify(isPage))
+
     const fetcher = url => fetch(url).then(res => res.json());
-    const { data } = useSWR(() => '/api/submissions/?limit=1&page=1&nocache=1', fetcher)
+
+    const { data, error } = useSWR(() => `/api/submissions/?limit=1&page=${isPage}`, fetcher)
     const datas = data ? [].concat(...data) : [];
 
     const results = [];
-    datas.forEach(function(value, index, array) {
+    datas.forEach( (value) => {
         results.push(value.data);
     }); 
         
+    // Get total no. of respondents
+    const { data: count } = useSWR(() => '/api/count/', fetcher)
+
     const { data: schem } = useSWR(() => '/api/label/', fetcher)
     const schems = schem ? [].concat(...schem) : [];
 
@@ -66,15 +81,37 @@ export const Table = () => {
     //console.log('renders->'+JSON.stringify(renders))
     
     return (
-            <>
-                <div className="w-full p-3">
+        <>
+        
+        { (!results) &&
+            <h2 className="font-bold uppercase text-white text-2xl text-center">{`${error ? 'Data not found' : 'Loading...'}`}</h2>
+        }
+        { (results) &&
+                <div className="w-full">
                     <div className="bg-white border rounded shadow">
-                        <div className="border-b p-3">
-                            <h5 className="font-bold uppercase text-gray-600 text-center">Latest Entry</h5>
+                        <div className="p-4">
+                            <div className="flex">
+                                <div className="flex-none w-1/8">
+                                    { (isPage > 1) && 
+                                    <a className="bg-gray-50 hover:bg-blue-50 w-1/3 inline-block md:w-auto items-center px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700" 
+                                        onClick={() => setPage(isPage => isPage - 1)}
+                                        href="#">Previous</a>
+                                    }
+                                </div>
+                            <div className="flex-grow self-center">
+                                <h2 className="font-bold uppercase text-gray-600 text-center">Entry #{isPage}</h2>
+                            </div>
+                                <div className="flex-none w-1/8">
+                                    { (isPage < count ) &&
+                                    <a className="bg-gray-50 hover:bg-blue-50 w-1/3 inline-block md:w-auto items-center px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700" 
+                                        onClick={() => setPage(isPage => isPage + 1)}
+                                        href="#">Next</a>
+                                    }
+                                </div>
+                            </div>
                         </div>
-                        <div className="p-5">
-                            { results.map( (val, index) => (
-                                <div key={index} className="pb-10 border-gray-400 border mx-4">
+                        { results.map( (val, index) => (
+                                <div key={index} className="pb-10 border-gray-400 border mx-4 mb-4">
                                     <dl>
                                         { schems.map( (section, key) => (                                       
                                             <div key={key} >
@@ -90,23 +127,35 @@ export const Table = () => {
                                         ))}    
                                     </dl>
                                 </div>
-                            ))}
-                        </div>
+                        ))}
                     </div>
                 </div>
-            </>
-    );
-};
+            }
+        </>
+    )
+}
 
-function renderData(comp, val, id) {
+// Function to filter certain properties
+const filterProps = (objects={},props=[],inputs={}) => {
+    for (let i = 0; i < props.length; i++) {
+        inputs[props[i]] = objects.hasOwnProperty(props[i]) ? objects[props[i]] : false
+    }
+    if( inputs.type=='select' && props.includes('values') ){
+        inputs.values = objects.data.values
+    }
+    return inputs
+}    
+
+// Function to printout data in table
+const renderData = (comp={}, val={}, id=0) => {
+
+    //console.log('comp[' + id + ']=>' + JSON.stringify(comp))
+    //console.log('val[' + id + ']=>' + JSON.stringify(val[comp.key]))
 
     var table = ["bg-gray-50", "bg-white"]
     var tableClass = (id % 2 == 0) ? table[0] : table[1]
     var value = val[comp.key]
     const oriVal = value
-
-    //console.log('comp[' + id + ']=>' + JSON.stringify(comp))
-    //console.log('val[' + id + ']=>' + JSON.stringify(val[comp.key]))
 
     switch (comp.type) {
         case 'select':
@@ -153,13 +202,12 @@ function renderData(comp, val, id) {
                     </ul>
                 </dd>
             </div>
-        );
-
+        )
     }
-
 }
 
-function renderSurvey(question, values, value, num) {
+// Function to printout survey type data
+const renderSurvey = (question, values, value, num) => {
    
     var oriVal = value
     var table = ["bg-gray-50", "bg-white"]
@@ -187,14 +235,4 @@ function renderSurvey(question, values, value, num) {
 
     )
 
-}
-
-function filterProps(objects={},props=[],inputs={}){
-    for (let i = 0; i < props.length; i++) {
-        inputs[props[i]] = objects.hasOwnProperty(props[i]) ? objects[props[i]] : false
-    }
-    if( inputs.type=='select' && props.includes('values') ){
-        inputs.values = objects.data.values
-    }
-    return inputs
 }

@@ -35,7 +35,7 @@ export const Table = () => {
   // Get form schema
   const { data: schem } = useSWR(() => '/api/label/', fetcher)
   const schems = schem ? [].concat(...schem) : [];
-  console.log('schems->'+JSON.stringify(schems))
+  //console.log('schems->'+JSON.stringify(schems))
 
   // Filter form to get only specified properties
   const renders = []
@@ -83,7 +83,7 @@ export const Table = () => {
         }			
       }
     }
-    console.log('renders->'+JSON.stringify(renders))
+    // console.log('renders->'+JSON.stringify(renders))
     
     // Specify constant to use
     const numColumn = 4 //max column to printout

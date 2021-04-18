@@ -92,7 +92,7 @@ export const Table = () => {
                                     { (page > 1) && 
                                     <a className="bg-gray-50 hover:bg-blue-50 w-1/3 inline-block md:w-auto items-center px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700" 
                                         onClick={() => setPage(isPage => isPage - 1)}
-                                        href={ `${path}?page=${page-1}` }>Previous</a>
+                                        href="#">Previous</a>
                                     }
                                 </div>
                             <div className="flex-grow self-center">
@@ -102,7 +102,7 @@ export const Table = () => {
                                     { (page < count ) &&
                                     <a className="bg-gray-50 hover:bg-blue-50 w-1/3 inline-block md:w-auto items-center px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700" 
                                         onClick={() => setPage(isPage => isPage + 1)}
-                                        href={ `${path}?page=${page+1}` }>Next</a>
+                                        href="#">Next</a>
                                     }
                                 </div>
                             </div>

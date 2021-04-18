@@ -89,7 +89,7 @@ const Chart = () => {
         }
     }
     
-    // Filter all values in 'key' input type as an array thisLabels
+    // Filter all values in 'key' input type as an array (thisLabels)
     var thisLabels=[]
     for (let x = 0; x < renders.length; x++) {
         if(renders[x].key==key){
@@ -214,7 +214,19 @@ const Chart = () => {
 
 export default Chart
 
-function generateChart(chart, data, options, width=640, height=480){
+// Function to filter selected properties
+const filterProps = (objects={},props=[],inputs={}) => {
+    for (let i = 0; i < props.length; i++) {
+        inputs[props[i]] = objects.hasOwnProperty(props[i]) ? objects[props[i]] : false
+    }
+    if( inputs.type=='select' && props.includes('values') ){
+        inputs.values = objects.data.values
+    }
+    return inputs
+}
+
+// Function to generate chart
+const generateChart = (chart, data, options, width=640, height=480) => {
     // Radar, Doughnut, Pie, Polar,
     switch (chart) {
         default:
@@ -330,7 +342,8 @@ function generateChart(chart, data, options, width=640, height=480){
     }
 }
 
-function getLabel(value, labels){
+// Function to get label from raw value
+const getLabel = (value, labels) => {
     for (let k = 0; k < labels.length; k++) {
         if(labels[k].value==value){
             value=labels[k].label
@@ -341,7 +354,7 @@ function getLabel(value, labels){
 }
 
 // function to group all data counts
-function groupArray (arr = []) {
+const groupArray = (arr = []) => {
     let map = new Map();
     for (let i = 0; i < arr.length; i++) {
         let obj = arr[i]
@@ -390,8 +403,8 @@ const objectSize = (obj = {}) => {
     return size;
 };
 
-// Fuction to exract only key for specific form input (key)
-function getGroupKeys(key, schema, title=false){
+// Function to exract only key for specific form input (key)
+const getGroupKeys = (key, schema, title=false) => {
     let groupKeys=[]
     for (let i = 0; i < schema.length; i++) {
         let obj = schema[i].components
@@ -424,7 +437,7 @@ function getGroupKeys(key, schema, title=false){
 }
 
 // function to group all data counts
-function countGroup (val='', datas = []) {
+const countGroup = (val='', datas = []) => {
     var counts = 0
     for (let i = 0; i < datas.length; i++) {
         let obj = datas[i]
@@ -440,13 +453,3 @@ function countGroup (val='', datas = []) {
     }
     return counts;
 };
-
-function filterProps(objects={},props=[],inputs={}){
-    for (let i = 0; i < props.length; i++) {
-        inputs[props[i]] = objects.hasOwnProperty(props[i]) ? objects[props[i]] : false
-    }
-    if( inputs.type=='select' && props.includes('values') ){
-        inputs.values = objects.data.values
-    }
-    return inputs
-}

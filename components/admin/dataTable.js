@@ -10,7 +10,7 @@ export const Table = () => {
   const path = router.route ? router.route.replace('[[...slug]]','entry') + '/' : '/result/'
   const page = (router.query.length > 1 && typeof router.query.slug[1] !== 'undefined') ? parseInt(router.query.slug[1]) : 1
 
-  var [isPage, setPage] = useState(1);
+  var [isPage, setPage] = useState(page);
   
   const fetcher = url => fetch(url).then(res => res.json());
   // Get submissions data as datas

@@ -10,14 +10,14 @@ export const Table = () => {
 	const router = useRouter();
     //console.log(JSON.stringify(router))
     const path = router.route ? router.route.replace('[[...slug]]','entry') + '/' : '/result/'
-    const page = (router.query.length > 1 && typeof router.query.slug[1] !== 'undefined') ? parseInt(router.query.slug[1]) : 1
+    const page = (router.query.page) ? parseInt(router.query.page) : 1
 
     var [isPage, setPage] = useState(page);
     //console.log(JSON.stringify(isPage))
 
     const fetcher = url => fetch(url).then(res => res.json());
 
-    const { data, error } = useSWR(() => `/api/submissions/?limit=1&page=${isPage}`, fetcher)
+    const { data, error } = useSWR(() => '/api/submissions/?limit=1&page=' + isPage, fetcher)
     const datas = data ? [].concat(...data) : [];
 
     const results = [];

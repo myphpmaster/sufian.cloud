@@ -16,7 +16,7 @@ export const Table = () => {
   
   const fetcher = url => fetch(url).then(res => res.json());
   // Get submissions data as datas
-  const limit = 2;
+  const limit = 10;
   const { data } = useSWR(() => `/api/submissions/?limit=${limit}&page=${isPage}`, fetcher)
   const datas = data ? [].concat(...data) : [];
 

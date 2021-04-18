@@ -167,7 +167,7 @@ export const Table = () => {
                             ))} 
 
                             <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                              <a href={`${path}?page=${(page-1)*10+id+1}`} className="text-indigo-600 hover:text-indigo-900">
+                              <a href={`${path}?page=${(numPages-1)*10+id+1}`} className="text-indigo-600 hover:text-indigo-900">
                                 More
                               </a>
                             </td>

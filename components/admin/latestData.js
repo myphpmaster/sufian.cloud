@@ -14,9 +14,10 @@ export const Table = () => {
     const path = router.route ? router.route.replace('[[...slug]]','entry') + '/' : '/result/'
 
     const fetcher = url => fetch(url).then(res => res.json());
-    const { data, error } = useSWR(() => `/api/submissions/?limit=1&page=${isPage}&nocache=1`, fetcher)
+    const { data, error } = useSWR(() => `/api/submissions/?limit=1&page=${isPage}`, fetcher)
     const datas = data ? [].concat(...data) : [];
 
+    // Get total no. of respondents
     const { data: count } = useSWR(() => '/api/count/', fetcher)
 
     const results = [];

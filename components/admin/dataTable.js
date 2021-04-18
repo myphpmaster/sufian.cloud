@@ -11,14 +11,17 @@ export const Table = () => {
   const { data } = useSWR(() => `/api/submissions/?limit=10&page=${isPage}`, fetcher)
   const datas = data ? [].concat(...data) : [];
 
+  const results = [];
+  datas.forEach(function(value, index, array) {
+      var data={}
+      data.date = value.created
+      data.data = value.data
+      results.push(data);
+  }); 
+      
   // Get total no. of respondents
   const { data: count } = useSWR(() => '/api/count/', fetcher)
 
-  const results = [];
-  datas.forEach(function(value, index, array) {
-      results.push(value.data);
-  }); 
-      
   const { data: schem } = useSWR(() => '/api/label/', fetcher)
   const schems = schem ? [].concat(...schem) : [];
 
@@ -121,6 +124,12 @@ export const Table = () => {
                             scope="col"
                             className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                           >
+                            State
+                          </th>
+                          <th
+                            scope="col"
+                            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                          >
                             Status
                           </th>
                           <th
@@ -136,28 +145,30 @@ export const Table = () => {
                       </thead>
                       <tbody className="bg-white divide-y divide-gray-200">
                         {results.map((respond) => (
-                          <tr key={respond.created}>
+                          <tr key={respond.date}>
                             <td className="px-6 py-4 whitespace-nowrap">
                               <div className="flex items-center">
                                 <div className="flex-shrink-0 h-10 w-10">
-                                  {respond.created}
-                                </div>
-                                <div className="ml-4">
-                                  <div className="text-sm font-medium text-gray-900">{person.name}</div>
-                                  <div className="text-sm text-gray-500">{person.email}</div>
+                                  {respond.date}
                                 </div>
                               </div>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
-                              <div className="text-sm text-gray-900">{person.title}</div>
-                              <div className="text-sm text-gray-500">{person.department}</div>
+                              <div className="text-sm text-gray-900">{respond.data.jobscope}</div>
+                              <div className="text-sm text-gray-500">{respond.data.state}</div>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                                <div className="ml-4">
+                                  <div className="text-sm font-medium text-gray-900">{respond.data.gender}</div>
+                                  <div className="text-sm text-gray-500">{respond.data.age}</div>
+                                </div>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
                               <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                 Active
                               </span>
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{person.role}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{respond.data.location}</td>
                             <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                               <a href="#" className="text-indigo-600 hover:text-indigo-900">
                                 Edit

@@ -8,7 +8,7 @@ export const Table = () => {
   // Get entry page url path
 	const router = useRouter();
   const path = router.route ? router.route.replace('[[...slug]]','entry') + '/' : '/result/'
-  const page = router.query.slug[1] || 1
+  const page = (router.query.length > 1 && typeof router.query.slug[1] !== 'undefined') ? parseInt(router.query.slug[1]) : 1
 
   var [isPage, setPage] = useState(1);
   
@@ -35,7 +35,7 @@ export const Table = () => {
   // Get form schema
   const { data: schem } = useSWR(() => '/api/label/', fetcher)
   const schems = schem ? [].concat(...schem) : [];
-  console.log('schems->'+JSON.stringify(schems))
+  //console.log('schems->'+JSON.stringify(schems))
 
   // Filter form to get only specified properties
   const renders = []
@@ -83,7 +83,7 @@ export const Table = () => {
         }			
       }
     }
-    console.log('renders->'+JSON.stringify(renders))
+    // console.log('renders->'+JSON.stringify(renders))
     
     // Specify constant to use
     const numColumn = 4 //max column to printout

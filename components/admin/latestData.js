@@ -8,12 +8,12 @@ export const Table = () => {
     
     // Get page url path
 	const router = useRouter();
-    console.log(JSON.stringify(router))
+    //console.log(JSON.stringify(router))
     const path = router.route ? router.route.replace('[[...slug]]','entry') + '/' : '/result/'
-    const page = router.query.slug[1] ? parseInt(router.query.slug[1]) : 1
+    const page = (router.query.length > 1 && typeof router.query.slug[1] !== 'undefined') ? parseInt(router.query.slug[1]) : 1
 
     var [isPage, setPage] = useState(page);
-    console.log(JSON.stringify(isPage))
+    //console.log(JSON.stringify(isPage))
 
     const fetcher = url => fetch(url).then(res => res.json());
 

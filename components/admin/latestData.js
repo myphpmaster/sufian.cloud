@@ -6,16 +6,13 @@ import { useRouter } from "next/router";
 export const Table = () => {
     
 	const router = useRouter();
-
     console.log(JSON.stringify(router))
 
-    const path = router.asPath
-	const slug = router.query.slug || []
-	const page = slug[0] || false
-	const subpage = parseInt(slug[1]) || 1
+    const path = router.route ? router.route.replace('[[...slug]]','entry') + '/' : '/result/'
+	const page = router.query.page ? parseInt(router.query.page) : 1
 
     const fetcher = url => fetch(url).then(res => res.json());
-    const { data } = useSWR(() => `/api/submissions/?limit=1&page=${subpage}&nocache=1`, fetcher)
+    const { data, error } = useSWR(() => `/api/submissions/?limit=1&page=${page}&nocache=1`, fetcher)
     const datas = data ? [].concat(...data) : [];
 
     const { data: count } = useSWR(() => '/api/count/', fetcher)
@@ -78,27 +75,35 @@ export const Table = () => {
     //console.log('renders->'+JSON.stringify(renders))
     
     return (
-            <>
-                <div className="w-full p-3">
+        <>
+        
+        { (!data) &&
+            <h2 className="font-bold uppercase text-white text-2xl text-center">Loading...</h2>
+        }
+        { (data) &&
+                <div className="w-full">
                     <div className="bg-white border rounded shadow">
-                        <div className="border-b p-3">
-
-
-                            <h5 className="font-bold uppercase text-gray-600 text-center">Latest Entry</h5>
-
-                        { (subpage > 1) && <>
-                            <a className="bg-gray-50 hover:bg-blue-50 w-1/3 inline-block md:w-auto items-center px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700" 
-                                href={ `${path+(subpage-1)}/`}>Previous</a>
-        		        </>}
-                        { (subpage < count ) && <>
-                            <a className="bg-gray-50 hover:bg-blue-50 w-1/3 inline-block md:w-auto items-center px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700" 
-                                href={ `${path+(subpage+1)}/`}>Next</a>
-        		        </>}
-
+                        <div className="p-4">
+                            <div class="flex">
+                                <div class="flex-none w-1/8">
+                                    { (page > 1) && 
+                                    <a className="bg-gray-50 hover:bg-blue-50 w-1/3 inline-block md:w-auto items-center px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700" 
+                                        href={ `${path}?page=${page-1}` }>Previous</a>
+                                    }
+                                </div>
+                            <div class="flex-grow self-center">
+                                <h2 className="font-bold uppercase text-gray-600 text-center">Latest Entry #{page}</h2>
+                            </div>
+                                <div class="flex-none w-1/8">
+                                    { (page < count ) &&
+                                    <a className="bg-gray-50 hover:bg-blue-50 w-1/3 inline-block md:w-auto items-center px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700" 
+                                        href={ `${path}?page=${page+1}` }>Next</a>
+                                    }
+                                </div>
+                            </div>
                         </div>
-                        <div className="p-5">
-                            { results.map( (val, index) => (
-                                <div key={index} className="pb-10 border-gray-400 border mx-4">
+                        { results.map( (val, index) => (
+                                <div key={index} className="pb-10 border-gray-400 border mx-4 mb-4">
                                     <dl>
                                         { schems.map( (section, key) => (                                       
                                             <div key={key} >
@@ -114,13 +119,13 @@ export const Table = () => {
                                         ))}    
                                     </dl>
                                 </div>
-                            ))}
-                        </div>
+                        ))}
                     </div>
                 </div>
-            </>
-    );
-};
+            }
+        </>
+        );
+    };
 
 function renderData(comp, val, id) {
 

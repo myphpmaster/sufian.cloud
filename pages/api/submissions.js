@@ -57,7 +57,7 @@ export async function getDatas(db, limits, skips,form) {
         "deleted": {$eq : null}
       })
       .project({
-            data: 1, 
+           // data: 1, 
             _id: 0
       })
       .sort({ created: -1 })

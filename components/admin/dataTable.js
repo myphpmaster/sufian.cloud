@@ -12,7 +12,7 @@ export const Table = () => {
   //console.log('router.query->'+JSON.stringify(router.query))
 
   var [isPage, setPage] = useState(page);
-  console.log('isPage->'+JSON.stringify(isPage))
+  // console.log('isPage->'+JSON.stringify(isPage))
   
   const fetcher = url => fetch(url).then(res => res.json());
   // Get submissions data as datas
@@ -167,7 +167,7 @@ export const Table = () => {
                             ))} 
 
                             <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                              <a href={`${path}?page=${id+1}`} className="text-indigo-600 hover:text-indigo-900">
+                              <a href={`${path}?page=${(page-1)*10+id+1}`} className="text-indigo-600 hover:text-indigo-900">
                                 More
                               </a>
                             </td>
@@ -189,7 +189,7 @@ export const Table = () => {
 const renderHeader = (props={}, numColumn=3, id) => {
   if( id<numColumn ){
     return (      
-      <th
+      <th key={id}
       scope="col"
       className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
       data-id={props.key}    

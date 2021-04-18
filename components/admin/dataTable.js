@@ -5,12 +5,13 @@ import { useRouter } from "next/router";
 
 export const Table = () => {
     
-  var [isPage, setPage] = useState(1);
-  
   // Get entry page url path
 	const router = useRouter();
   const path = router.route ? router.route.replace('[[...slug]]','entry') + '/' : '/result/'
+  const page = router.query.slug[1] || 1
 
+  var [isPage, setPage] = useState(1);
+  
   const fetcher = url => fetch(url).then(res => res.json());
   // Get submissions data as datas
   const limit = 10;

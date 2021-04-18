@@ -5,12 +5,15 @@ import { useRouter } from "next/router";
 
 export const Table = () => {
         
-    var [isPage, setPage] = useState(1);
-    // console.log(JSON.stringify(isPage))
     
     // Get page url path
 	const router = useRouter();
+    console.log(JSON.stringify(router))
     const path = router.route ? router.route.replace('[[...slug]]','entry') + '/' : '/result/'
+    const page = router.query.slug[1] ? parseInt(router.query.slug[1]) : 1
+
+    var [isPage, setPage] = useState(page);
+    console.log(JSON.stringify(isPage))
 
     const fetcher = url => fetch(url).then(res => res.json());
 

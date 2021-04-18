@@ -9,7 +9,7 @@ export const RespondData = () => {
     // Total respondents
     const { data: count } = useSWR(() => '/api/count/', fetcher)
 
-    // Latest entry at least n days   
+    // Latest entry in diff days   
     const diff = 1;
     var today = new Date();
     today.setDate(today.getDate() - diff)

@@ -1,6 +1,6 @@
 /*  ./components/Result.js     */
 import React, { useState } from "react";
-import { Table } from './admin/latestSubmission';
+import { Table } from './admin/latestData';
 
 export const Result = () => {
 
@@ -12,7 +12,7 @@ export const Result = () => {
                 
                 <div className="px-4 py-5 sm:px-6">
                     <h3 className="pb-2 text-4xl font-bold md:text-white text-black sm:text-5xl md:text-6xl">
-                        Survey Sample Results
+                        Survey Result
                     </h3>
                     <p className="my-2 text-xl md:text-white text-black">
                         Real-time IEQ POE Evaluation Data.

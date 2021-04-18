@@ -6,9 +6,11 @@ import { useRouter } from "next/router";
 import Head from 'next/head'
 import Link from 'next/link';
 import Login from '../../components/admin/login';
+import { Notice } from '../../components/admin/notice';
 import { Navbar } from '../../components/admin/navbar';
 import { RespondData } from '../../components/admin/respondData';
-import { Table } from '../../components/admin/latestSubmission';
+import { Table as Data } from '../../components/admin/dataTable';
+import { Table } from '../../components/admin/latestData';
 import { Footer } from '../../components/admin/footer';
 
 export default function Admin() {
@@ -17,7 +19,9 @@ export default function Admin() {
 	const [ content , setContent ] = useState()
   
 	const router = useRouter();
-	const slug = router.query.slug
+	const slug = router.query.slug || []
+	const page = slug[0] || false
+	const subpage = slug[1] || false
 	
     const fetcher = url => fetch(url).then(res => res.json());
     const { data: schem, error } = useSWR(() => '/api/label/?nocache=1', fetcher)
@@ -28,7 +32,14 @@ export default function Admin() {
 			"id":"entry",
 			"title":"Latest Entry",
 			"url":"/admin/entry",
-			"class": 'bg-red-100 w-full mr-2 mb-2 md:mb-0 hover:bg-red-50',
+			"class": 'bg-red-100 w-1/2 mb-2 md:mb-0 hover:bg-red-50',
+			"classActive": 'bg-red-200'
+		},
+		{
+			"id":"summary",
+			"title":"All Entries",
+			"url":"/admin/summary",
+			"class": 'bg-red-100 w-1/2 mr-2 mb-2 md:mb-0 hover:bg-red-50',
 			"classActive": 'bg-red-200'
 		}
 	];
@@ -44,7 +55,7 @@ export default function Admin() {
 				}
 			)
 
-			if(schems[i].key == slug) {
+			if(schems[i].key == page) {
 				let obj = schems[i].components
 				for (let j = 0; j < obj.length; j++) {
 					if (obj[j].type == 'columns'){
@@ -100,15 +111,13 @@ export default function Admin() {
 
 				<RespondData />
 
-				<hr className="border-b-2 border-gray-400 my-8 mx-4" />
-
-				<div className="container w-full pb-5 text-2xl font-bold text-center text-black">					
-					<nav className="relative z-0 rounded-md -space-x-px" aria-label="Pagination">
+				<div className="container mt-3 w-full pb-5 text-2xl font-bold text-center text-black">					
+					<nav className="relative z-0 rounded-md" aria-label="Pagination">
 
 					{ menus.map( (menu, index) => ( 
 						<Link key={index} href={menu.url}>
 							<a id={menu.id}
-								className={`${ menu.id==slug ? ( menu.classActive ? menu.classActive : 'bg-blue-100') : 'bg-gray-50' }
+								className={`${ menu.id==page ? ( menu.classActive ? menu.classActive : 'bg-blue-100') : 'bg-gray-50' }
 								 ${ menu.class ? menu.class : 'hover:bg-blue-50 w-1/3' } inline-block md:w-auto items-center px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700`}>
 								{menu.title}
 							</a>
@@ -118,7 +127,11 @@ export default function Admin() {
 					</nav>
 				</div>    
 					
-					
+				{ (!page) && <>
+				<Notice />
+        		</>}
+
+
 				{ (!schem) && <>
 				
 					<div className="flex flex-row flex-wrap flex-grow mt-2">
@@ -132,7 +145,15 @@ export default function Admin() {
 					</div>
         		</>}
 
-				{ (slug==='entry') && <>
+				{ (page==='summary') && <>
+
+					<div className="container w-full">
+						<Data />
+					</div>
+
+				</>}
+
+				{ (page==='entry') && <>
 
 					<div className="container w-full">
 						<Table />

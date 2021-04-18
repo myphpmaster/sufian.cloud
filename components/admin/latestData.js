@@ -1,4 +1,4 @@
-/*  ./components/admin/generalData.js     */
+/*  ./components/admin/latestData.js     */
 import React, { useState } from "react";
 import useSWR, { useSWRInfinite } from "swr";
 import { useRouter } from "next/router";
@@ -6,25 +6,25 @@ import { useRouter } from "next/router";
 export const Table = () => {
         
     var [isPage, setPage] = useState(1);
-    console.log(JSON.stringify(isPage))
+    // console.log(JSON.stringify(isPage))
     
+    // Get page url path
 	const router = useRouter();
-    console.log(JSON.stringify(router))
-
     const path = router.route ? router.route.replace('[[...slug]]','entry') + '/' : '/result/'
 
     const fetcher = url => fetch(url).then(res => res.json());
+
     const { data, error } = useSWR(() => `/api/submissions/?limit=1&page=${isPage}`, fetcher)
     const datas = data ? [].concat(...data) : [];
 
-    // Get total no. of respondents
-    const { data: count } = useSWR(() => '/api/count/', fetcher)
-
     const results = [];
-    datas.forEach(function(value, index, array) {
+    datas.forEach( (value) => {
         results.push(value.data);
     }); 
         
+    // Get total no. of respondents
+    const { data: count } = useSWR(() => '/api/count/', fetcher)
+
     const { data: schem } = useSWR(() => '/api/label/', fetcher)
     const schems = schem ? [].concat(...schem) : [];
 
@@ -80,10 +80,10 @@ export const Table = () => {
     return (
         <>
         
-        { (!data) &&
+        { (!results) &&
             <h2 className="font-bold uppercase text-white text-2xl text-center">{`${error ? 'Data not found' : 'Loading...'}`}</h2>
         }
-        { (data) &&
+        { (results) &&
                 <div className="w-full">
                     <div className="bg-white border rounded shadow">
                         <div className="p-4">
@@ -129,18 +129,30 @@ export const Table = () => {
                 </div>
             }
         </>
-        );
-    };
+    )
+}
 
-function renderData(comp, val, id) {
+// Function to filter certain properties
+const filterProps = (objects={},props=[],inputs={}) => {
+    for (let i = 0; i < props.length; i++) {
+        inputs[props[i]] = objects.hasOwnProperty(props[i]) ? objects[props[i]] : false
+    }
+    if( inputs.type=='select' && props.includes('values') ){
+        inputs.values = objects.data.values
+    }
+    return inputs
+}    
+
+// Function to printout data in table
+const renderData = (comp={}, val={}, id=0) => {
+
+    //console.log('comp[' + id + ']=>' + JSON.stringify(comp))
+    //console.log('val[' + id + ']=>' + JSON.stringify(val[comp.key]))
 
     var table = ["bg-gray-50", "bg-white"]
     var tableClass = (id % 2 == 0) ? table[0] : table[1]
     var value = val[comp.key]
     const oriVal = value
-
-    //console.log('comp[' + id + ']=>' + JSON.stringify(comp))
-    //console.log('val[' + id + ']=>' + JSON.stringify(val[comp.key]))
 
     switch (comp.type) {
         case 'select':
@@ -187,13 +199,12 @@ function renderData(comp, val, id) {
                     </ul>
                 </dd>
             </div>
-        );
-
+        )
     }
-
 }
 
-function renderSurvey(question, values, value, num) {
+// Function to printout survey type data
+const renderSurvey = (question, values, value, num) => {
    
     var oriVal = value
     var table = ["bg-gray-50", "bg-white"]
@@ -221,14 +232,4 @@ function renderSurvey(question, values, value, num) {
 
     )
 
-}
-
-function filterProps(objects={},props=[],inputs={}){
-    for (let i = 0; i < props.length; i++) {
-        inputs[props[i]] = objects.hasOwnProperty(props[i]) ? objects[props[i]] : false
-    }
-    if( inputs.type=='select' && props.includes('values') ){
-        inputs.values = objects.data.values
-    }
-    return inputs
 }

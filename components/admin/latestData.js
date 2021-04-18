@@ -12,7 +12,6 @@ export const Table = () => {
     console.log(JSON.stringify(router))
 
     const path = router.route ? router.route.replace('[[...slug]]','entry') + '/' : '/result/'
-	const page = router.query.page ? parseInt(router.query.page) : 1
 
     const fetcher = url => fetch(url).then(res => res.json());
     const { data, error } = useSWR(() => `/api/submissions/?limit=1&page=${isPage}&nocache=1`, fetcher)
@@ -80,8 +79,8 @@ export const Table = () => {
     return (
         <>
         
-        { ( !data && error ) &&
-            <h2 className="font-bold uppercase text-white text-2xl text-center">Data not found</h2>
+        { (!data) &&
+            <h2 className="font-bold uppercase text-white text-2xl text-center">{`${error ? 'Data not found' : 'Loading...'}`}</h2>
         }
         { (data) &&
                 <div className="w-full">
@@ -89,17 +88,17 @@ export const Table = () => {
                         <div className="p-4">
                             <div className="flex">
                                 <div className="flex-none w-1/8">
-                                    { (page > 1) && 
+                                    { (isPage > 1) && 
                                     <a className="bg-gray-50 hover:bg-blue-50 w-1/3 inline-block md:w-auto items-center px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700" 
                                         onClick={() => setPage(isPage => isPage - 1)}
                                         href="#">Previous</a>
                                     }
                                 </div>
                             <div className="flex-grow self-center">
-                                <h2 className="font-bold uppercase text-gray-600 text-center">Entry #{page}</h2>
+                                <h2 className="font-bold uppercase text-gray-600 text-center">Entry #{isPage}</h2>
                             </div>
                                 <div className="flex-none w-1/8">
-                                    { (page < count ) &&
+                                    { (isPage < count ) &&
                                     <a className="bg-gray-50 hover:bg-blue-50 w-1/3 inline-block md:w-auto items-center px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700" 
                                         onClick={() => setPage(isPage => isPage + 1)}
                                         href="#">Next</a>

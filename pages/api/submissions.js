@@ -35,7 +35,7 @@ handler.get(async (req, res) => {
     const data = await getDatas(
       req.db,
       req.query.limit ? parseInt(req.query.limit, 5) : 5,
-      req.query.page && req.query.limit ? req.query.limit*(req.query.page-1) : 0,
+      (req.query.page && req.query.limit) ? parseInt(req.query.limit)*(parseInt(req.query.page)-1) : 0,
       form
     );
   
@@ -48,7 +48,7 @@ handler.get(async (req, res) => {
     res.json(data);
   });
   
-export async function getDatas(db, limits, skips,form) {
+export async function getDatas(db, limits, skips, form) {
     
     return db
       .collection(col_name)

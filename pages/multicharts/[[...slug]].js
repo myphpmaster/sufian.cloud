@@ -214,6 +214,7 @@ function generateChart(chart, data, options, width=640, height=480){
         case 'line':
             for(let j=0; j<data.datasets.length; j++){
                 data.datasets[j].type = chart
+                data.datasets[j].fill = false
             }
 
         case 'mix':

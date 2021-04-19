@@ -231,6 +231,7 @@ const generateChart = (chart, data, options, width=640, height=480) => {
         default:
         case 'line':
             data.datasets[0].type = chart
+            data.datasets[0].fill = false
         case 'bar':
             return (
                 <div className="chartjs" width={width} height={height}>
@@ -306,7 +307,7 @@ const generateChart = (chart, data, options, width=640, height=480) => {
         case 'radar':
 
             options = removeYaxes(options)
-            
+
             return (
                 <div className="chartjs" width={width} height={height}>
                     <Radar

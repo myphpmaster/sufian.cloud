@@ -13,9 +13,9 @@ const Chart = () => {
     const router = useRouter();
     const slug = router.query.slug || []
 
-    const chart = slug[0] ? slug[0] : false
-    const key = slug[1] ? slug[1] : false
-    const subkey = slug[2] ? slug[2] : false;
+    const chart = slug[0] || false
+    const key = slug[1] || false
+    const subkey = slug[2] || false;
 
     // Fetch all submissions data for the input 'key' using /api/charts.js file
     const fetcher = url => fetch(url).then(res => res.json());
@@ -100,7 +100,6 @@ const Chart = () => {
     // console.log('thisLabel->'+JSON.stringify(thisLabels))
 
     const vals = getGroupKeys(key, schems)
-
     const labels = []
     const values = []
 
@@ -257,39 +256,10 @@ const generateChart = (chart, data, options, width=640, height=480) => {
             );
             
         case 'pie':
-        case 'doughnut':
-        case 'polar':
             
-            // remove y axes line 
-            options.scales.yAxes = [{
-                display: false,
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-
-            // Option to convert value to percentage
-            options.tooltips = {
-                enabled: true,
-                callbacks: {
-                    label: function (tooltipItem, data) {
-                        
-                        var dataset = data.datasets[tooltipItem.datasetIndex];
-                        var total = dataset.data.reduce(function (previousValue, currentValue, currentIndex, array) {
-                            return previousValue + currentValue;
-                        });
-                        var currentValue = dataset.data[tooltipItem.index];
-                        var percentage = Math.floor(((currentValue / total) * 100) + 0.5);
-                        return percentage + "%";
-                    },                    
-                    title: function (tooltipItem, data) {
-                        return data.labels[tooltipItem[0].index];
-                    },  
-                },
-            };
-
-        case 'pie':
-
+            options = removeYaxes(options)
+            options = convertValueToPercentage(options)
+            
             return (
                 <div className="chartjs" width={width} height={height}>
                     <Pie
@@ -302,6 +272,9 @@ const generateChart = (chart, data, options, width=640, height=480) => {
             );
        
         case 'doughnut':
+
+            options = removeYaxes(options)
+            options = convertValueToPercentage(options)
 
             return (
                 <div className="chartjs" width={width} height={height}>
@@ -316,6 +289,9 @@ const generateChart = (chart, data, options, width=640, height=480) => {
        
         case 'polar':
 
+            options = removeYaxes(options)
+            options = convertValueToPercentage(options)
+
             return (
                 <div className="chartjs" width={width} height={height}>
                     <Polar
@@ -329,6 +305,8 @@ const generateChart = (chart, data, options, width=640, height=480) => {
        
         case 'radar':
 
+            options = removeYaxes(options)
+            
             return (
                 <div className="chartjs" width={width} height={height}>
                     <Radar
@@ -453,3 +431,39 @@ const countGroup = (val='', datas = []) => {
     }
     return counts;
 };
+
+// Function to remove y axes
+const removeYaxes = (options) => {
+
+    options.scales.yAxes = [{
+        display: false
+    }]
+            
+    return options
+}
+
+// Function to convert value to percentage
+const convertValueToPercentage = (options) => {
+
+    options.tooltips = {
+        enabled: true,
+        callbacks: {
+            label: function (tooltipItem, data) {
+                
+                var dataset = data.datasets[tooltipItem.datasetIndex];
+                var total = dataset.data.reduce(function (previousValue, currentValue, currentIndex, array) {
+                    return previousValue + currentValue;
+                });
+                var currentValue = dataset.data[tooltipItem.index];
+                var percentage = Math.floor(((currentValue / total) * 100) + 0.5);
+                return percentage + "%";
+            },                    
+            title: function (tooltipItem, data) {
+                return data.labels[tooltipItem[0].index];
+            },  
+        },
+    };    
+            
+    return options
+}
+

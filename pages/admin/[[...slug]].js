@@ -24,7 +24,7 @@ export default function Admin() {
 	const subpage = slug[1] || false
 	
     const fetcher = url => fetch(url).then(res => res.json());
-    const { data: schem, error } = useSWR(() => '/api/label/?nocache=1', fetcher)
+    const { data: schem, error } = useSWR(() => '/api/label/', fetcher)
     const schems = schem ? [].concat(...schem) : [];
     const charts = []	
 	const menus = [	
@@ -76,8 +76,7 @@ export default function Admin() {
         }
     }
 
-	const single = charts.length == 1 ? true : false
-	
+	const single = charts.length == 1 ? true : false	
 	// console.log('menus =>' + JSON.stringify(menus))
 
 	// Fetch content from protected route
@@ -145,7 +144,7 @@ export default function Admin() {
 					</div>
         		</>}
 
-				{ (page==='summary') && <>
+				{ (page === 'summary') && <>
 
 					<div className="container w-full">
 						<Data />
@@ -153,7 +152,7 @@ export default function Admin() {
 
 				</>}
 
-				{ (page==='entry') && <>
+				{ (page === 'entry') && <>
 
 					<div className="container w-full">
 						<Table />
@@ -165,7 +164,7 @@ export default function Admin() {
 
 					<div className="flex flex-row flex-wrap flex-grow mt-2">
 						{charts.map( (section, key) => (    
-							renderCharts(section, key, single)
+							renderCharts(section, key, single)							
 						))}    
 					</div>
 
@@ -179,7 +178,8 @@ export default function Admin() {
   )
 }
 
-function validType(type){
+// Function to check valid input type that can be display in chart
+const validType = (type) => {
 
     const types = [
         'number',
@@ -190,8 +190,9 @@ function validType(type){
     return types.includes(type) ? true : false
 }
 
-function renderCharts(data, id, single=false){
-
+// Function to generate iframe chart
+const renderCharts = (data, id, single=false) => {
+	// console.log('data =>' + JSON.stringify(data))
     var chartType = {
       "number": "line",
       "select": "bar",

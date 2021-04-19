@@ -10,7 +10,7 @@ export const Report = () => {
         <div className="max-w-7xl mx-auto">
 
             <section className="text-gray-700 body-font">
-                <div className="container flex flex-col items-center px-5 py-16 mx-auto md:flex-row lg:px-20">
+                <div className="container flex flex-col items-center px-5 py-24 mx-auto md:flex-row lg:px-20">
                     <div
                         className="flex flex-col w-full pt-0 mb-16 text-left lg:flex-grow md:w-1/2 xl:mr-10 md:pr-12 md:items-start md:mb-0 ">
                         <h2 className="mb-1 text-s font-medium tracking-widest text-blue-500black title-font">Latest cloud technology, completed in a minute.</h2>

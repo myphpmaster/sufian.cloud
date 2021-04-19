@@ -91,7 +91,7 @@ const Chart = () => {
         
     // generate random colors for background, hover, border
     var r = () => Math.random() * 256 >> 0;
-    const rgbcode=[], bgColor=[], hoverColor=[], borderColor=[];
+    const rgbcode=[], bgColor=[], hoverColor=[], borderColor=[], pointColor=[]
     const identity = []
 
     for (let k = 0; k < route.length; k++) {

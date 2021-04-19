@@ -10,13 +10,13 @@ export const Github = () => {
         <div className="max-w-7xl mx-auto">
 
             <section className="text-gray-700 body-font">
-                <div className="container flex flex-col items-center px-5 py-24 mx-auto md:flex-row lg:px-20">
+                <div className="container flex items-center px-5 py-24 mx-auto md:flex-row lg:px-20">
                     
-                    <div className="p-8 mx-auto">
+                    <div className="md:p-8 mx-auto">
                         <div className="bg-white rounded-lg shadow-xl">
-                            <div className="p-16">
+                            <div className="p-10 mx-auto md:p-16">
                                 <div>
-                                <img alt="" width="260" height="260" className="rounded-full w-48 border shadow-xl mx-auto" 
+                                <img alt="" width="200" height="200" className="rounded-full w-48 border shadow-xl mx-auto" 
                                 src="https://avatars.githubusercontent.com/u/2962503?v=4" />
                                 </div>
                                 <div className="mt-8 text-center">

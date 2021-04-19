@@ -108,11 +108,15 @@ export default function Admin() {
 		<div className="container w-full mx-auto pt-20">
 			<div className="w-full px-4 md:px-0 md:mt-8 mb-16 text-gray-800 leading-normal">
 
+				{ (!page) && <>
+				<Notice />
+        		</>}
+
 				<RespondData />
 
-				<div className="container mt-3 w-full pb-5 text-2xl font-bold text-center text-black">					
-					<nav className="relative z-0 rounded-md" aria-label="Pagination">
+				<div className="container mt-3 w-full pb-5 text-2xl font-bold text-center text-black">	
 
+					<nav className="relative z-0 rounded-md" aria-label="Pagination">
 					{ menus.map( (menu, index) => ( 
 						<Link key={index} href={menu.url}>
 							<a id={menu.id}
@@ -121,15 +125,10 @@ export default function Admin() {
 								{menu.title}
 							</a>
 						</Link>
-					))}
-					
+					))}					
 					</nav>
-				</div>    
 					
-				{ (!page) && <>
-				<Notice />
-        		</>}
-
+				</div>    
 
 				{ (!schem) && <>
 				
@@ -142,6 +141,7 @@ export default function Admin() {
 							</div>
 						</div>
 					</div>
+
         		</>}
 
 				{ (page === 'summary') && <>

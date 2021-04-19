@@ -91,7 +91,7 @@ export const Table = () => {
                     <div className="bg-white border rounded shadow">
                         <div className="p-4">
                             <div className="flex">
-                                <div className="flex-none w-1/8">
+                                <div className="flex-none w-1/4 md:w-1/8">
                                     { (isPage > 1) && 
                                     <a className="bg-gray-50 hover:bg-blue-50 w-1/3 inline-block md:w-auto items-center px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700" 
                                         onClick={() => setPage(isPage => isPage - 1)}
@@ -101,7 +101,7 @@ export const Table = () => {
                             <div className="flex-grow self-center">
                                 <h2 className="font-bold uppercase text-gray-600 text-center">Entry #{isPage}</h2>
                             </div>
-                                <div className="flex-none w-1/8">
+                                <div className="flex-none w-1/4 md:w-1/8 text-right">
                                     { (isPage < count ) &&
                                     <a className="bg-gray-50 hover:bg-blue-50 w-1/3 inline-block md:w-auto items-center px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700" 
                                         onClick={() => setPage(isPage => isPage + 1)}

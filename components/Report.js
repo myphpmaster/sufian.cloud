@@ -12,14 +12,14 @@ export const Report = () => {
             <section className="text-gray-700 body-font">
                 <div className="container flex flex-col items-center px-5 py-24 mx-auto md:flex-row lg:px-20">
                     <div
-                        className="flex flex-col w-full pt-0 mb-16 text-left lg:flex-grow md:w-1/2 xl:mr-10 md:pr-12 md:items-start md:mb-0 ">
-                        <h2 className="mb-1 text-s font-medium tracking-widest text-blue-500black title-font">Latest cloud technology, completed in a minute.</h2>
-                        <h1 className="mb-8 text-2xl font-bold tracking-tighter text-left text-black lg:text-5xl title-font">
+                        className="flex flex-col w-full pt-0 mb-16 text-left lg:flex-grow md:w-1/2 xl:mr-10 md:pr-12 md:items-start md:mb-0 text-center">
+                        <h2 className="mb-1 text-s font-medium tracking-widest text-blue-500black title-font md:text-left">Latest cloud technology, completed in a minute.</h2>
+                        <h1 className="mb-8 text-2xl font-bold tracking-tighter text-left text-black lg:text-5xl title-font text-center md:text-left">
                             Fast deployment on any serverless platform
                         </h1>
                         <div className="flex flex-wrap -mx-4 -mt-4 -mb-10 sm:-m-4 ">
-                            <div className="flex flex-col items-start p-4 mb-6 text-left md:w-1/2 md:mb-0">
-                                <div className="inline-flex items-center justify-center flex-shrink-0 w-12 h-12 mb-5 text-white bg-indigo-500 rounded-full">                                    
+                            <div className="flex flex-col items-start p-4 mb-6 text-left md:w-1/2 md:mb-0 text-center md:text-left">
+                                <div className="inline-flex items-center justify-center flex-shrink-0 w-12 h-12 mb-5 text-white bg-indigo-500 rounded-full md:mx-0 mx-auto">                                    
                                     <AdjustmentsIcon className="h-8 w-8" aria-hidden="true" />
                                 </div>
                                 <div className="flex-grow">
@@ -36,9 +36,9 @@ export const Report = () => {
                                     </a>
                                 </div>
                             </div>
-                            <div className="flex flex-col items-start p-4 mb-6 text-left md:w-1/2 md:mb-0">
+                            <div className="flex flex-col items-start p-4 mb-6 text-left md:w-1/2 md:mb-0 text-center md:text-left">
                                 <div
-                                    className="inline-flex items-center justify-center flex-shrink-0 w-12 h-12 mb-5 text-white bg-indigo-500 rounded-full">
+                                    className="inline-flex items-center justify-center flex-shrink-0 w-12 h-12 mb-5 text-white bg-indigo-500 rounded-full md:mx-0 mx-auto">
                                     <CloudIcon className="h-8 w-8" aria-hidden="true" />
                                 </div>
                                 <div className="flex-grow">

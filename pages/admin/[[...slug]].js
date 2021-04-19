@@ -39,7 +39,7 @@ export default function Admin() {
 			"id":"summary",
 			"title":"All Entries",
 			"url":"/admin/summary",
-			"class": 'bg-red-100 w-1/2 mr-2 mb-2 md:mb-0 hover:bg-red-50',
+			"class": 'bg-red-100 w-1/2 md:mr-2 mb-2 md:mb-0 hover:bg-red-50',
 			"classActive": 'bg-red-200'
 		}
 	];

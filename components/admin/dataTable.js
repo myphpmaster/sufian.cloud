@@ -107,7 +107,7 @@ export const Table = () => {
                   <div className="flex-grow self-center">
                       <h2 className="font-bold uppercase text-gray-600 text-center">Page {isPage} of {numPages}</h2>
                   </div>
-                  <div className="flex-none w-1/4 md:w-1/8">
+                  <div className="flex-none w-1/4 md:w-1/8 text-right">
                       { (isPage < numPages ) &&
                       <a className="bg-gray-50 hover:bg-blue-50 inline-block w-auto items-center px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700" 
                           onClick={() => setPage(isPage => isPage + 1)}

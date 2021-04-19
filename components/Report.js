@@ -29,7 +29,7 @@ export const Report = () => {
                                     <p className="text-base leading-relaxed">
                                         Build logs helps in easily identify the cause of any failed Builds and areas to investigate further.
                                     </p>
-                                    <a href="https://vercel.com/myphpmaster/nextjs/3xF7Gnxx1jVKzu26ZrvEpGziirFx"
+                                    <a target="_blank" href="https://vercel.com/myphpmaster/nextjs/3xF7Gnxx1jVKzu26ZrvEpGziirFx"
                                         className="inline-flex items-center font-semibold text-blue-700 md:mb-2 lg:mb-0 hover:text-blue-400 ">
                                         Learn More
                                         <ChevronDoubleRightIcon className="mt-1 h-4 w-4 ml-1" aria-hidden="true" />
@@ -47,7 +47,7 @@ export const Report = () => {
                                     <p className="text-base leading-relaxed">
                                         Review the realtime logs of the Serverless Functions including user logging such as console.log, 
                                     </p>
-                                    <a href="https://vercel.com/myphpmaster/nextjs/3xF7Gnxx1jVKzu26ZrvEpGziirFx/functions?name=mUazIkmZQIfY3ZqOE4YX9zg7-39cbf370ffa90986d47577aa449e03ab40e3c15"
+                                    <a target="_blank" href="https://vercel.com/myphpmaster/nextjs/3xF7Gnxx1jVKzu26ZrvEpGziirFx/functions?name=mUazIkmZQIfY3ZqOE4YX9zg7-39cbf370ffa90986d47577aa449e03ab40e3c15"
                                         className="inline-flex items-center font-semibold text-blue-700 md:mb-2 lg:mb-0 hover:text-blue-400 ">
                                         Learn More
                                         <ChevronDoubleRightIcon className="mt-1 h-4 w-4 ml-1" aria-hidden="true" />

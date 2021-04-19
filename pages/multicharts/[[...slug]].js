@@ -97,16 +97,17 @@ const Chart = () => {
     for (let k = 0; k < route.length; k++) {
         rgbcode[k] = `${r()}, ${r()}, ${r()}`;
         bgColor[k] = `rgba(${rgbcode[k]}, 0.3)`;
-        hoverColor[k] = `rgba(${rgbcode[k]}, 0.75)`;
-        borderColor[k] = `rgba(${rgbcode[k]}, 1)`;
+        hoverColor[k] = `rgba(${rgbcode[k]}, 0.5)`;
+        borderColor[k] = `rgba(${rgbcode[k]}, 0.8)`;
+        pointColor[k] = `rgba(${rgbcode[k]}, 1)`;
 
         let iden={
                 backgroundColor: bgColor[k],
                 borderColor: borderColor[k],
                 pointBackgroundColor: borderColor[k],
-                pointHoverBorderColor: borderColor[k],
-                pointBorderColor: '#fff',
-                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: hoverColor[k],
+                pointBorderColor: pointColor[k],
+                pointHoverBackgroundColor: borderColor[k],
             }
 
         identity.push(iden)

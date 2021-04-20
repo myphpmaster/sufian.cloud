@@ -118,7 +118,7 @@ export default function Admin() {
 					{ menus.map( (menu, index) => ( 
 						<Link key={index} href={menu.url}>
 							<a id={menu.id}
-								className={`${ menu.id==page ? ( menu.classActive || '') : '' }
+								className={`${ menu.id==page ? ( menu.classActive || 'bg-blue-100') : '' }
 								 ${ menu.class || 'hover:bg-blue-200 w-1/3' } inline-block md:w-auto items-center px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700`}>
 								{menu.title}
 							</a>

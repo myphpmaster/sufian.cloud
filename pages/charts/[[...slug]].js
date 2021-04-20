@@ -1,8 +1,10 @@
 /*  ./pages/charts/[[...slug]].js     */
 import React, { useEffect } from "react";
 import useSWR, { useSWRInfinite } from "swr";
-import { Bar, Radar, Doughnut, Pie, Polar, HorizontalBar } from 'react-chartjs-2';
 import { useRouter } from "next/router";
+import { randomColor } from "../../function/randomColor"
+import { generateChart } from "../../function/generateChart"
+import { getGroupKeys } from "../../function/getGroupKeys"
 
 const Chart = () => {
 
@@ -135,10 +137,9 @@ const Chart = () => {
     const displayData =  (subkey == 'likert') ? valuesAlt : values;
 
     // generate random colors for background, hover, border
-    var r = () => Math.random() * 256 >> 0;
     const rgbcode=[], bgColor=[], hoverColor=[], borderColor=[];
     for (let k = 0; k < displayLabel.length; k++) {
-        rgbcode[k] = `${r()}, ${r()}, ${r()}`;
+        rgbcode[k] = randomColor();
         bgColor[k] = `rgba(${rgbcode[k]}, 0.3)`;
         hoverColor[k] = `rgba(${rgbcode[k]}, 0.75)`;
         borderColor[k] = `rgba(${rgbcode[k]}, 1)`;
@@ -224,103 +225,6 @@ const filterProps = (objects={},props=[],inputs={}) => {
     return inputs
 }
 
-// Function to generate chart
-const generateChart = (chart, data, options, width=640, height=480) => {
-    // Radar, Doughnut, Pie, Polar,
-    switch (chart) {
-        default:
-        case 'line':
-            data.datasets[0].type = chart
-            data.datasets[0].fill = false
-        case 'bar':
-            return (
-                <div className="chartjs" width={width} height={height}>
-                    <Bar
-                        data={data}
-                        width={width}
-                        height={height}
-                        options={options}
-                    />          
-                </div>
-            );
-
-        case 'horizontal':
-            return (
-                <div className="chartjs" width={width} height={height}>
-                    <HorizontalBar
-                        data={data}
-                        width={width}
-                        height={height}
-                        options={options}
-                    />          
-                </div>
-            );
-            
-        case 'pie':
-            
-            options = removeYaxes(options)
-            options = convertValueToPercentage(options)
-            
-            return (
-                <div className="chartjs" width={width} height={height}>
-                    <Pie
-                        data={data}
-                        width={width}
-                        height={height}
-                        options={options}
-                    />          
-                </div>
-            );
-       
-        case 'doughnut':
-
-            options = removeYaxes(options)
-            options = convertValueToPercentage(options)
-
-            return (
-                <div className="chartjs" width={width} height={height}>
-                    <Doughnut
-                        data={data}
-                        width={width}
-                        height={height}
-                        options={options}
-                    />          
-                </div>
-            );
-       
-        case 'polar':
-
-            options = removeYaxes(options)
-            options = convertValueToPercentage(options)
-
-            return (
-                <div className="chartjs" width={width} height={height}>
-                    <Polar
-                        data={data}
-                        width={width}
-                        height={height}
-                        options={options}
-                    />          
-                </div>
-            );
-       
-        case 'radar':
-
-            options = removeYaxes(options)
-
-            return (
-                <div className="chartjs" width={width} height={height}>
-                    <Radar
-                        data={data}
-                        width={width}
-                        height={height}
-                        options={options}
-                    />          
-                </div>
-            );
-    }
-}
-
 // Function to get label from raw value
 const getLabel = (value, labels) => {
     for (let k = 0; k < labels.length; k++) {
@@ -382,39 +286,6 @@ const objectSize = (obj = {}) => {
     return size;
 };
 
-// Function to exract only key for specific form input (key)
-const getGroupKeys = (key, schema, title=false) => {
-    let groupKeys=[]
-    for (let i = 0; i < schema.length; i++) {
-        let obj = schema[i].components
-        for (let j = 0; j < obj.length; j++) {
-            // console.log('obj[j].key =>' + obj[j].key)
-            if (key == obj[j].key) {
-                let values = obj[j]
-                // For dropdown select input
-                if( values.hasOwnProperty('data') ){
-                    values = values.data
-                }
-                // radio input directly have this property
-                if( values.hasOwnProperty('values') ){
-                    let realVal = values.values
-                    if(title){
-                        realVal = values.questions
-                    }
-                    // console.log('realVal =>' + JSON.stringify(realVal))
-                    for (let k = 0; k < realVal.length; k++) {
-                        var foo = {};
-                        foo[realVal[k].value.toString()] = realVal[k].label
-                        groupKeys.push(foo);                        
-                        // console.log('realVal[k] =>' + k + JSON.stringify(realVal[k]))
-                    }
-                }
-            }
-        }
-    }
-    return groupKeys
-}
-
 // function to group all data counts
 const countGroup = (val='', datas = []) => {
     var counts = 0
@@ -432,39 +303,3 @@ const countGroup = (val='', datas = []) => {
     }
     return counts;
 };
-
-// Function to remove y axes
-const removeYaxes = (options) => {
-
-    options.scales.yAxes = [{
-        display: false
-    }]
-            
-    return options
-}
-
-// Function to convert value to percentage
-const convertValueToPercentage = (options) => {
-
-    options.tooltips = {
-        enabled: true,
-        callbacks: {
-            label: function (tooltipItem, data) {
-                
-                var dataset = data.datasets[tooltipItem.datasetIndex];
-                var total = dataset.data.reduce(function (previousValue, currentValue, currentIndex, array) {
-                    return previousValue + currentValue;
-                });
-                var currentValue = dataset.data[tooltipItem.index];
-                var percentage = Math.floor(((currentValue / total) * 100) + 0.5);
-                return percentage + "%";
-            },                    
-            title: function (tooltipItem, data) {
-                return data.labels[tooltipItem[0].index];
-            },  
-        },
-    };    
-            
-    return options
-}
-

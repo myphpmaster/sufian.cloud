@@ -1,8 +1,10 @@
 /*  ./pages/multicharts/[[...slug]].js     */
 import React, { useEffect } from "react";
 import useSWR, { useSWRInfinite } from "swr";
-import { Radar, Line, Bar } from 'react-chartjs-2';
 import { useRouter } from "next/router";
+import { randomColor } from "../../function/randomColor"
+import { generateChart } from "../../function/generateChart"
+import { getGroupKeys } from "../../function/getGroupKeys"
 
 const Chart = () => {
 
@@ -90,12 +92,11 @@ const Chart = () => {
     var varies = (subkey == 'likert') ? datasAlt : datas
         
     // generate random colors for background, hover, border
-    var r = () => Math.random() * 256 >> 0;
     const rgbcode=[], bgColor=[], hoverColor=[], borderColor=[], pointColor=[]
     const identity = []
 
     for (let k = 0; k < route.length; k++) {
-        rgbcode[k] = `${r()}, ${r()}, ${r()}`;
+        rgbcode[k] = randomColor();
         bgColor[k] = `rgba(${rgbcode[k]}, 0.3)`;
         hoverColor[k] = `rgba(${rgbcode[k]}, 0.5)`;
         borderColor[k] = `rgba(${rgbcode[k]}, 0.8)`;
@@ -208,59 +209,6 @@ const Chart = () => {
     
 };
 
-function generateChart(chart, data, options, width=640, height=480){
-    // Line, Bar, Random, Radar
-    switch (chart) {
-        default:
-        case 'line':
-            for(let j=0; j<data.datasets.length; j++){
-                data.datasets[j].type = chart
-                data.datasets[j].fill = false
-            }
-
-        case 'mix':
-
-            const types = ["bar", "line"];
-            for(let j=0; j<data.datasets.length; j++){
-                let random = Math.floor(Math.random() * types.length);
-                data.datasets[j].type = types[random]
-            }
-
-        case 'bar':
-            return (
-                <div className="chartjs" width={width} height={height}>
-                    <Bar
-                        data={data}
-                        width={width}
-                        height={height}
-                        options={options}
-                    />          
-                </div>
-            );
-            
-        case 'radar':
-
-            // remove y axes line 
-            options.scales.yAxes = [{
-                display: false,
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-
-            return (
-                <div className="chartjs" width={width} height={height}>
-                    <Radar
-                        data={data}
-                        width={width}
-                        height={height}
-                        options={options}
-                    />          
-                </div>
-            );
-    }
-}
-
 // function to group all data counts
 function countGroup (key='', val='', datas = []) {
     var counts = 0
@@ -352,84 +300,5 @@ const objectSize = (obj = {}) => {
         } 
     return size;
 };
-
-function realValue(key, value, schema, title=false){
-    let rawData = key
-    let rawKey = value
-
-    for (let i = 0; i < schema.length; i++) {
-        let obj = schema[i].components
-
-        for (let j = 0; j < obj.length; j++) {
- //           console.log('obj[j].key =>' + obj[j].key)
-
-            if (rawKey == obj[j].key) {
-                let values = obj[j]
-
-                // For dropdown select input
-                if( values.hasOwnProperty('data') ){
-                    values = values.data
-                }
-
-                // radio input directly have this property
-                if( values.hasOwnProperty('values') ){
-                    let realVal = values.values
-
-                    if(title){
-                        realVal = values.questions
-                    }
-
-                    for (let k = 0; k < realVal.length; k++) {
-                        if(rawData == realVal[k].value || rawData === realVal[k].value ) {
-
-                            rawData = realVal[k].label
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    return rawData
-}
-
-function getGroupKeys(key, schema, title=false){
-    let groupKeys=[]
-
-    for (let i = 0; i < schema.length; i++) {
-        let obj = schema[i].components
-
-        for (let j = 0; j < obj.length; j++) {
-            // console.log('obj[j].key =>' + obj[j].key)
-
-            if (key == obj[j].key) {
-                let values = obj[j]
-
-                // For dropdown select input
-                if( values.hasOwnProperty('data') ){
-                    values = values.data
-                }
-
-                // radio input directly have this property
-                if( values.hasOwnProperty('values') ){
-                    let realVal = values.values
-
-                    if(title){
-                        realVal = values.questions
-                    }
-//                    console.log('realVal =>' + JSON.stringify(realVal))
-
-                    for (let k = 0; k < realVal.length; k++) {
-                        var foo = {};
-                        foo[realVal[k].value.toString()] = realVal[k].label
-                        groupKeys.push(foo);                        
-//                        console.log('realVal[k] =>' + k + JSON.stringify(realVal[k]))
-                    }
-                }
-            }
-        }
-    }
-    return groupKeys
-}
 
 export default Chart

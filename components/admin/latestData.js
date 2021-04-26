@@ -93,7 +93,7 @@ export const Table = () => {
                             <div className="flex">
                                 <div className="flex-none w-1/4 md:w-1/8">
                                     { (isPage > 1) && 
-                                    <a className="bg-gray-50 hover:bg-blue-50 w-1/3 inline-block md:w-auto items-center px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700" 
+                                    <a className="bg-gray-50 hover:bg-blue-50 inline-block w-auto items-center px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700" 
                                         onClick={() => setPage(isPage => isPage - 1)}
                                         href="#">Previous</a>
                                     }
@@ -103,7 +103,7 @@ export const Table = () => {
                             </div>
                                 <div className="flex-none w-1/4 md:w-1/8 text-right">
                                     { (isPage < count ) &&
-                                    <a className="bg-gray-50 hover:bg-blue-50 w-1/3 inline-block md:w-auto items-center px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700" 
+                                    <a className="bg-gray-50 hover:bg-blue-50 inline-block w-auto items-center px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700" 
                                         onClick={() => setPage(isPage => isPage + 1)}
                                         href="#">Next</a>
                                     }

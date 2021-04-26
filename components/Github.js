@@ -23,7 +23,7 @@ export const Github = () => {
                                     <h1 className="font-bold text-lg text-gray-700 mb-1">myphpmaster/sufian.cloud</h1>
                                     <p className="text-gray-600">Source code is publicly available at Github</p>
                                     <div className="pt-10">
-                                        <a target="_blank" rel="noreferrer" href="https://github.com/myphpmaster/sufian.cloud" className="mt-6 bg-blue-300 hover:bg-blue-100 text-white rounded-full px-12 py-3 shadow-xl focus:outline-none">
+                                        <a target="_blank" rel="noreferrer" href="https://github.com/myphpmaster/sufian.cloud" className="mt-6 bg-blue-900 hover:bg-blue-700 text-white rounded-full px-12 py-3 shadow-xl focus:outline-none">
                                             Get source code
                                         </a>
                                     </div>

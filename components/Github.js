@@ -15,9 +15,15 @@ export const Github = () => {
                     <div className="md:p-8 mx-auto">
                         <div className="bg-white rounded-lg shadow-xl">
                             <div className="p-10 mx-auto md:p-16">
-                                <div>
-                                <img alt="" width="200" height="200" className="rounded-full w-48 border shadow-xl mx-auto" 
-                                src="https://avatars.githubusercontent.com/u/2962503?v=4" />
+                                <div>                
+                                    <Image
+                                        src="/avatar.jpg"
+                                        className="rounded-full w-48 border shadow-xl mx-auto"
+                                        alt="Sufian Github Avatar"
+                                        layout="responsive"
+                                        width={200}
+                                        height={200}
+                                    />
                                 </div>
                                 <div className="mt-8 text-center">
                                     <h1 className="font-bold text-lg text-gray-700 mb-1">myphpmaster/sufian.cloud</h1>

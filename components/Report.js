@@ -31,7 +31,7 @@ export const Report = () => {
                                     </p>
                                     <a target="_blank" rel="noreferrer" href="https://vercel.com/myphpmaster/nextjs/3xF7Gnxx1jVKzu26ZrvEpGziirFx"
                                         className="inline-flex items-center font-semibold text-blue-700 md:mb-2 lg:mb-0 hover:text-blue-400 ">
-                                        Learn More
+                                        View Build Logs
                                         <ChevronDoubleRightIcon className="mt-1 h-4 w-4 ml-1" aria-hidden="true" />
                                     </a>
                                 </div>
@@ -49,7 +49,7 @@ export const Report = () => {
                                     </p>
                                     <a target="_blank" rel="noreferrer" href="https://vercel.com/myphpmaster/nextjs/3xF7Gnxx1jVKzu26ZrvEpGziirFx/functions?name=mUazIkmZQIfY3ZqOE4YX9zg7-39cbf370ffa90986d47577aa449e03ab40e3c15"
                                         className="inline-flex items-center font-semibold text-blue-700 md:mb-2 lg:mb-0 hover:text-blue-400 ">
-                                        Learn More
+                                        View Function Logs
                                         <ChevronDoubleRightIcon className="mt-1 h-4 w-4 ml-1" aria-hidden="true" />
                                     </a>
                                 </div>

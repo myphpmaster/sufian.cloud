@@ -1,5 +1,6 @@
 /*  ./components/NavbarLeft.js     */
 import Link from 'next/link';
+import Image from 'next/image'
 import { Transition } from '@headlessui/react'
 import React, { useState } from "react";
         
@@ -49,8 +50,15 @@ export const Navbar = () => {
                 <div className="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
                     <div className="flex items-center justify-between w-full md:w-auto">
                     <a href="/">
-                        <span className="sr-only">sufian.cloud</span>
-                        <img className="h-8 w-auto sm:h-10" src="/logo.png" />
+                        <span className="sr-only">sufian.cloud</span>                        
+                        <Image
+                            className="h-8 w-auto sm:h-10"
+                            alt="sufian.cloud logo"
+                            src="/logo.png"
+                            layout="fixed"
+                            width={105}
+                            height={32}
+                        />
                     </a>
                     <div className="-mr-2 flex items-center md:hidden">
                         <button onClick={handleClick} type="button" className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500" aria-expanded="false">

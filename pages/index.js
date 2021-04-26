@@ -14,6 +14,8 @@ export default function Home() {
     <>
 		<Head>
 			<title>IEQ POE Online System - Home</title>
+			<link rel="icon" href="/favicon.ico" />		
+			<meta name="description" content="Online application for post occupancy evaluation survey report visualization using Next.js and Form.io" />
 		</Head>
 		<Hero /> 
 		<Overview /> 

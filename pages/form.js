@@ -9,7 +9,8 @@ export default function Form() {
     return (
     <>
 		<Head>
-			<title>IEQ POE Online System - Questionnaire Form</title>
+			<title>IEQ POE Online System - Questionnaire Form</title>	
+			<meta name="description"  content="Online application for post occupancy evaluation survey form using Next.js and Form.io" />
 			<link rel="icon" href="/favicon.ico" />		       
             <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
             <link rel="stylesheet" type="text/css" href="https://unpkg.com/formiojs@4.12.7/dist/formio.full.min.css" />

@@ -32,7 +32,7 @@ handler.get(async (req, res) => {
             "deleted": {$eq : null}
         }},
         { $group: { _id: group, count: { $sum: 1 } } },
-        { $sort : { _id : 1} }
+        { $sort : { _id : 1 } }
     ];
 
     console.log(aggregation)
@@ -40,6 +40,8 @@ handler.get(async (req, res) => {
     let data = await req.db.collection(col_name)
         .aggregate(aggregation)
         .toArray()
+        .then(items => { return items })
+        .catch(err => console.error(`Failed to find documents: ${err}`))
 
     if (typeof req.query.nocache === 'undefined' && data.length > 0) {
         res.setHeader('cache-control', `public, max-age=${maxAge}`);

@@ -5,6 +5,7 @@ export const generateChart = (chart, data, options, width=640, height=480) => {
     // Line, Bar, Random, Radar
     switch (chart) {
         default:
+        case 'multiline':
         case 'line':
             for(let j=0; j<data.datasets.length; j++){
                 data.datasets[j].type = chart
@@ -45,6 +46,7 @@ export const generateChart = (chart, data, options, width=640, height=480) => {
                 </div>
             );
 
+        case 'multibar':
         case 'bar':
             return (
                 <div className="chartjs" width={width} height={height}>
@@ -79,6 +81,16 @@ export const generateChart = (chart, data, options, width=640, height=480) => {
             );
             
         case 'horizontal':
+            
+            // remove x axes line 
+            options.scales.xAxes =  [{
+                display: true,
+                ticks: {
+                    beginAtZero: true,
+                    stepSize: 1
+                }
+            }]
+
             return (
                 <div className="chartjs" width={width} height={height}>
                     <HorizontalBar

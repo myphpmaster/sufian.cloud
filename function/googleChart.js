@@ -15,9 +15,9 @@ export const googleChart = (chart, data, options, width='100%', height='100%') =
         gdata.push([labels[i],dataset.data[i]])
     }
 
-    console.log(JSON.stringify(goption))
-    console.log(JSON.stringify(gdata))
-    console.log(type)
+    //console.log(JSON.stringify(goption))
+    //console.log(JSON.stringify(gdata))
+    //console.log(type)
 
     switch(type){
         default:

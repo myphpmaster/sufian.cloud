@@ -3,30 +3,16 @@ import useSWR from "swr";
 import { randomColor } from "../../function/randomColor"
 import { generateChart } from "../../function/generateChart"
 import { getGroupKeys } from "../../function/getGroupKeys"
+import { googleChart } from "../../function/googleChart"
 
 export const Chart = ({ chart, input, subinput }) => {
 
     // Fetch all submissions data for the input 'key' using /api/charts.js file
     const fetcher = url => fetch(url).then(res => res.json());
-    const { data: survey } = useSWR(() => '/api/charts/?key=' + input, fetcher)
+    const { data: survey } = useSWR(() => '/api/datacount/?key=' + input, fetcher)
 
-    const arr = survey ? [].concat(...survey) : [];
-    const results = groupArray(arr); //
-
-    // Sorting the results based on values 
-    results.sort(function(a, b) {
-            var valueA, valueB;
-
-            valueA = a['identity']; // Where identity is object property to be sorted
-            valueB = b['identity'];
-            if (valueA < valueB) {
-                return -1;
-            }
-            else if (valueA > valueB) {
-                return 1;
-            }
-            return 0;
-    });
+    const results = survey ? [].concat(...survey) : [];
+    // console.log('results=>'+JSON.stringify(results))
 
     // Get form schema as schems
     const { data: schem } = useSWR(() => '/api/label', fetcher)
@@ -94,7 +80,7 @@ export const Chart = ({ chart, input, subinput }) => {
 
     for (const [i, v] of Object.entries(results)) {
 
-            let rawData = getLabel(v.identity, thisLabels) // realValue(v.identity, key, schems) // 
+            let rawData = getLabel(v._id, thisLabels) // realValue(v.identity, key, schems) // 
             // console.log('v=>'+JSON.stringify(v))
             // console.log('key=>'+JSON.stringify(key))
             // console.log('rawData=>'+JSON.stringify(rawData))
@@ -186,6 +172,7 @@ export const Chart = ({ chart, input, subinput }) => {
     datasets.push(dataset)
     
     const data = {
+        title: getChartLabel(input, renders),
         labels: displayLabel,
         datasets: datasets
     }
@@ -194,9 +181,11 @@ export const Chart = ({ chart, input, subinput }) => {
     //const height = 500
   
     return (
-        generateChart(chart, data, options)
+        // generateChart(chart, data, options)
+        googleChart(chart, data, options)
     );
     
+
 };
 
 // Function to filter selected properties
@@ -221,55 +210,16 @@ const getLabel = (value, labels) => {
     return value
 }
 
-// function to group all data counts
-const groupArray = (arr = []) => {
-    let map = new Map();
-    for (let i = 0; i < arr.length; i++) {
-        let obj = arr[i]
-        if( obj instanceof Object ){    
-            for (let k in obj){
-                if ( typeof obj === 'object' && objectSize(obj[k]) > 0 ){
-                    //recursive call to scan property
-                    let recur = obj[k]
-                    for (let j in recur){
-                        const w = JSON.stringify(recur[j]);
-                        if(!map.has(w)){
-                            map.set(w, {
-                                identity: recur[j],
-                                count: 1,
-                            });
-                        }else{
-                            map.get(w).count++;
-                        }
-                    }
-                }else if ( typeof obj === 'string' ) {
-                    const s = JSON.stringify(obj[k]);
-                    if(!map.has(s)){
-                        map.set(s, {
-                            identity: obj[k],
-                            count: 1,
-                        });
-                    }else{
-                        map.get(s).count++;
-                    }
-                }
-            }
-        } 
+// Function to get label from raw value
+const getChartLabel = (value, renders) => {
+    for (let k = 0; k < renders.length; k++) {
+        if(renders[k].key==value){
+            value=renders[k].label
+            break
+        }
     }
-    const res = Array.from(map.values())
-    return res;
-};
-
-// function to check object size
-const objectSize = (obj = {}) => {
-        var size = 0, key;
-        if (typeof obj === 'object') {
-          for (key in obj) {
-            if (obj.hasOwnProperty(key)) size++;
-          }
-        } 
-    return size;
-};
+    return value
+}    
 
 // function to group all data counts
 const countGroup = (val='', datas = []) => {
@@ -280,7 +230,7 @@ const countGroup = (val='', datas = []) => {
         if( obj instanceof Object ){                                    
             for (let j in obj){     
                 
-                if(obj.identity.toString() === val.toString() ) {
+                if(obj._id.toString() === val.toString() ) {
                     counts = obj.count
                 }
             }

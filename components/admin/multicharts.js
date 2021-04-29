@@ -155,6 +155,7 @@ export const MultiChart = ({ chart, input, subinput }) => {
     const useLabel = (subinput == 'likert') ? labelsAlt : labels
 
     const data = {
+        title: input,
         labels: useLabel,
         datasets: dataset
     };

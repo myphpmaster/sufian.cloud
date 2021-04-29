@@ -9,6 +9,8 @@ import Login from '../../components/admin/login';
 import { Notice } from '../../components/admin/notice';
 import { Navbar } from '../../components/admin/navbar';
 import { RespondData } from '../../components/admin/respondData';
+import { Chart } from '../../components/admin/charts';
+import { MultiChart } from '../../components/admin/multicharts';
 import { Table as Data } from '../../components/admin/dataTable';
 import { Table } from '../../components/admin/latestData';
 import { Footer } from '../../components/admin/footer';
@@ -201,7 +203,7 @@ const renderCharts = (data, id, single=false) => {
     const type = data.properties.hasOwnProperty('chart') ? data.properties.chart : chartType[data.type] 
     const slug = (data.type == 'survey') ? ( data.values.length > data.questions.length ?  'likert' : '' ) : ''
     const clss = single ? '' : 'md:w-1/2'
-    const height = single ? '100vh' : '550px'
+    const height = single ? '600px' : '550px'
 
 	switch (data.type){
 		case 'survey':
@@ -216,7 +218,8 @@ const renderCharts = (data, id, single=false) => {
 						</div>
 						<div className="p-5">
 							<div className="" style={{width: '100%', height: height}}>
-								<iframe className="inset-0 w-full h-full" src={`/multicharts/${type}/${data.key}/${slug}`} frameBorder="0" />
+								{/* <iframe className="inset-0 w-full h-full" src={`/multicharts/${type}/${data.key}/${slug}`} frameBorder="0" /> */ }
+								<MultiChart chart={type} input={data.key} subinput={slug} />
 							</div>
 						</div>
 					</div>
@@ -237,7 +240,8 @@ const renderCharts = (data, id, single=false) => {
 					</div>
 					<div className="p-5">
 						<div className="" style={{width: '100%', height: height}}>
-							<iframe className="inset-0 w-full h-full" src={`/charts/${type}/${data.key}/${slug}`} frameBorder="0" />
+							{ /* <iframe className="inset-0 w-full h-full" src={`/charts/${type}/${data.key}/${slug}`} frameBorder="0" /> */ }
+							<Chart chart={type} input={data.key} subinput={slug} />
 						</div>
 					</div>
 				</div>

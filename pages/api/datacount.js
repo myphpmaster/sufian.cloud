@@ -35,7 +35,7 @@ handler.get(async (req, res) => {
         { $sort : { _id : 1 } }
     ];
 
-    console.log(aggregation)
+    // console.log(JSON.stringify(aggregation))
 
     let data = await req.db.collection(col_name)
         .aggregate(aggregation)

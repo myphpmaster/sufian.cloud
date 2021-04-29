@@ -1,5 +1,6 @@
 /* ./function/googleChart.js */
 import Chart from "react-google-charts";
+const { GOOGLE_KEY } = process.env
 
 export const googleChart = (chart, data, options, width='100%', height='100%') => {
     var type = chart.charAt(0).toUpperCase() + chart.slice(1)
@@ -102,7 +103,7 @@ export const googleChart = (chart, data, options, width='100%', height='100%') =
                     loader={<div>Loading Chart</div>}
                     data={gdata}
                     options={goption}
-                    mapsApiKey="AIzaSyBg06ARybYZjHgJFSWO0Afr41-mXWoI6zg"
+                    mapsApiKey="GOOGLE_KEY"
                 />
             )
     }
